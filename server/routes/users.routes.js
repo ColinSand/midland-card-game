@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { login, signup } = require("../models/users.models");
-const auth = require("../middleware/auth.middleware");
+const { login, signup } = require("../models/user.models");
+// const auth = require("../middleware/auth.middleware");
 
 // logout function for the server-clears out jwt, user must sign in again after logging out
 router.get("/logout", (req, res) => {
@@ -10,7 +10,8 @@ router.get("/logout", (req, res) => {
 });
 
 // checks to see if the entered username exists.
-router.get("/verify", auth, (req, res) => {
+// will need to add auth back into the following line once we get passport configured
+router.get("/verify", (req, res) => {
   return res.send({
     success: true,
     data: { username: req.user.username },

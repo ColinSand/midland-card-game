@@ -18,7 +18,7 @@ async function signup(res, username, password) {
     // im a comment
     const hash = await bcrypt.hash(password, 10);
     const uuid = uuidv4();
-    await query("INSERT INTO users(username, password, uuid)VALUES(?,?,?)", [
+    await query("INSERT INTO users (username, password, uuid) VALUES (?,?,?)", [
       username,
       hash,
       uuid,
@@ -32,7 +32,7 @@ async function signup(res, username, password) {
     res.send({
       success: false,
       data: null,
-      error: "Something went wrong, please try again later!",
+      error: "Something went wrong, please try again later! Signup model",
     });
   }
 }
