@@ -1,7 +1,8 @@
 import "./App.css";
+import SignUpPage from "./components/Signup/SignupPage";
 
 function App() {
-  return <div className="App"></div>;
+  return <SignUpPage />;
 }
 
 export default App;
