@@ -26,7 +26,7 @@ export default function SignUpPage() {
   const [verifyAge, setVerifyAge] = useState(false);
   const [userObject, setUserObject] = useState(null);
   // const { json } = useAxios("/api/users/signup", "post", userObject);
-  const { json, apiCall } = useAxios("post");
+  const { json, axiosError, apiCall } = useAxios("post");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -135,7 +135,7 @@ export default function SignUpPage() {
                   return;
                 }
                 setUserObject({ username, password });
-                useAxios.post(userObject);
+                apiCall(userObject);
               }}
             >
               Sign Up
