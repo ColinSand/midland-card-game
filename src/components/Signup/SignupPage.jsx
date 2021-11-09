@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { FormHelperText } from "@mui/material";
+import useAxios from "../../shared/hooks/useAxios";
 
 const theme = createTheme();
 
@@ -23,14 +24,13 @@ export default function SignUpPage() {
   const [verifyPassword, setVerifyPassword] = useState("");
   const [error, setError] = useState(false);
   const [verifyAge, setVerifyAge] = useState(false);
+  const [userObject, setUserObject] = useState(null);
+  // const { json } = useAxios("/api/users/signup", "post", userObject);
+  const { json, error, apiCall } = useAxios("POST");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   return (
@@ -71,12 +71,6 @@ export default function SignUpPage() {
                   onChange={(e) => setUsername(e.target.value)}
                   helperText="Username must be between 4 and 20 characters in length"
                 />
-
-                {/* <div>
-                  {error &&
-                    username.length < 4 &&
-                    "Username must be at least 4 characters"}
-                </div> */}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -123,9 +117,6 @@ export default function SignUpPage() {
                 <FormHelperText error={error}>
                   This box must be checked
                 </FormHelperText>
-                {/* <div>
-                  {error && verifyAge == false && "You must be at least 21"}
-                </div> */}
               </Grid>
             </Grid>
             <Button
@@ -143,10 +134,13 @@ export default function SignUpPage() {
                   setError(true);
                   return;
                 }
+                setUserObject({ username, password });
               }}
             >
               Sign Up
             </Button>
+            <div>{json && json.error}</div>
+            <div>{json && json.data}</div>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
