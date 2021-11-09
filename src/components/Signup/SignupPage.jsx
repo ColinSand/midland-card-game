@@ -26,7 +26,7 @@ export default function SignUpPage() {
   const [verifyAge, setVerifyAge] = useState(false);
   const [userObject, setUserObject] = useState(null);
   // const { json } = useAxios("/api/users/signup", "post", userObject);
-  const { json, error, apiCall } = useAxios("POST");
+  const { json, apiCall } = useAxios("post");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -135,12 +135,13 @@ export default function SignUpPage() {
                   return;
                 }
                 setUserObject({ username, password });
+                useAxios.post(userObject);
               }}
             >
               Sign Up
             </Button>
-            <div>{json && json.error}</div>
-            <div>{json && json.data}</div>
+            {/* <div>{json && json.error}</div>
+            <div>{json && json.data}</div> */}
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
