@@ -23,15 +23,44 @@ export default function SignUpPage() {
   const [error, setError] = useState(false);
   const [verifyAge, setVerifyAge] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  //   const handleSubmit = (event) => {
+  //     event.preventDefault();
+  //     const data = new FormData(event.currentTarget);
+  //     console.log({
+  //       email: data.get("email"),
+  //       password: data.get("password"),
+  //     });
+  //   };
+
+  if (error && username.length < 4) {
+    usernameError = (
+      <TextField
+        error
+        required
+        fullWidth
+        id="username"
+        label="Username"
+        name="username"
+        autoComplete="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        helperText="Username must be at least 4 characters"
+      />
+    );
+  } else {
+    usernameNoError = (
+      <TextField
+        required
+        fullWidth
+        id="username"
+        label="Username"
+        name="username"
+        autoComplete="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -51,12 +80,7 @@ export default function SignUpPage() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -69,12 +93,15 @@ export default function SignUpPage() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
-                <div>
-                  {" "}
+                {error &&
+                  username.length < 4 &&
+                  "Username must be at least 4 characters"}
+
+                {/* <div>
                   {error &&
                     username.length < 4 &&
                     "Username must be at least 4 characters"}
-                </div>
+                </div> */}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -87,6 +114,7 @@ export default function SignUpPage() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  helperText="Password must be at least 8 characters"
                 />
                 <div>
                   {" "}
@@ -106,6 +134,7 @@ export default function SignUpPage() {
                   autoComplete="verify-new-password"
                   value={verifyPassword}
                   onChange={(e) => setVerifyPassword(e.target.value)}
+                  helperText="These 2 passwords must match"
                 />
                 <div>
                   {error &&
