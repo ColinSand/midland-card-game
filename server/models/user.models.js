@@ -15,6 +15,7 @@ async function signup(res, username, password) {
         error: "Username Taken",
       });
     }
+    // im a comment
     const hash = await bcrypt.hash(password, 10);
     const uuid = uuidv4();
     await query("INSERT INTO users(username, password, uuid)VALUES(?,?,?)", [
