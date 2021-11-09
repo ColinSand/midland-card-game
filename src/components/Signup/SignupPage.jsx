@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
+import { FormHelperText } from "@mui/material";
 
 const theme = createTheme();
 
@@ -23,44 +24,14 @@ export default function SignUpPage() {
   const [error, setError] = useState(false);
   const [verifyAge, setVerifyAge] = useState(false);
 
-  //   const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     const data = new FormData(event.currentTarget);
-  //     console.log({
-  //       email: data.get("email"),
-  //       password: data.get("password"),
-  //     });
-  //   };
-
-  if (error && username.length < 4) {
-    usernameError = (
-      <TextField
-        error
-        required
-        fullWidth
-        id="username"
-        label="Username"
-        name="username"
-        autoComplete="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        helperText="Username must be at least 4 characters"
-      />
-    );
-  } else {
-    usernameNoError = (
-      <TextField
-        required
-        fullWidth
-        id="username"
-        label="Username"
-        name="username"
-        autoComplete="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-    );
-  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -80,10 +51,16 @@ export default function SignUpPage() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  error={error && (username.length < 4 || username.length > 20)}
                   required
                   fullWidth
                   id="username"
@@ -92,10 +69,8 @@ export default function SignUpPage() {
                   autoComplete="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  helperText="Username must be between 4 and 20 characters in length"
                 />
-                {error &&
-                  username.length < 4 &&
-                  "Username must be at least 4 characters"}
 
                 {/* <div>
                   {error &&
@@ -107,6 +82,7 @@ export default function SignUpPage() {
                 <TextField
                   required
                   fullWidth
+                  error={error && (password.length < 8 || password.length > 20)}
                   name="password"
                   label="Password"
                   type="password"
@@ -114,19 +90,14 @@ export default function SignUpPage() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  helperText="Password must be at least 8 characters"
+                  helperText="Password must be between 8 and 20 characters"
                 />
-                <div>
-                  {" "}
-                  {error &&
-                    password.length < 8 &&
-                    "Password must be at least 8 characters"}
-                </div>
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
+                  error={error && password !== verifyPassword}
                   name="verifypassword"
                   label="Verify Password"
                   type="password"
@@ -136,11 +107,6 @@ export default function SignUpPage() {
                   onChange={(e) => setVerifyPassword(e.target.value)}
                   helperText="These 2 passwords must match"
                 />
-                <div>
-                  {error &&
-                    password !== verifyPassword &&
-                    "The 2 passwords need to match"}
-                </div>
               </Grid>
 
               <Grid item xs={12}>
@@ -150,17 +116,16 @@ export default function SignUpPage() {
                       value="verifyAge"
                       color="primary"
                       onChange={() => setVerifyAge(true)}
-
-                      //   if (checked={checked}) {
-                      //       setVerifyAge(true)
-                      //   }
                     />
                   }
                   label="I do declare that I am 21 years of age or older"
                 />
-                <div>
+                <FormHelperText error={error}>
+                  This box must be checked
+                </FormHelperText>
+                {/* <div>
                   {error && verifyAge == false && "You must be at least 21"}
-                </div>
+                </div> */}
               </Grid>
             </Grid>
             <Button
@@ -184,7 +149,7 @@ export default function SignUpPage() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
