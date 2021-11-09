@@ -4,7 +4,7 @@ export const UserContext = React.createContext(null);
 
 export function UserProvider(props) {
   const [user, setUser] = useState({});
-  const { json, error, callApi } = useAxios("GET");
+  const { json, error, callApi } = useAxios("get");
 
   useEffect(() => {
     callApi("/api/users/verify");
