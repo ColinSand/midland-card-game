@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.static(__dirname + "/build"));
 app.use(cookieParser());
 // the passport.initialize line should work once we complete the passport.conf
-// app.use(passport.initialize());
+app.use(passport.initialize());
 // the following line needs to have the correct path (could change, may be the same)
 app.use("/api/users", userRoutes);
 app.get("*", (req, res) => {
