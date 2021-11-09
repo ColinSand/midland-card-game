@@ -1,28 +1,27 @@
-import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
+import { useAxios } from "../hooks/useAxios";
 export const UserContext = React.createContext(null);
 
 export function UserProvider(props) {
   const [user, setUser] = useState({});
+  const { json, error, callApi } = useAxios("GET");
 
   useEffect(() => {
-    async function verify() {
-      try {
-        const { data: json } = await axios.get("/api/users/verify");
-        if (json.success) {
-          setUser(json.data);
-        }
-      } catch (e) {}
-    }
-    verify();
+    callApi("/api/users/verify");
   }, []);
 
-  const clearState = useCallback(async () => {
-    try {
-      await axios.get("/api/users/logout");
-      setUser({});
-    } catch (e) {}
-  }, [setUser]);
+  useEffect(() => {
+    if (json && json.success) {
+      setUser(json.data);
+    } else if (!json || !json.success) {
+      return error;
+    }
+  }, [verifyData]);
+
+  const clearState = useCallback(() => {
+    callApi("/api/users/logout");
+    setUser({});
+  }, []);
 
   return (
     <UserContext.Provider

@@ -6,7 +6,7 @@ const { login, signup } = require("../models/user.models");
 // logout function for the server-clears out jwt, user must sign in again after logging out
 router.get("/logout", (req, res) => {
   res.clearCookie("jwt");
-  return res.send({ success: true, data: "Signed Out", error: null });
+  return res.send({ success: true, data: {}, error: null });
 });
 
 // checks to see if the entered username exists.
