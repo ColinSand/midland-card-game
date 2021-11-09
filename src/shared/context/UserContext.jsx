@@ -13,14 +13,11 @@ export function UserProvider(props) {
   useEffect(() => {
     if (json && json.success) {
       setUser(json.data);
-    } else if (!json || !json.success) {
-      return error;
     }
-  }, [verifyData]);
+  }, [json]);
 
   const clearState = useCallback(() => {
     callApi("/api/users/logout");
-    setUser({});
   }, []);
 
   return (
