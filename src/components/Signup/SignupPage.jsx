@@ -21,7 +21,7 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
   const [error, setError] = useState(false);
-  const [veryifyAge, setVerifyAge] = useState(false);
+  const [verifyAge, setVerifyAge] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -110,7 +110,7 @@ export default function SignUpPage() {
                 <div>
                   {error &&
                     password !== verifyPassword &&
-                    "Verify Password needs to match first Password"}
+                    "The 2 passwords need to match"}
                 </div>
               </Grid>
 
@@ -118,14 +118,20 @@ export default function SignUpPage() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked="false"
-                      value="null"
+                      value="verifyAge"
                       color="primary"
-                      //   onChange={() => setVerifyAge(e.target.value)}
+                      onChange={() => setVerifyAge(true)}
+
+                      //   if (checked={checked}) {
+                      //       setVerifyAge(true)
+                      //   }
                     />
                   }
-                  label="I do declare that I am 21 years of age or older."
+                  label="I do declare that I am 21 years of age or older"
                 />
+                <div>
+                  {error && verifyAge == false && "You must be at least 21"}
+                </div>
               </Grid>
             </Grid>
             <Button
@@ -137,7 +143,8 @@ export default function SignUpPage() {
                 if (
                   username.length < 4 ||
                   password.length < 8 ||
-                  password !== verifyPassword
+                  password !== verifyPassword ||
+                  verifyAge == false
                 ) {
                   setError(true);
                   return;
