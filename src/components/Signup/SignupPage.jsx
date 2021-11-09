@@ -135,7 +135,7 @@ export default function SignUpPage() {
                   return;
                 }
                 setUserObject({ username, password });
-                apiCall(userObject);
+                apiCall("api/users/signup");
               }}
             >
               Sign Up
