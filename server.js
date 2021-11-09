@@ -5,14 +5,14 @@ const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 8080;
 const userRoutes = require("./server/routes/users.routes");
 const passport = require("./server/config/passport.conf");
-const http = require("http");
-const server = http.createServer(app);
-const socketIO = require("socket.io");
-const io = socketIO(server, {
-  cors: {
-    origin: "*",
-  },
-});
+// const http = require("http");
+// const server = http.createServer(app);
+// const socketIO = require("socket.io");
+// const io = socketIO(server, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
 
 app.use(express.json());
 app.use(express.static(__dirname + "/build"));
