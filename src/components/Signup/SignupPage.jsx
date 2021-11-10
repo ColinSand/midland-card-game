@@ -152,8 +152,6 @@ export default function SignUpPage() {
             </Button>
             {/* {json && json.error && <Alert severity="error"></Alert>} */}
 
-            <div>{resError}</div>
-            <div>{json && json.data}</div>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
@@ -161,6 +159,8 @@ export default function SignUpPage() {
                 </Link>
               </Grid>
             </Grid>
+            <div>{resError}</div>
+            <div> {json && json.data}</div>
           </Box>
         </Box>
       </Container>

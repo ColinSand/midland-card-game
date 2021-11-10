@@ -11,7 +11,7 @@ async function signup(res, username, password) {
     if (user) {
       return res.send({
         success: false,
-        error: "Username Taken",
+        error: "Username Already Taken, Pleaset Try Another",
         data: null,
       });
     }
