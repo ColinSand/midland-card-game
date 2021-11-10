@@ -9,12 +9,13 @@ async function signup(res, username, password) {
       username,
     ]);
     if (user) {
-      res.send({
+      return res.send({
         success: false,
         data: null,
         error: "Username Taken",
       });
     }
+
     // im a comment
     const hash = await bcrypt.hash(password, 10);
     const uuid = uuidv4();

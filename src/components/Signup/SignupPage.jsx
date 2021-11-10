@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { FormHelperText } from "@mui/material";
 import useAxios from "../../shared/hooks/useAxios";
+import apiCall from "../../shared/hooks/useAxios";
 
 const theme = createTheme();
 
@@ -25,8 +26,8 @@ export default function SignUpPage() {
   const [error, setError] = useState(false);
   const [verifyAge, setVerifyAge] = useState(false);
   const [userObject, setUserObject] = useState(null);
-  // const { json } = useAxios("/api/users/signup", "post", userObject);
-  const { json, axiosError, apiCall } = useAxios("post");
+
+  const { json, error: signupError, apiCall } = useAxios("post");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -132,16 +133,23 @@ export default function SignUpPage() {
                   verifyAge == false
                 ) {
                   setError(true);
+                  signupError(error);
                   return;
                 }
                 setUserObject({ username, password });
-                apiCall("api/users/signup");
+                console.log(userObject);
+                // this call probably needs an async await (something does)
+                apiCall("/api/users/signup", userObject);
+                // signupError = { error };
+                // console.log(json.signupError);
               }}
             >
               Sign Up
             </Button>
-            {/* <div>{json && json.error}</div>
-            <div>{json && json.data}</div> */}
+            {/* {json && json.error && <Alert severity="error"></Alert>} */}
+
+            <div>{json && json.signupError}</div>
+            <div>{json && json.data}</div>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
