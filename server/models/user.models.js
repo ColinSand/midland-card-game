@@ -41,7 +41,7 @@ async function signup(res, username, password) {
 
 async function login(res, username, password) {
   try {
-    const [user] = await query("SELECT * FROM users WHERE user.username = ?", [
+    const [user] = await query("SELECT * FROM users WHERE users.username = ?", [
       username,
     ]);
     if (!user) {
@@ -71,7 +71,7 @@ async function login(res, username, password) {
   } catch (e) {
     return res.status(500).send({
       success: false,
-      error: "Something went wrong, please try again later!",
+      error: "Something went wrong, please try again later!, model",
       data: null,
     });
   }
