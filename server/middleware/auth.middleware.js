@@ -1,4 +1,5 @@
-const passport = require("passport");
+// const passport = require("passport");
+const passport = require("../config/passport.conf");
 
 async function auth(req, res, next) {
   passport.authenticate("jwt", (err, user) => {
@@ -9,6 +10,7 @@ async function auth(req, res, next) {
         error: "Something went wrong. Please try again, middleware",
       });
     }
+    console.log(err);
     if (!user) {
       return res.status(401).send({
         success: false,
