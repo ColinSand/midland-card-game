@@ -6,7 +6,7 @@ async function auth(req, res, next) {
       return res.status(500).send({
         success: false,
         data: null,
-        error: "Something went wrong. Please try again",
+        error: "Something went wrong. Please try again, middleware",
       });
     }
     if (!user) {

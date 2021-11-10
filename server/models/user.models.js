@@ -71,7 +71,7 @@ async function login(res, username, password) {
   } catch (e) {
     return res.status(500).send({
       success: false,
-      error: "Something went wrong, please try again later!",
+      error: "Something went wrong, please try again later!, model",
       data: null,
     });
   }
