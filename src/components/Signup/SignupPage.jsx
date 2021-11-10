@@ -140,14 +140,11 @@ export default function SignUpPage() {
                 }
 
                 console.log({ username, password });
-                // this call probably needs an async await (something does)
                 apiCall("/api/users/signup", { username, password });
               }}
             >
               Sign Up
             </Button>
-            {/* {json && json.error && <Alert severity="error"></Alert>} */}
-
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
@@ -163,4 +160,3 @@ export default function SignUpPage() {
     </ThemeProvider>
   );
 }
-

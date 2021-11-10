@@ -19,7 +19,7 @@ export default function useAxios(method) {
       }
       setJson(response.data);
     } catch (e) {
-      setError("Something went wrong");
+      setError("Something went wrong,axios");
     }
   });
 
