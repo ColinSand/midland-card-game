@@ -11,8 +11,8 @@ async function signup(res, username, password) {
     if (user) {
       return res.send({
         success: false,
-        data: null,
         error: "Username Taken",
+        data: null,
       });
     }
 
@@ -27,7 +27,7 @@ async function signup(res, username, password) {
     return res.send({
       success: true,
       error: null,
-      data: "You're Signed in!",
+      data: "Sign up successful!",
     });
   } catch (e) {
     console.log(e);

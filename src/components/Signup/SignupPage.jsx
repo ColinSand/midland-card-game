@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { FormHelperText } from "@mui/material";
 import useAxios from "../../shared/hooks/useAxios";
-import apiCall from "../../shared/hooks/useAxios";
+import { useEffect } from "react";
 
 const theme = createTheme();
 
@@ -27,7 +27,11 @@ export default function SignUpPage() {
   const [verifyAge, setVerifyAge] = useState(false);
   const [userObject, setUserObject] = useState(null);
 
-  const { json, error: signupError, apiCall } = useAxios("post");
+  const { json, error: resError, apiCall } = useAxios("post");
+
+  useEffect(() => {
+    console.log(json);
+  }, [json]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -133,7 +137,7 @@ export default function SignUpPage() {
                   verifyAge == false
                 ) {
                   setError(true);
-                  signupError(error);
+
                   return;
                 }
                 setUserObject({ username, password });
@@ -148,7 +152,7 @@ export default function SignUpPage() {
             </Button>
             {/* {json && json.error && <Alert severity="error"></Alert>} */}
 
-            <div>{json && json.signupError}</div>
+            <div>{resError}</div>
             <div>{json && json.data}</div>
             <Grid container justifyContent="flex-end">
               <Grid item>
