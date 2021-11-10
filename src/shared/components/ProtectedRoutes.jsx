@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Redirect, Route } from "react-router";
+import React, { useContext, useMemo } from "react";
+import { Navigate, Route } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 function ProtectedRoutes({ children, path, shielded }) {
@@ -11,7 +11,7 @@ function ProtectedRoutes({ children, path, shielded }) {
   } else {
     return (
       <Route path={path}>
-        <Redirect to={redirectTo}></Redirect>
+        <Navigate to={redirectTo}></Navigate>
       </Route>
     );
   }

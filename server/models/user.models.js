@@ -40,7 +40,7 @@ async function signup(res, username, password) {
 
 async function login(res, username, password) {
   try {
-    const [user] = await query("SELECT * FROM users WHERE user.username = ?", [
+    const [user] = await query("SELECT * FROM users WHERE users.username = ?", [
       username,
     ]);
     if (!user) {

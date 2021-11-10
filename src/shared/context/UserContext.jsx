@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useAxios } from "../hooks/useAxios";
+import useAxios from "../hooks/useAxios";
 export const UserContext = React.createContext(null);
 
 export function UserProvider(props) {
