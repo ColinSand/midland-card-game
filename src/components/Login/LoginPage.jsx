@@ -111,7 +111,6 @@ export default function LoginPage() {
               </Grid>
             </Grid>
             <div>{resError}</div>
-            <div> {json && json.data}</div>
           </Box>
         </Box>
       </Container>
