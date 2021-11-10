@@ -1,19 +1,15 @@
 import React, { useContext, useMemo } from "react";
-import { Navigate, Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
-function ProtectedRoutes({ children, path, shielded }) {
+function ProtectedRoutes({ children, shielded }) {
   const { user } = useContext(UserContext);
   const redirectTo = useMemo(() => (shielded ? "/login" : "/home"), [shielded]);
 
   if ((user.username && shielded) || (!user.username && !shielded)) {
-    return <Route path={path}>{children}</Route>;
+    return <>{children}</>;
   } else {
-    return (
-      <Route path={path}>
-        <Navigate to={redirectTo}></Navigate>
-      </Route>
-    );
+    return <Navigate to={redirectTo}></Navigate>;
   }
 }
 export default ProtectedRoutes;

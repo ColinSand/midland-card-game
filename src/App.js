@@ -17,25 +17,41 @@ function App() {
     <Router>
       <Menu />
       <Routes>
-        <ProtectedRoutes shielded={false} path="/login">
-          <LoginPage />
-        </ProtectedRoutes>
-        <ProtectedRoutes shielded={false} path="/signup">
-          <SignupPage />
-        </ProtectedRoutes>
-        <ProtectedRoutes shielded={true} path="/home">
-          <HomePage />
-        </ProtectedRoutes>
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoutes shielded={false}>
+              <LoginPage />
+            </ProtectedRoutes>
+          }
+        />
 
-        <ProtectedRoutes shielded={true} path="/game">
-          <GamePage />
-        </ProtectedRoutes>
-        <Route path="/about">
-          <AboutPage />
-        </Route>
-        <Route path="*">
-          <Navigate to="/login"></Navigate>
-        </Route>
+        <Route
+          path="/signup"
+          element={
+            <ProtectedRoutes shielded={false}>
+              <SignupPage />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoutes shielded={true}>
+              <HomePage />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/game/:id"
+          element={
+            <ProtectedRoutes shielded={true}>
+              <GamePage />
+            </ProtectedRoutes>
+          }
+        />
+        <Route path="/about" element={AboutPage}></Route>
+        <Route path="*" element={<Navigate to="/login"></Navigate>} />
       </Routes>
     </Router>
   );

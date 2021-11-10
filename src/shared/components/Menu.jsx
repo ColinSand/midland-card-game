@@ -29,7 +29,7 @@ export default function Menu() {
                     <NavLink to="/signup">Signup</NavLink>
                   </>
                 )}
-                {user.username(
+                {user.username && (
                   <>
                     <NavLink to="/home">Home</NavLink>
                     <NavLink to="/Game">Game</NavLink>
