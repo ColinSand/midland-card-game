@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useAxios } from "../hooks/useAxios";
+import useAxios from "../hooks/useAxios";
 export const UserContext = React.createContext(null);
 
 export function UserProvider(props) {
   const [user, setUser] = useState({});
-  const { json, error, callApi } = useAxios("get");
+  const { json, error, apiCall } = useAxios("get");
 
   useEffect(() => {
-    callApi("/api/users/verify");
+    apiCall("/api/users/verify");
   }, []);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export function UserProvider(props) {
   }, [json]);
 
   const clearState = useCallback(() => {
-    callApi("/api/users/logout");
+    apiCall("/api/users/logout");
   }, []);
 
   return (
