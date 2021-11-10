@@ -35,7 +35,21 @@ export default function SignUpPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+
+    if (
+      username.length < 4 ||
+      password.length < 8 ||
+      password !== verifyPassword ||
+      verifyAge == false
+    ) {
+      setError(true);
+      return;
+    }
+
+    setUserObject({ username, password });
+    console.log(userObject);
+    // this call probably needs an async await (something does)
+    apiCall("/api/users/signup", userObject);
   };
 
   return (
@@ -129,24 +143,6 @@ export default function SignUpPage() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={() => {
-                if (
-                  username.length < 4 ||
-                  password.length < 8 ||
-                  password !== verifyPassword ||
-                  verifyAge == false
-                ) {
-                  setError(true);
-
-                  return;
-                }
-                setUserObject({ username, password });
-                console.log(userObject);
-                // this call probably needs an async await (something does)
-                apiCall("/api/users/signup", userObject);
-                // signupError = { error };
-                // console.log(json.signupError);
-              }}
             >
               Sign Up
             </Button>
