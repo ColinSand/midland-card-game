@@ -25,8 +25,6 @@ export default function SignUpPage() {
   const [verifyPassword, setVerifyPassword] = useState("");
   const [error, setError] = useState(false);
   const [verifyAge, setVerifyAge] = useState(false);
-  const [userObject, setUserObject] = useState(null);
-
   const { json, error: resError, apiCall } = useAxios("post");
 
   useEffect(() => {
@@ -35,21 +33,8 @@ export default function SignUpPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (
-      username.length < 4 ||
-      password.length < 8 ||
-      password !== verifyPassword ||
-      verifyAge == false
-    ) {
-      setError(true);
-      return;
-    }
-
-    setUserObject({ username, password });
-    console.log(userObject);
-    // this call probably needs an async await (something does)
-    apiCall("/api/users/signup", userObject);
+    const data = new FormData(event.currentTarget);
+    console.log(data);
   };
 
   return (
@@ -143,6 +128,21 @@ export default function SignUpPage() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={() => {
+                if (
+                  username.length < 4 ||
+                  password.length < 8 ||
+                  password !== verifyPassword ||
+                  verifyAge == false
+                ) {
+                  setError(true);
+                  return;
+                }
+
+                console.log({ username, password });
+                // this call probably needs an async await (something does)
+                apiCall("/api/users/signup", { username, password });
+              }}
             >
               Sign Up
             </Button>
