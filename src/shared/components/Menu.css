@@ -1,4 +1,4 @@
-.nav-link {
+.link {
   color: rgb(218, 216, 216);
   text-decoration: none;
   padding-left: 20px;
@@ -10,10 +10,12 @@
   font-weight: 600;
 }
 
-.nav-link:hover {
+.link:hover {
   color: white;
+  text-decoration: underline;
 }
 
-/* .nav-link {
-  color: red;
-} */
+.active {
+  color: white;
+  text-decoration: underline;
+}

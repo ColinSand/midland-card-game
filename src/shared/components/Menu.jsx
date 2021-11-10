@@ -32,12 +32,7 @@ export default function Menu() {
                 </NavLink>
                 {/* </Button> */}
                 {/* <Button sx={{ bgcolor: "#fffb00" }}> */}
-                <NavLink
-                  to="/signup"
-                  className={(isActive) =>
-                    "nav-link" + (!isActive ? " unselected" : "")
-                  }
-                >
+                <NavLink to="/signup" className="link">
                   Signup
                 </NavLink>
                 {/* </Button> */}
