@@ -30,7 +30,7 @@ passport.use(
       }
       return done(null, user);
     } catch (e) {
-      return done(true, false, "Something went wrong");
+      return done(true, false, "Something went wrong, passport");
     }
   })
 );
