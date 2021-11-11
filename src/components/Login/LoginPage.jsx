@@ -12,8 +12,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import useAxios from "../../shared/hooks/useAxios";
-import { useEffect } from "react";
-import { UserContext, UserProvider } from "../../shared/context/UserContext";
+import { useEffect, useContext } from "react";
+import { UserContext } from "../../shared/context/UserContext";
 
 const theme = createTheme();
 
