@@ -9,12 +9,13 @@ async function signup(res, username, password) {
       username,
     ]);
     if (user) {
-      res.send({
+      return res.send({
         success: false,
+        error: "Username Already Taken, Please Try Another",
         data: null,
-        error: "Username Taken",
       });
     }
+
     // im a comment
     const hash = await bcrypt.hash(password, 10);
     const uuid = uuidv4();
@@ -26,7 +27,7 @@ async function signup(res, username, password) {
     return res.send({
       success: true,
       error: null,
-      data: "You're Signed in!",
+      data: "Sign up successful!",
     });
   } catch (e) {
     console.log(e);
@@ -70,7 +71,7 @@ async function login(res, username, password) {
   } catch (e) {
     return res.status(500).send({
       success: false,
-      error: "Something went wrong, please try again later!",
+      error: "Something went wrong, please try again later!, model",
       data: null,
     });
   }
