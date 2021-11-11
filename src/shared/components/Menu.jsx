@@ -16,36 +16,37 @@ export default function Menu() {
       <nav>
         <AppBar position="static" sx={{ bgcolor: "#1f2f53" }}>
           <Toolbar variant="regular">
-            <header className="menuHeader">Migos 5 Card Draw</header>
-            <NavLink to="/about" className="link">
-              About
-            </NavLink>
+            <header className="menuHeader">
+              Migos 5 Card Draw
+              <NavLink to="/about" className="link">
+                About
+              </NavLink>
+              {!user.username && (
+                <>
+                  <NavLink to="/login" className="link">
+                    Login
+                  </NavLink>
 
-            {!user.username && (
-              <>
-                <NavLink to="/login" className="link">
-                  Login
-                </NavLink>
+                  <NavLink to="/signup" className="link">
+                    Signup
+                  </NavLink>
+                </>
+              )}
+              {user.username && (
+                <>
+                  <NavLink to="/home" className="link">
+                    Home
+                  </NavLink>
+                  <NavLink to="/Game" className="link">
+                    Game
+                  </NavLink>
 
-                <NavLink to="/signup" className="link">
-                  Signup
-                </NavLink>
-              </>
-            )}
-            {user.username && (
-              <>
-                <NavLink to="/home" className="link">
-                  Home
-                </NavLink>
-                <NavLink to="/Game" className="link">
-                  Game
-                </NavLink>
-
-                <button onClick={clearState} className="logout">
-                  Logout
-                </button>
-              </>
-            )}
+                  <button onClick={clearState} className="logout">
+                    Logout
+                  </button>
+                </>
+              )}
+            </header>
           </Toolbar>
         </AppBar>
       </nav>
