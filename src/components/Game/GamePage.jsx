@@ -12,6 +12,7 @@ function GamePage() {
     isTurn,
     createDeck,
     shuffleDeck,
+    dealCards,
   } = useContext(GameContext);
 
   return (
@@ -22,16 +23,13 @@ function GamePage() {
             createDeck();
           }}
         >
-          Create Deck
+          Shuffle Deck
         </button>
         <button
           onClick={() => {
-            shuffleDeck();
-            console.log(deck);
+            dealCards();
           }}
-        >
-          Shuffle Deck
-        </button>
+        ></button>
       </div>
     </>
   );

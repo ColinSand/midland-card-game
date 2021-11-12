@@ -84,6 +84,11 @@ export function GameProvider(props) {
   // loop through the array of users, give out 1 card to each, 5 times
   const dealCards = useCallback(() => {
     let topCard = deck[0];
+    // do something to give the correct player the topCard
+    for (let i = 0; i < 1; i++) {
+      let dealtCard = deck.shift();
+    }
+    // then use the shift prototypical function to get rid of the topCard
   }, []);
 
   // we need to know how many players have joined the lobby.
