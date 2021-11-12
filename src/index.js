@@ -4,10 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { UserProvider } from "./shared/context/UserContext";
+import { GameProvider } from "./shared/context/GameContext";
 
 ReactDOM.render(
   <UserProvider>
-    <App />
+    <GameProvider>
+      <App />
+    </GameProvider>
   </UserProvider>,
   document.getElementById("root")
 );
