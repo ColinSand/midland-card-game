@@ -12,7 +12,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import useAxios from "../../shared/hooks/useAxios";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { UserContext } from "../../shared/context/UserContext";
 
 const theme = createTheme();
 
@@ -21,9 +22,12 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const { json, error: resError, apiCall } = useAxios("post");
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(json);
+    if (json && json.success) {
+      setUser(json.data);
+    }
   }, [json]);
 
   const handleSubmit = (event) => {
