@@ -83,5 +83,20 @@ export function GameContext(props) {
   createDeck();
   shuffleDeck();
   console.log(deck);
-  return <GameContext.Provider></GameContext.Provider>;
+  return (
+    <GameContext.Provider
+      value={{
+        deck,
+        cardsDealt,
+        players,
+        isActive,
+        isHost,
+        isTurn,
+        createDeck,
+        shuffleDeck,
+      }}
+    >
+      {props.children}
+    </GameContext.Provider>
+  );
 }
