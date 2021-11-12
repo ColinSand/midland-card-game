@@ -25,7 +25,7 @@
 //     - Leave Room
 //     - Close Room
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 export default function GameContext(props) {
   const [deck, setDeck] = useState([]);
@@ -65,16 +65,20 @@ export default function GameContext(props) {
     return newDeck;
   }
 
-  function shuffleDeck(deck) {
-    for (let i = 0; i < 1000; i++) {
-      let location1 = Math.floor(Math.random() * deck.length);
-      let location2 = Math.floor(Math.random() * deck.length);
-      let tmp = deck[location1];
+  const shuffleDeck = useCallback(
+    async (deck) => {
+      for (let i = 0; i < 1000; i++) {
+        let location1 = Math.floor(Math.random() * deck.length);
+        let location2 = Math.floor(Math.random() * deck.length);
+        let tmp = deck[location1];
 
-      deck[location1] = deck[location2];
-      deck[location2] = tmp;
-    }
-  }
+        deck[location1] = deck[location2];
+        deck[location2] = tmp;
+      }
+    },
+    [deck]
+  );
+
   createDeck();
   shuffleDeck();
   console.log(deck);
