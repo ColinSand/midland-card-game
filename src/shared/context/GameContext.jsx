@@ -26,8 +26,9 @@
 //     - Close Room
 
 import React, { useState, useCallback } from "react";
+export const GameContext = React.createContext(null);
 
-export default function GameContext(props) {
+export function GameContext(props) {
   const [deck, setDeck] = useState([]);
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
   const [cardsDealt, setCardsDealt] = useState([]);
