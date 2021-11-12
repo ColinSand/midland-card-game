@@ -33,6 +33,7 @@ export function GameProvider(props) {
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
   const [cardsDealt, setCardsDealt] = useState([]);
   const [players, setPlayers] = useState([]);
+  // we can move isHost to user Context
   const [isHost, setIsHost] = useState(false);
   const [isActive, setIsActice] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
