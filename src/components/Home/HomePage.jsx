@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Button,
@@ -9,6 +10,7 @@ import {
   Typography,
   Container,
   Divider,
+  Alert,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -18,9 +20,11 @@ const theme = createTheme();
 
 export default function HomePage() {
   const [gameId, setGameId] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const generateGameId = () => {
-    Math.random().toString(36).substr(2, 6);
+    return Math.random().toString(36).substr(2, 6);
   };
 
   const handleSubmit = (event) => {
@@ -28,7 +32,13 @@ export default function HomePage() {
     const data = new FormData(event.currentTarget);
   };
 
-  // const joinGame = () => {};
+  const joinGame = () => {
+    if (gameId.length !== 6) {
+      setError(true);
+    } else {
+      navigate(`/game/${gameId}`);
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -40,12 +50,14 @@ export default function HomePage() {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            position: "relative",
           }}
         >
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
               sx={{
+                marginRight: "20px",
                 marginTop: 8,
                 display: "flex",
                 flexDirection: "column",
@@ -84,12 +96,25 @@ export default function HomePage() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                   onClick={() => {
-                    setGameId(gameId);
+                    joinGame();
                     console.log(gameId);
                   }}
                 >
                   Join Table
                 </Button>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  {error && (
+                    <Alert severity="error">
+                      Table number must be 6 characters
+                    </Alert>
+                  )}
+                </Box>
               </Box>
             </Box>
           </Container>
@@ -98,10 +123,13 @@ export default function HomePage() {
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 8,
+                paddingBottom: "43px",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                position: "absolute",
+                top: "64px",
+                right: "90px",
               }}
             >
               <Avatar sx={{ m: 1, bgcolor: "#1f2f53" }}>
@@ -110,13 +138,15 @@ export default function HomePage() {
               <Typography component="h1" variant="h5">
                 Start a Table
               </Typography>
-              <Box sx={{ mt: 3 }}>
+              <Box>
                 <Button
                   type="submit"
-                  fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  onClick={() => generateGameId()}
+                  sx={{ mt: 3, maxWidth: "194px" }}
+                  onClick={(e) => {
+                    const newGameId = generateGameId();
+                    navigate(`/game/${newGameId}`);
+                  }}
                 >
                   Create Table
                 </Button>
