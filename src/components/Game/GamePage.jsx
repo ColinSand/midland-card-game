@@ -15,17 +15,25 @@ function GamePage() {
   } = useContext(GameContext);
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          createDeck();
-          shuffleDeck();
-          console.log(deck);
-        }}
-      >
-        Do Something
-      </button>
-    </div>
+    <>
+      <div>
+        <button
+          onClick={() => {
+            createDeck();
+          }}
+        >
+          Create Deck
+        </button>
+        <button
+          onClick={() => {
+            shuffleDeck();
+            console.log(deck);
+          }}
+        >
+          Shuffle Deck
+        </button>
+      </div>
+    </>
   );
 }
 

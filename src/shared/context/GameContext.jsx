@@ -16,7 +16,7 @@
 // in a lot of ways these functions will sort of b
 
 // need to get all of the functionality on the user side:
-//     - Join Room- already handled by Seth in the home page
+//     - Join Room -already handled by Seth in the home page with the URL
 //     - Deal Card
 //     - Fold
 //     - Stay
@@ -62,12 +62,11 @@ export function GameProvider(props) {
         newDeck.push(card);
       }
     }
-    setDeck(newDeck);
-    return newDeck;
+    shuffleDeck(newDeck);
   }
 
   const shuffleDeck = useCallback(
-    async (deck) => {
+    (deck) => {
       for (let i = 0; i < 1000; i++) {
         let location1 = Math.floor(Math.random() * deck.length);
         let location2 = Math.floor(Math.random() * deck.length);
@@ -75,6 +74,8 @@ export function GameProvider(props) {
         deck[location1] = deck[location2];
         deck[location2] = tmp;
       }
+      console.log(deck);
+      setDeck(deck);
     },
     [deck]
   );

@@ -3,7 +3,7 @@ import useAxios from "../hooks/useAxios";
 export const UserContext = React.createContext(null);
 
 export function UserProvider(props) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ username: "test" });
   const { json, error, apiCall } = useAxios("get");
 
   useEffect(() => {
