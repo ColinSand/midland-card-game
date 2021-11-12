@@ -16,7 +16,7 @@
 // in a lot of ways these functions will sort of b
 
 // need to get all of the functionality on the user side:
-//     - Join Room
+//     - Join Room- already handled by Seth in the home page
 //     - Deal Card
 //     - Fold
 //     - Stay
@@ -58,7 +58,7 @@ export function GameProvider(props) {
     let newDeck = new Array();
     for (let i = 0; i < cardSuits.length; i++) {
       for (let x = 0; x < cardValues.length; x++) {
-        let card = { Value: cardSuits[x], Suit: cardSuits[i] };
+        let card = { Value: cardValues[x], Suit: cardSuits[i] };
         newDeck.push(card);
       }
     }
@@ -72,7 +72,6 @@ export function GameProvider(props) {
         let location1 = Math.floor(Math.random() * deck.length);
         let location2 = Math.floor(Math.random() * deck.length);
         let tmp = deck[location1];
-
         deck[location1] = deck[location2];
         deck[location2] = tmp;
       }
@@ -80,9 +79,7 @@ export function GameProvider(props) {
     [deck]
   );
 
-  const createGame = useCallback(async () => {});
-
-  const joinGame = useCallback(async () => {});
+  const trackPlayers = useCallback(async (player) => {});
 
   return (
     <GameContext.Provider
