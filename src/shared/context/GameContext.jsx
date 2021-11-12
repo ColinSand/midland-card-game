@@ -80,8 +80,16 @@ export function GameProvider(props) {
     [deck]
   );
 
-  const trackPlayers = useCallback(async (player) => {});
+  // needs to give out the correct number of cards from the top of the deck when called upon.
+  // loop through the array of users, give out 1 card to each, 5 times
+  const dealCards = useCallback(() => {
+    let topCard = deck[0];
+  }, []);
 
+  // we need to know how many players have joined the lobby.
+  const trackPlayers = useCallback((player) => {}, []);
+
+  const assignHost = useCallback((host) => {}, []);
   return (
     <GameContext.Provider
       value={{
@@ -93,6 +101,7 @@ export function GameProvider(props) {
         isTurn,
         createDeck,
         shuffleDeck,
+        dealCards,
       }}
     >
       {props.children}
