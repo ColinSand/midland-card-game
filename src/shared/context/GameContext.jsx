@@ -80,9 +80,10 @@ export function GameContext(props) {
     [deck]
   );
 
-  createDeck();
-  shuffleDeck();
-  console.log(deck);
+  const createGame = useCallback(async () => {});
+
+  const joinGame = useCallback(async () => {});
+
   return (
     <GameContext.Provider
       value={{
