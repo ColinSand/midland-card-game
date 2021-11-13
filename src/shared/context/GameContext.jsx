@@ -83,13 +83,18 @@ export function GameProvider(props) {
 
   // needs to give out the correct number of cards from the top of the deck when called upon.
   // loop through the array of users, give out 1 card to each, 5 times
-  const dealCards = useCallback(() => {
-    let topCard = deck[0];
+  const dealOneCard = useCallback(() => {
+    let dealtPlayers = [...players];
     // do something to give the correct player the topCard
-    for (let i = 0; i < 1; i++) {
-      let dealtCard = deck.shift();
+    // the deck.shift will take the zeroth index and send it to the element dealtCard
+    for (let j = 0; j < 1; j++) {
+      for (let i = 0; i < 1; i++) {
+        let dealtCard = deck.shift();
+        dealtPlayers[j] = [...dealtPlayers[j], dealtCard];
+      }
+      setPlayers(dealtPlayers);
+      // then use the shift prototypical function to get rid of the topCard
     }
-    // then use the shift prototypical function to get rid of the topCard
   }, []);
 
   // we need to know how many players have joined the lobby.
