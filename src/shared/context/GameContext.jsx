@@ -85,17 +85,20 @@ export function GameProvider(props) {
   // loop through the array of users, give out 1 card to each, 5 times
   const dealOneCard = useCallback(() => {
     let dealtPlayers = [...players];
-    // do something to give the correct player the topCard
-    // the deck.shift will take the zeroth index and send it to the element dealtCard
-    for (let j = 0; j < 1; j++) {
-      for (let i = 0; i < 1; i++) {
-        let dealtCard = deck.shift();
-        dealtPlayers[j] = [...dealtPlayers[j], dealtCard];
-      }
-      setPlayers(dealtPlayers);
-      // then use the shift prototypical function to get rid of the topCard
+    for (let i = 0; i < 1; i++) {
+      let dealtCard = deck.shift();
+      dealtPlayers[i] = [...dealtPlayers[i], dealtCard];
     }
+    setPlayers(dealtPlayers);
   }, []);
+
+  const startGameDeal = useCallback(() => {
+    for (let i = 0; i < players.length; i++) {
+      for (let j = 0; j < 6; j++) {
+        dealOneCard();
+      }
+    }
+  });
 
   // we need to know how many players have joined the lobby.
   const trackPlayers = useCallback((player) => {}, []);
@@ -113,6 +116,8 @@ export function GameProvider(props) {
         createDeck,
         shuffleDeck,
         dealCards,
+        startGameDeal,
+        dealOneCard,
       }}
     >
       {props.children}
