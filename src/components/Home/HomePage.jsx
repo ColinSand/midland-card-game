@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Avatar,
@@ -13,7 +13,7 @@ import {
   Alert,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { UserContext } from "../../shared/context/UserContext";
 import { GroupAddOutlined, GroupsOutlined } from "@mui/icons-material";
 
 const theme = createTheme();
@@ -22,6 +22,7 @@ export default function HomePage() {
   const [gameId, setGameId] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [hosting, isHost, setIsHost] = useContext(UserContext);
 
   const generateGameId = () => {
     return Math.random().toString(36).substr(2, 6);
@@ -146,6 +147,7 @@ export default function HomePage() {
                   onClick={(e) => {
                     const newGameId = generateGameId();
                     navigate(`/game/${newGameId}`);
+                    hosting();
                   }}
                 >
                   Create Table

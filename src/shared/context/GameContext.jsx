@@ -33,9 +33,7 @@ export function GameProvider(props) {
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
   const [cardsDealt, setCardsDealt] = useState([]);
   const [players, setPlayers] = useState([]);
-  // we can move isHost to user Context
-  const [isHost, setIsHost] = useState(false);
-  const [isActive, setIsActice] = useState(false);
+  const [gameActive, setGameActice] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
 
   let cardSuits = ["diamonds", "spades", "hearts", "clubs"];
@@ -87,16 +85,22 @@ export function GameProvider(props) {
     let dealtPlayers = [...players];
     for (let i = 0; i < 1; i++) {
       let dealtCard = deck.shift();
-      dealtPlayers[i] = [...dealtPlayers[i], dealtCard];
+      dealtPlayers[i].hand = [...dealtPlayers[i].hand, dealtCard];
     }
     setPlayers(dealtPlayers);
   }, []);
 
   const startGameDeal = useCallback(() => {
     for (let i = 0; i < players.length; i++) {
-      for (let j = 0; j < 6; j++) {
+      for (let j = 0; j < 5; j++) {
         dealOneCard();
       }
+    }
+  });
+
+  const gameEnds = useCallback(() => {
+    if ((gameActive = false)) {
+      // show everyone's cards, then
     }
   });
 
@@ -110,7 +114,7 @@ export function GameProvider(props) {
         deck,
         cardsDealt,
         players,
-        isActive,
+        gameActive,
         isHost,
         isTurn,
         createDeck,
