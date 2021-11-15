@@ -16,7 +16,7 @@
 // in a lot of ways these functions will sort of b
 
 // need to get all of the functionality on the user side:
-//     - Join Room
+//     - Join Room -already handled by Seth in the home page with the URL
 //     - Deal Card
 //     - Fold
 //     - Stay
@@ -33,9 +33,12 @@ export function GameProvider(props) {
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
   const [cardsDealt, setCardsDealt] = useState([]);
   const [players, setPlayers] = useState([]);
-  const [isHost, setIsHost] = useState(false);
-  const [isActive, setIsActice] = useState(false);
+  const [gameActive, setGameActice] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
+
+  //"player" is an object consisting of two keys-- 'username'(provided when they join a room)
+  // and a 'hand'(consisting of an array of 5 cards defined upon 'startGameDeal' function and updated
+  // when they trigger 'draw' function)
 
   let cardSuits = ["diamonds", "spades", "hearts", "clubs"];
   let cardValues = [
@@ -58,43 +61,97 @@ export function GameProvider(props) {
     let newDeck = new Array();
     for (let i = 0; i < cardSuits.length; i++) {
       for (let x = 0; x < cardValues.length; x++) {
-        let card = { Value: cardSuits[x], Suit: cardSuits[i] };
+        let card = { Value: cardValues[x], Suit: cardSuits[i] };
         newDeck.push(card);
       }
     }
-    setDeck(newDeck);
-    return newDeck;
+    shuffleDeck(newDeck);
   }
 
   const shuffleDeck = useCallback(
-    async (deck) => {
+    (deck) => {
       for (let i = 0; i < 1000; i++) {
         let location1 = Math.floor(Math.random() * deck.length);
         let location2 = Math.floor(Math.random() * deck.length);
         let tmp = deck[location1];
-
         deck[location1] = deck[location2];
         deck[location2] = tmp;
       }
+      console.log(deck);
+      setDeck(deck);
     },
     [deck]
   );
 
-  const createGame = useCallback(async () => {});
+  const dealOneCard = useCallback((playerIndex) => {
+    let newDeck = [...deck];
+    let dealtPlayers = [...players];
+    let dealtCards = newDeck.shift();
+    dealtPlayers[playerIndex].hand = [
+      ...dealtPlayers[playerIndex].hand,
+      dealtCards,
+    ];
+    setPlayers(dealtPlayers);
+    setDeck(newDeck);
+  }, []);
 
-  const joinGame = useCallback(async () => {});
+  const startGameDeal = useCallback(() => {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < players.length; j++) {
+        dealOneCard(i);
+      }
+    }
+  });
 
+  //Need something to go to 5 cards
+  //Identify player in the players array?
+  //How to know how many cards
+  const draw = useCallback((players) => {
+    let newDeck = [...deck];
+    let newPlayerHand = [...players[i].hand].filter((cards) => );
+    // newPlayerHand.filter((cards) => card !== cards)
+    // if (newPlayerHand.length < 5)
+    //   for (let i = 0; i < 5; i++) {
+    //     dealOneCard();
+    //   }
+
+    // setDeck(newDeck);
+  });
+
+  //Whose turn is it???/ if it is player's turn, pass play to next player in players array???
+  //How to move on to next player???
+  const leaveGame = useCallback((username) => {
+    const newPlayersArray = players.filter(
+      (player) => username !== player.username
+    );
+
+    setPlayers(newPlayersArray);
+
+    console.log(newPlayersArray);
+  });
+
+  const gameEnds = useCallback(() => {
+    if ((gameActive = false)) {
+      // show everyone's cards, then
+    }
+  });
+
+  // we need to know how many players have joined the lobby.
+  const trackPlayers = useCallback((player) => {}, []);
   return (
     <GameContext.Provider
       value={{
         deck,
         cardsDealt,
         players,
-        isActive,
+        gameActive,
         isHost,
         isTurn,
         createDeck,
         shuffleDeck,
+        dealCards,
+        startGameDeal,
+        dealOneCard,
       }}
     >
       {props.children}
