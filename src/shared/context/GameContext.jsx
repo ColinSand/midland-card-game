@@ -1,29 +1,19 @@
-// this context will handle all of the poker game that is stored in state.
-// probably quite a bit
-
-// the sockets will sort of share state, but the state will be passed through the sockets
-// essentially the
-
 // each player will technically be informed of who all got what cards, those cards will be hidden (face down) unless
 // you are the player who recieved those cards, those will be face up so you can see them
 
-// need to know whow the players are , what their cards are
-// how many cards they get, how to swap cards
-// sockets are going to trigger this functionaility
-// need to know which player needs what
-// staying will emit (sockets) for myself
-
-// in a lot of ways these functions will sort of b
+// need to know who the players are , what their cards are (using the "players" array)
+// how many cards they get, how to swap cards (using the startGameDeal function and the deal function)
+// need to know which player needs what (should be with the index of the player in the "players" array)
 
 // need to get all of the functionality on the user side:
 //     - Join Room -already handled by Seth in the home page with the URL
-//     - Deal Card
-//     - Fold
-//     - Stay
-//     - Start Game
-//     - Game Over
-//     - Leave Room
-//     - Close Room
+//     - Deal Card-startGameDeal and the deal functions
+//     - Fold - this will be for later (MMP)
+//     - Stay - just not selecting any cards for exchange
+//     - Start Game - when startGameDeal is run
+//     - Game Over - when all players have taken a turn
+//     - Leave Room - when a player disconnects, we may add a button for this
+//     - Close Room - MMP
 
 import React, { useState, useCallback } from "react";
 export const GameContext = React.createContext(null);
@@ -31,12 +21,11 @@ export const GameContext = React.createContext(null);
 export function GameProvider(props) {
   const [deck, setDeck] = useState([]);
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
-  const [cardsDealt, setCardsDealt] = useState([]);
   const [players, setPlayers] = useState([]);
   const [gameActive, setGameActive] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
 
-  //"player" is an object consisting of two keys-- 'username'(provided when they join a room)
+  // "player" is an object consisting of two keys-- 'username'(provided when they join a room)
   // and a 'hand'(consisting of an array of 5 cards defined upon 'startGameDeal' function and updated
   // when they trigger 'draw' function)
 
@@ -130,27 +119,22 @@ export function GameProvider(props) {
     const newPlayersArray = players.filter(
       (player) => username !== player.username
     );
-
     setPlayers(newPlayersArray);
-
     console.log(newPlayersArray);
   });
 
   const gameEnds = useCallback(() => {
     if ((gameActive = false)) {
-      // show everyone's cards, then
+      // show everyone's cards, then let the host use the shuffle and startGameDeal
     }
   });
-  // could update state through sockets everytime someone joins
 
   return (
     <GameContext.Provider
       value={{
         deck,
-        cardsDealt,
         players,
         gameActive,
-        isHost,
         isTurn,
         createDeck,
         shuffleDeck,
