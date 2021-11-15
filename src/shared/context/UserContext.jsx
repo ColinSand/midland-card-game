@@ -3,8 +3,9 @@ import useAxios from "../hooks/useAxios";
 export const UserContext = React.createContext(null);
 
 export function UserProvider(props) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ username: "test" });
   const { json, error, apiCall } = useAxios("get");
+  const [isHost, setIsHost] = useState(null);
 
   useEffect(() => {
     apiCall("/api/users/verify");
@@ -20,12 +21,19 @@ export function UserProvider(props) {
     apiCall("/api/users/logout");
   }, []);
 
+  const hosting = useCallback(() => {
+    setIsHost(true);
+  }, []);
+
   return (
     <UserContext.Provider
       value={{
         user,
         setUser,
         clearState,
+        hosting,
+        isHost,
+        setIsHost,
       }}
     >
       {props.children}
