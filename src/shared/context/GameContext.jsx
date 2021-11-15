@@ -15,14 +15,14 @@
 //     - Leave Room - when a player disconnects, we may add a button for this
 //     - Close Room - MMP
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 export const GameContext = React.createContext(null);
 
 export function GameProvider(props) {
   const [deck, setDeck] = useState([]);
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
   const [players, setPlayers] = useState([]);
-  const [gameActive, setGameActive] = useState(false);
+  const [gameActive, setGameActive] = useMemo(false);
   const [isTurn, setIsTurn] = useState(null);
 
   // "player" is an object consisting of two keys-- 'username'(provided when they join a room)
@@ -83,7 +83,7 @@ export function GameProvider(props) {
     setIsTurn(0);
     setDeck(newDeck);
     setPlayers(newPlayers);
-    return { player: newPlayers, deck: newDeck };
+    return { player: newPlayers, deck: newDeck, isturn: 0 };
   }, [players, deck]);
 
   const draw = useCallback(
@@ -98,29 +98,23 @@ export function GameProvider(props) {
         ];
       }
       // the following if may need to be reworked.  What happens at the end of the last player's turn?
-      if (isTurn < players.length - 1) {
+      if (isTurn < players.length) {
         setIsTurn(curr + 1);
       }
       setDeck(newDeck);
       setPlayers(newPlayers);
-      return { player: newPlayers, deck: newDeck };
+      return { player: newPlayers, deck: newDeck, isturn: curr + 1 };
     },
     [players, deck]
   );
 
-  // as soon as you deal, set the player index to 0
-  const changingTurns = useCallback(() => {
-    for (let i = 0; i < players.length; i++) {
-      const element = array[i];
-    }
-    setIsTurn();
-  });
-
   //Whose turn is it???/ if it is player's turn, pass play to next player in players array???
   //How to move on to next player???
   const leaveGame = useCallback((username) => {
-    if (players[i] === isTurn) {
-      setIsTurn(curr + 1);
+    let i = players.findIndex(username);
+
+    if (i <= isTurn) {
+      setIsTurn(curr - 1);
     } else {
       const newPlayersArray = players.filter(
         (player) => username !== player.username
@@ -128,13 +122,17 @@ export function GameProvider(props) {
       setPlayers(newPlayersArray);
       console.log(newPlayersArray);
     }
-  });
+  }, []);
 
   const gameEnds = useCallback(() => {
     if ((gameActive = false)) {
-      // show everyone's cards, then let the host use the shuffle and startGameDeal
+      // show everyone's cards, then let the host use the shuffle and startGameDeal button
+      return;
     }
-  });
+    if ((isTurn = players.length)) {
+      setGameActive(false);
+    }
+  }, []);
 
   return (
     <GameContext.Provider
