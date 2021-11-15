@@ -5,14 +5,17 @@ const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 8080;
 const userRoutes = require("./server/routes/users.routes");
 const passport = require("./server/config/passport.conf");
-// const http = require("http");
-// const server = http.createServer(app);
-// const socketIO = require("socket.io");
-// const io = socketIO(server, {
-//   cors: {
-//     origin: "*",
-//   },
-// });
+const http = require("http");
+const server = http.createServer(app);
+const socketIO = require("socket.io");
+const socketConf = require("./server/config/socket.conf");
+
+const io = socketIO(server, {
+  cors: {
+    origin: "*",
+  },
+});
+socketConf(io);
 
 app.use(express.json());
 app.use(express.static(__dirname + "/build"));
@@ -25,4 +28,4 @@ app.get("*", (req, res) => {
   return res.sendFile("/build/index.html", { root: __dirname + "/" });
 });
 
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`));
+server.listen(PORT, () => console.log(`Example app listening on port ${PORT}`));
