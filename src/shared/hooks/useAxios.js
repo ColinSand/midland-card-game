@@ -20,7 +20,7 @@ export default function useAxios(method) {
       setJson(response.data);
     } catch (e) {
       console.log(e);
-      setError("Something went wrong, axios");
+      setError("Something went wrong, please try again later");
     }
   });
 

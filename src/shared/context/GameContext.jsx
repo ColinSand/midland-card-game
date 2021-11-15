@@ -33,7 +33,7 @@ export function GameProvider(props) {
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
   const [cardsDealt, setCardsDealt] = useState([]);
   const [players, setPlayers] = useState([]);
-  const [gameActive, setGameActice] = useState(false);
+  const [gameActive, setGameActive] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
 
   //"player" is an object consisting of two keys-- 'username'(provided when they join a room)
@@ -106,24 +106,23 @@ export function GameProvider(props) {
   //Need something to go to 5 cards
   //Identify player in the players array?
   //How to know how many cards
-  // const draw = useCallback((players) => {
-  //   let newDeck = [...deck];
-  //   let newPlayerHand = [...players[i].hand].filter((cards) => );
-  // newPlayerHand.filter((cards) => card !== cards)
-  // if (newPlayerHand.length < 5)
-  //   for (let i = 0; i < 5; i++) {
-  //     dealOneCard();
-  //   }
+  const draw = useCallback((players) => {
+    let newDeck = [...deck];
+    let newPlayerHand = [...players[i].hand];
+    if (newPlayerHand.length < 5)
+      for (let i = 0; i < 5; i++) {
+        dealOneCard();
+      }
 
-  // setDeck(newDeck);
-  //   let newPlayerHand = [...players[i].hand];
-  //   if (newPlayerHand.length < 5)
-  //     for (let i = 0; i < 5; i++) {
-  //       dealOneCard();
-  //     }
+    // setDeck(newDeck);
+    //   let newPlayerHand = [...players[i].hand];
+    //   if (newPlayerHand.length < 5)
+    //     for (let i = 0; i < 5; i++) {
+    //       dealOneCard();
+    //     }
 
-  //   setDeck(newDeck);
-  // });
+    setDeck(newDeck);
+  });
 
   //Whose turn is it???/ if it is player's turn, pass play to next player in players array???
   //How to move on to next player???
@@ -142,9 +141,8 @@ export function GameProvider(props) {
       // show everyone's cards, then
     }
   });
+  // could update state through sockets everytime someone joins
 
-  // we need to know how many players have joined the lobby.
-  const trackPlayers = useCallback((player) => {}, []);
   return (
     <GameContext.Provider
       value={{
