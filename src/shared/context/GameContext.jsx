@@ -36,6 +36,10 @@ export function GameProvider(props) {
   const [gameActive, setGameActice] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
 
+  //"player" is an object consisting of two keys-- 'username'(provided when they join a room)
+  // and a 'hand'(consisting of an array of 5 cards defined upon 'startGameDeal' function and updated
+  // when they trigger 'draw' function)
+
   let cardSuits = ["diamonds", "spades", "hearts", "clubs"];
   let cardValues = [
     "2",
@@ -84,7 +88,7 @@ export function GameProvider(props) {
     let dealtPlayers = [...players];
     let dealtCards = newDeck.shift();
     dealtPlayers[playerIndex].hand = [
-      ...dealtPlayers[playerInded.hand],
+      ...dealtPlayers[playerIndex].hand,
       dealtCards,
     ];
     setPlayers(dealtPlayers);
@@ -99,6 +103,32 @@ export function GameProvider(props) {
     }
   });
 
+  //Need something to go to 5 cards
+  //Identify player in the players array?
+  //How to know how many cards
+  const draw = useCallback((players) => {
+    let newDeck = [...deck];
+    let newPlayerHand = [...players[i].hand];
+    if (newPlayerHand.length < 5)
+      for (let i = 0; i < 5; i++) {
+        dealOneCard();
+      }
+
+    setDeck(newDeck);
+  });
+
+  //Whose turn is it???/ if it is player's turn, pass play to next player in players array???
+  //How to move on to next player???
+  const leaveGame = useCallback((username) => {
+    const newPlayersArray = players.filter(
+      (player) => username !== player.username
+    );
+
+    setPlayers(newPlayersArray);
+
+    console.log(newPlayersArray);
+  });
+
   const gameEnds = useCallback(() => {
     if ((gameActive = false)) {
       // show everyone's cards, then
@@ -107,8 +137,6 @@ export function GameProvider(props) {
 
   // we need to know how many players have joined the lobby.
   const trackPlayers = useCallback((player) => {}, []);
-
-  const assignHost = useCallback((host) => {}, []);
   return (
     <GameContext.Provider
       value={{
