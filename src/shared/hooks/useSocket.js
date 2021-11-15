@@ -1,11 +1,12 @@
 import { useCallback, useContext, useRef, useState } from "react";
 import socketIoClient from "socket.io-client";
 import { UserContext } from "../context/UserContext";
+import { GameContext } from "../context/GameContext";
 
 const useSocket = (room) => {
   const [color, setColor] = useState(null);
   const [message, setMessage] = useState([]);
-  const { user } = useContext(UserContext);
+  const { user, hosting } = useContext(UserContext);
 
   const socketRef = useRef();
 
@@ -16,7 +17,10 @@ const useSocket = (room) => {
   });
 
   useEffect(() => {
-    socketRef.current = socketIoClient("http://localhost:8080");
+    socketRef.current = socketIoClient("http://localhost:8080", {
+      query: user,
+      gameRoom: { room },
+    });
     socketRef.current.on("color", ({ color }) => {
       setColor(color);
     });
