@@ -6,20 +6,15 @@ import { GameContext } from "../context/GameContext";
 const useSocket = (room) => {
   const [color, setColor] = useState(null);
   const [message, setMessage] = useState([]);
-  const { user, hosting } = useContext(UserContext);
+  const { user, isHost } = useContext(UserContext);
+  const { createDeck, startGameDeal, draw, leaveGame } =
+    useContext(GameContext);
 
   const socketRef = useRef();
-
-  const [data, setData] = useState({
-    drawDeck: [],
-    players: [],
-    activeGame: false,
-  });
 
   useEffect(() => {
     socketRef.current = socketIoClient("http://localhost:8080", {
       query: user,
-      gameRoom: { room },
     });
     socketRef.current.on("color", ({ color }) => {
       setColor(color);
@@ -28,10 +23,28 @@ const useSocket = (room) => {
       setMessage((curr) => [...curr, msg]);
     });
     socketRef.current.on("join room", (room) => {
-      setData((curr) => [...curr, room]);
+      (curr) => [...curr, room];
     });
-    socketRef.current.on("update deck", () => {});
+    socketRef.current.on("leave game", () => {
+      leaveGame();
+    });
+    socketRef.current.on("update deck", (deck) => {
+      createDeck((curr) => [...curr, deck]);
+    });
+    socketRef.current.on("draw", () => {
+      draw();
+    });
+    socketRef.current.on("start game deal", () => {
+      startGameDeal();
+    });
   }, []);
+
+  const deck = useCallback(() => {
+    socketRef.current.emit("deck", { deck });
+  });
+  const drawCard = useCallback(() => {
+    socketRef.current.emit("draw", { drawCard });
+  });
 
   const joinRoom = useCallback(() => {
     socketRef.current.emit("joinRoom", { user });
@@ -47,7 +60,7 @@ const useSocket = (room) => {
     },
     [color]
   );
-  return { message, sendChat, joinRoom, disconnect };
+  return { message, sendChat, joinRoom, disconnect, deck };
 };
 
 export default useSocket;

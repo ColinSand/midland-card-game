@@ -19,8 +19,8 @@ const socketConf = (io) => {
         msg: `${user} has left the game`,
       });
     });
-    socket.on("update deck", ({ dealCards, isHost }) => {
-      io.to(gameRoom).emit("update deck", { dealCards, isHost });
+    socket.on("update deck", ({ dealCards }) => {
+      io.to(gameRoom).emit("update deck", { dealCards });
     });
     socket.on("chat", (msg) => {
       io.in(gameRoom).emit("chat", { msg });
