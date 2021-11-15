@@ -23,7 +23,7 @@ export function GameProvider(props) {
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
   const [players, setPlayers] = useState([]);
   const [gameActive, setGameActive] = useState(false);
-  const [isTurn, setIsTurn] = useState(false);
+  const [isTurn, setIsTurn] = useState(null);
 
   // "player" is an object consisting of two keys-- 'username'(provided when they join a room)
   // and a 'hand'(consisting of an array of 5 cards defined upon 'startGameDeal' function and updated
@@ -72,55 +72,62 @@ export function GameProvider(props) {
     [deck]
   );
 
-  const dealOneCard = useCallback((playerIndex) => {
-    let newDeck = [...deck];
-    let dealtPlayers = [...players];
-    let dealtCards = newDeck.shift();
-    dealtPlayers[playerIndex].hand = [
-      ...dealtPlayers[playerIndex].hand,
-      dealtCards,
-    ];
-    setPlayers(dealtPlayers);
-    setDeck(newDeck);
-  }, []);
-
   const startGameDeal = useCallback(() => {
+    let newPlayers = [...players];
+    let newDeck = [...deck];
     for (let i = 0; i < 5; i++) {
       for (let j = 0; j < players.length; j++) {
-        dealOneCard(i);
+        newPlayers[i].deck = [...newPlayers[i].deck, newDeck.shift()];
       }
     }
-  });
-
-  //Need something to go to 5 cards
-  //Identify player in the players array?
-  //How to know how many cards
-  const draw = useCallback((players) => {
-    let newDeck = [...deck];
-    let newPlayerHand = [...players[i].hand];
-    if (newPlayerHand.length < 5)
-      for (let i = 0; i < 5; i++) {
-        dealOneCard();
-      }
-
-    // setDeck(newDeck);
-    //   let newPlayerHand = [...players[i].hand];
-    //   if (newPlayerHand.length < 5)
-    //     for (let i = 0; i < 5; i++) {
-    //       dealOneCard();
-    //     }
-
+    setIsTurn(0);
     setDeck(newDeck);
+    setPlayers(newPlayers);
+    return { player: newPlayers, deck: newDeck };
+  }, [players, deck]);
+
+  const draw = useCallback(
+    (playerIdx, keptCards) => {
+      let newPlayers = [...players];
+      let newDeck = [...deck];
+      newPlayers[playerIdx].deck = [keptCards];
+      while (newPlayers[playerIdx].deck.length < 5) {
+        newPlayers[playerIdx].deck = [
+          ...newPlayers[playerIdx].deck,
+          newDeck.shift(),
+        ];
+      }
+      // the following if may need to be reworked.  What happens at the end of the last player's turn?
+      if (isTurn < players.length - 1) {
+        setIsTurn(curr + 1);
+      }
+      setDeck(newDeck);
+      setPlayers(newPlayers);
+      return { player: newPlayers, deck: newDeck };
+    },
+    [players, deck]
+  );
+
+  // as soon as you deal, set the player index to 0
+  const changingTurns = useCallback(() => {
+    for (let i = 0; i < players.length; i++) {
+      const element = array[i];
+    }
+    setIsTurn();
   });
 
   //Whose turn is it???/ if it is player's turn, pass play to next player in players array???
   //How to move on to next player???
   const leaveGame = useCallback((username) => {
-    const newPlayersArray = players.filter(
-      (player) => username !== player.username
-    );
-    setPlayers(newPlayersArray);
-    console.log(newPlayersArray);
+    if (players[i] === isTurn) {
+      setIsTurn(curr + 1);
+    } else {
+      const newPlayersArray = players.filter(
+        (player) => username !== player.username
+      );
+      setPlayers(newPlayersArray);
+      console.log(newPlayersArray);
+    }
   });
 
   const gameEnds = useCallback(() => {
@@ -141,6 +148,9 @@ export function GameProvider(props) {
         dealCards,
         startGameDeal,
         dealOneCard,
+        draw,
+        leaveGame,
+        gameEnds,
       }}
     >
       {props.children}
