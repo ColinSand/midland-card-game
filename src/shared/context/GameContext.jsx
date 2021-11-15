@@ -106,17 +106,24 @@ export function GameProvider(props) {
   //Need something to go to 5 cards
   //Identify player in the players array?
   //How to know how many cards
-  const draw = useCallback((players) => {
-    let newDeck = [...deck];
-    let newPlayerHand = [...players[i].hand].filter((cards) => );
-    // newPlayerHand.filter((cards) => card !== cards)
-    // if (newPlayerHand.length < 5)
-    //   for (let i = 0; i < 5; i++) {
-    //     dealOneCard();
-    //   }
+  // const draw = useCallback((players) => {
+  //   let newDeck = [...deck];
+  //   let newPlayerHand = [...players[i].hand].filter((cards) => );
+  // newPlayerHand.filter((cards) => card !== cards)
+  // if (newPlayerHand.length < 5)
+  //   for (let i = 0; i < 5; i++) {
+  //     dealOneCard();
+  //   }
 
-    // setDeck(newDeck);
-  });
+  // setDeck(newDeck);
+  //   let newPlayerHand = [...players[i].hand];
+  //   if (newPlayerHand.length < 5)
+  //     for (let i = 0; i < 5; i++) {
+  //       dealOneCard();
+  //     }
+
+  //   setDeck(newDeck);
+  // });
 
   //Whose turn is it???/ if it is player's turn, pass play to next player in players array???
   //How to move on to next player???
