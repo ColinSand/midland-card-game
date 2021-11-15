@@ -5,7 +5,7 @@ export const UserContext = React.createContext(null);
 export function UserProvider(props) {
   const [user, setUser] = useState({ username: "test" });
   const { json, error, apiCall } = useAxios("get");
-  const [isHost, setIsHost] = useState(false);
+  const [isHost, setIsHost] = useState(null);
 
   useEffect(() => {
     apiCall("/api/users/verify");
@@ -22,7 +22,7 @@ export function UserProvider(props) {
   }, []);
 
   const hosting = useCallback(() => {
-    setIsHost(this.user);
+    setIsHost(true);
   }, []);
 
   return (

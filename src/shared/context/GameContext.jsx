@@ -79,21 +79,22 @@ export function GameProvider(props) {
     [deck]
   );
 
-  // needs to give out the correct number of cards from the top of the deck when called upon.
-  // loop through the array of users, give out 1 card to each, 5 times
-  const dealOneCard = useCallback(() => {
+  const dealOneCard = useCallback((playerIndex) => {
+    let newDeck = [...deck];
     let dealtPlayers = [...players];
-    for (let i = 0; i < 1; i++) {
-      let dealtCard = deck.shift();
-      dealtPlayers[i].hand = [...dealtPlayers[i].hand, dealtCard];
-    }
+    let dealtCards = newDeck.shift();
+    dealtPlayers[playerIndex].hand = [
+      ...dealtPlayers[playerInded.hand],
+      dealtCards,
+    ];
     setPlayers(dealtPlayers);
+    setDeck(newDeck);
   }, []);
 
   const startGameDeal = useCallback(() => {
-    for (let i = 0; i < players.length; i++) {
-      for (let j = 0; j < 5; j++) {
-        dealOneCard();
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < players.length; j++) {
+        dealOneCard(i);
       }
     }
   });
