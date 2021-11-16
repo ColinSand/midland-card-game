@@ -6,6 +6,9 @@ import { GameContext } from "../context/GameContext";
 const useSocket = (room) => {
   const [color, setColor] = useState(null);
   const [message, setMessage] = useState("");
+  const [players, setPlayers] = useState([]);
+  const [isTurn, setIsTurn] = useState(null);
+  const [deck, setDeck] = useState([]);
 
   const { user, isHost } = useContext(UserContext);
   const { leaveGame, setDeck, draw, createDeck, setIsTurn, setPlayers } =
@@ -37,9 +40,9 @@ const useSocket = (room) => {
     });
   }, []);
 
-  const deckOfAllDecks = useCallback((newDeck, shuffleDeck) => {
-    createDeck(newDeck, shuffleDeck);
-    socketRef.current.emit("update deck", { players, deck });
+  const updatedDeck = useCallback(() => {
+    createDeck();
+    socketRef.current.emit("update deck", { players, deck, isTurn });
   });
 
   const drawCards = useCallback((playerIdx, keptCards) => {
@@ -53,7 +56,7 @@ const useSocket = (room) => {
     },
     [color]
   );
-  return { message, sendChat, updateDeck, drawCards, deckOfAllDecks };
+  return { message, sendChat, drawCards, updatedDeck };
 };
 
 export default useSocket;
