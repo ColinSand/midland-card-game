@@ -81,7 +81,7 @@ export function GameProvider(props) {
           newPlayers[i].deck = [...newPlayers[i].deck, newDeck.shift()];
         }
       }
-      return { players: newPlayers, deck: newDeck, isturn: 0 };
+      return { players: newPlayers, deck: newDeck, isTurn: 0 };
     },
     [players, deck]
   );
@@ -104,7 +104,7 @@ export function GameProvider(props) {
       } else {
         newIsTurn = null;
       }
-      return { player: newPlayers, deck: newDeck, isturn: newIsTurn };
+      return { players: newPlayers, deck: newDeck, isTurn: newIsTurn };
     },
     [players, deck]
   );
