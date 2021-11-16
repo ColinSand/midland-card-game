@@ -23,7 +23,7 @@ export function GameProvider(props) {
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
   const [players, setPlayers] = useState([]);
   const [isTurn, setIsTurn] = useState(null);
-  const [gameActive, setGameActive] = useMemo(() => isTurn !== null, [isTurn]);
+  const gameActive = useMemo(() => isTurn !== null, [isTurn]);
 
   // "player" is an object consisting of two keys-- 'username'(provided when they join a room)
   // and a 'hand'(consisting of an array of 5 cards defined upon 'startGameDeal' function and updated

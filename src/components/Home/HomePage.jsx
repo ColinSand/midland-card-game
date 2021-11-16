@@ -22,7 +22,7 @@ export default function HomePage() {
   const [gameId, setGameId] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [hosting, isHost, setIsHost] = useContext(UserContext);
+  const { hosting, isHost, setIsHost } = useContext(UserContext);
 
   const generateGameId = () => {
     return Math.random().toString(36).substr(2, 6);
