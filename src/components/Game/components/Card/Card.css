@@ -1,0 +1,22 @@
+.card-container {
+  display: "flex";
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: "5px";
+  width: "50px";
+  height: "80px";
+  padding: "5px";
+}
+
+.card-flex {
+  flex-basis: calc((100% / 3) + 5px);
+}
+
+.card-value {
+  text-align: center;
+  font-size: 40px;
+}
+
+.bottom-right {
+  text-align: end;
+}
