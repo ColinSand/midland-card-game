@@ -22,8 +22,8 @@ export function GameProvider(props) {
   const [deck, setDeck] = useState([]);
   // the cardsDealt array should be an array of objects, have the usernames of each player, then the individual cards
   const [players, setPlayers] = useState([]);
-  const [gameActive, setGameActive] = useMemo(false);
   const [isTurn, setIsTurn] = useState(null);
+  const gameActive = useMemo(() => isTurn !== null, [isTurn]);
 
   // "player" is an object consisting of two keys-- 'username'(provided when they join a room)
   // and a 'hand'(consisting of an array of 5 cards defined upon 'startGameDeal' function and updated
@@ -67,29 +67,30 @@ export function GameProvider(props) {
         deck[location2] = tmp;
       }
       console.log(deck);
-      setDeck(deck);
+      startGameDeal(deck);
     },
     [deck]
   );
 
-  const startGameDeal = useCallback(() => {
-    let newPlayers = [...players];
-    let newDeck = [...deck];
-    for (let i = 0; i < 5; i++) {
-      for (let j = 0; j < players.length; j++) {
-        newPlayers[i].deck = [...newPlayers[i].deck, newDeck.shift()];
+  const startGameDeal = useCallback(
+    (deck) => {
+      let newPlayers = [...players];
+      let newDeck = [...deck];
+      for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < players.length; j++) {
+          newPlayers[i].deck = [...newPlayers[i].deck, newDeck.shift()];
+        }
       }
-    }
-    setIsTurn(0);
-    setDeck(newDeck);
-    setPlayers(newPlayers);
-    return { player: newPlayers, deck: newDeck, isturn: 0 };
-  }, [players, deck]);
+      return { players: newPlayers, deck: newDeck, isturn: 0 };
+    },
+    [players, deck]
+  );
 
   const draw = useCallback(
     (playerIdx, keptCards) => {
       let newPlayers = [...players];
       let newDeck = [...deck];
+      let newIsTurn = isTurn;
       newPlayers[playerIdx].deck = [keptCards];
       while (newPlayers[playerIdx].deck.length < 5) {
         newPlayers[playerIdx].deck = [
@@ -98,12 +99,12 @@ export function GameProvider(props) {
         ];
       }
       // the following if may need to be reworked.  What happens at the end of the last player's turn?
-      if (isTurn < players.length) {
-        setIsTurn(curr + 1);
+      if (isTurn < players.length - 1) {
+        newIsTurn++;
+      } else {
+        newIsTurn = null;
       }
-      setDeck(newDeck);
-      setPlayers(newPlayers);
-      return { player: newPlayers, deck: newDeck, isturn: curr + 1 };
+      return { player: newPlayers, deck: newDeck, isturn: newIsTurn };
     },
     [players, deck]
   );
@@ -114,23 +115,13 @@ export function GameProvider(props) {
     let i = players.findIndex(username);
 
     if (i <= isTurn) {
-      setIsTurn(curr - 1);
+      setIsTurn((curr) => curr - 1);
     } else {
       const newPlayersArray = players.filter(
         (player) => username !== player.username
       );
       setPlayers(newPlayersArray);
       console.log(newPlayersArray);
-    }
-  }, []);
-
-  const gameEnds = useCallback(() => {
-    if ((gameActive = false)) {
-      // show everyone's cards, then let the host use the shuffle and startGameDeal button
-      return;
-    }
-    if ((isTurn = players.length)) {
-      setGameActive(false);
     }
   }, []);
 
@@ -141,14 +132,12 @@ export function GameProvider(props) {
         players,
         gameActive,
         isTurn,
+        setDeck,
         createDeck,
         shuffleDeck,
-        dealCards,
         startGameDeal,
-        dealOneCard,
         draw,
         leaveGame,
-        gameEnds,
       }}
     >
       {props.children}
