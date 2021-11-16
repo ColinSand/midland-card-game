@@ -11,19 +11,25 @@ const socketConf = (io) => {
       socket.join(gameRoom);
       io.in(gameRoom).emit("chat", {
         msg: `${user} has joined the game`,
+        color: randColor,
       });
     });
     socket.on("disconnect", ({ user }) => {
       socket.close(gameRoom);
       io.in(gameRoom).emit("chat", {
         msg: `${user} has left the game`,
+        color: randColor,
       });
     });
-    socket.on("update deck", ({ dealCards }) => {
-      io.to(gameRoom).emit("update deck", { dealCards });
+    socket.on("update deck", ({ deck, players }) => {
+      io.to(gameRoom).emit("update deck", { deck, players });
     });
     socket.on("chat", (msg) => {
-      io.in(gameRoom).emit("chat", { msg });
+      io.in(gameRoom).emit("chat", {
+        user: msg.user,
+        color: msg.color,
+        body: msg.body,
+      });
     });
   });
 };
