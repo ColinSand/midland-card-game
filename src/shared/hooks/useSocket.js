@@ -7,7 +7,7 @@ const useSocket = (room) => {
   const [color, setColor] = useState(null);
   const [message, setMessage] = useState([]);
   const { user, isHost } = useContext(UserContext);
-  const { leaveGame } = useContext(GameContext);
+  const { leaveGame, setDeck } = useContext(GameContext);
 
   const socketRef = useRef();
 
@@ -24,8 +24,8 @@ const useSocket = (room) => {
     socketRef.current.on("join room", (room) => {
       (curr) => [...curr, room];
     });
-    socketRef.current.on("leave game", () => {
-      leaveGame();
+    socketRef.current.on("leave game", ({ leave }) => {
+      leaveGame(leave);
     });
     socketRef.current.on("update deck", ({ deck, players }) => {
       setDeck(deck);
@@ -35,6 +35,10 @@ const useSocket = (room) => {
       setIsHost(isHost);
     });
   }, []);
+
+  const leaving = useCallback(() => {
+    socketRef.current.emit("leave game", { leaving });
+  });
 
   const host = useCallback(() => {
     socketRef.current.emit("host", { host });
