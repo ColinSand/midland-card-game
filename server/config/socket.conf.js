@@ -21,8 +21,8 @@ const socketConf = (io) => {
         color: randColor,
       });
     });
-    socket.on("update deck", ({ deck, players }) => {
-      io.to(gameRoom).emit("update deck", { deck, players });
+    socket.on("update deck", ({ deck, players, isTurn }) => {
+      io.to(gameRoom).emit("update deck", { deck, players, isTurn });
     });
     socket.on("chat", (msg) => {
       io.in(gameRoom).emit("chat", {

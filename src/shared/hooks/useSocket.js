@@ -37,15 +37,14 @@ const useSocket = (room) => {
     });
   }, []);
 
-  const updatedDeck = useCallback(() => {
-    createDeck();
-    socketRef.current.emit("update deck", { players, deck, isTurn });
-    return updatedDeck(createDeck);
+  const startGame = useCallback(() => {
+    let updatedDeck = createDeck();
+    socketRef.current.emit("update deck", updatedDeck);
   });
 
   const drawCards = useCallback((playerIdx, keptCards) => {
-    draw(playerIdx, keptCards);
-    socketRef.current.emit("draw", { players, deck, isTurn });
+    let updatedDeck = draw(playerIdx, keptCards);
+    socketRef.current.emit("update deck", updatedDeck);
   });
 
   const sendChat = useCallback(
@@ -54,13 +53,7 @@ const useSocket = (room) => {
     },
     [color]
   );
-  return { message, sendChat, drawCards, updatedDeck };
+  return { message, sendChat, drawCards, startGame };
 };
 
 export default useSocket;
-
-// For draw take value of function
-// Join game needs on but not emit
-// Leave game needs on and emit
-// Update deck needs on and emit
-//
