@@ -16,7 +16,7 @@ import { UserContext } from "../../shared/context/UserContext";
 // most of the card functionality will come from seth
 
 //further breakdown:
-// display game code-done
+// display game code-done (pass this into the useSocket hook)
 // show host's name
 // card functionality?
 // choose which cards to discard on your turn?
@@ -32,20 +32,21 @@ function GamePage() {
     cardsDealt,
     players,
     isActive,
-
     isTurn,
     createDeck,
     shuffleDeck,
     dealCards,
   } = useContext(GameContext);
   console.log(window.location.href);
+
+  const gameCode = window.location.href.slice(-6);
   return (
     <>
       <div>
         <br></br>
         <div>
           Join code for this game:
-          {window.location.href.slice(-6)}
+          {gameCode}
         </div>
         {/* the following line is having issues with the isHost, that may not be done correctly in the userContext */}
         {/* <div>Hosted By:{isHost}</div> */}
