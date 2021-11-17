@@ -1,8 +1,22 @@
-import React from "react";
 import { useContext } from "react";
 import { GameContext } from "../../shared/context/GameContext";
-import Button from "@mui/material/Button";
 import { UserContext } from "../../shared/context/UserContext";
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import { FormHelperText } from "@mui/material";
 
 // here we go
 // nate's chat will be shown on the left side, towards the bottom
@@ -25,6 +39,10 @@ import { UserContext } from "../../shared/context/UserContext";
 // show whos turn it currently is
 // need to map through the players array that is given by Seth
 
+// const socketGameCode = useSocket(window.location.href.slice(-6));
+
+const theme = createTheme();
+
 function GamePage() {
   const { isHost, user } = useContext(UserContext);
   const { deck, cardsDealt, players, isActive, isTurn, createDeck } =
@@ -32,17 +50,19 @@ function GamePage() {
   const gameCode = window.location.href.slice(-6);
   return (
     <>
-      <div>
-        <br />
-        <div>
+      {" "}
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Box>
           Join code for this game:
           {gameCode}
-        </div>
-        <br />
-        {/* the following line is having issues with the isHost, that may not be done correctly in the userContext */}
-        <div>Hosted By:{isHost}</div>
-        <br />
+        </Box>
+        <Box>
+          {/* the following line is having issues with the isHost, that may not be done correctly in the userContext */}
+          <div>Hosted By:{isHost}</div>
+        </Box>
         <Button
+          disabled={!isHost}
           variant="contained"
           onClick={() => {
             createDeck();
@@ -50,7 +70,8 @@ function GamePage() {
         >
           Shuffle Deck, Start Game
         </Button>
-      </div>
+        <Container>Players and their cards will be shown here</Container>
+      </ThemeProvider>
     </>
   );
 }
