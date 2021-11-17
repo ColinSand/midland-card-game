@@ -29,40 +29,38 @@ function Player({ drawCards, player, playerIdx }) {
           <div>{user.username}</div>
           <div className="card-container">
             {player.hand.map((card, idx) => (
-              <>
-                <label for="card">
-                  <Card
-                    key={idx}
-                    face={card.value}
-                    suit={card.suit}
-                    showCard={player.username === user.username || !gameActive}
-                  />
-                </label>
-                {isTurn === playerIdx && (
-                  <input
-                    type="checkbox"
-                    id="card"
-                    checked={!keepCards.includes(card)}
-                    disabled={
-                      keepCards.includes(card) && keepCards.length === 2
-                    }
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setKeepCards((curr) => curr.filter((v) => v !== card));
-                      } else {
-                        setKeepCards((curr) => [...curr, card]);
-                      }
-                    }}
-                  />
-                )}
-              </>
+              <div
+                key={idx}
+                style={{
+                  border: `1px solid ${
+                    !keepCards.includes(card) ? "red" : "green"
+                  }`,
+                }}
+                onClick={() => {
+                  const kept = keepCards.includes(card);
+                  if (isTurn !== playerIdx || (kept && keepCards.length < 3))
+                    return;
+                  if (kept) {
+                    setKeepCards((curr) => curr.filter((v) => v !== card));
+                  } else {
+                    setKeepCards((curr) => [...curr, card]);
+                  }
+                }}
+              >
+                <Card
+                  key={idx}
+                  face={card.value}
+                  suit={card.suit}
+                  showCard={player.username === user.username || !gameActive}
+                />
+              </div>
             ))}
             {isTurn === playerIdx && (
               <>
                 <div>Select cards to discard</div>
                 <Button
                   onClick={() => {
-                    drawCards([...keepCards]);
+                    drawCards(playerIdx, [...keepCards]);
                   }}
                 >
                   {keepCards.length === 5 ? "Stay" : "Draw"}
