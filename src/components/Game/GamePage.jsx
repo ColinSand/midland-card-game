@@ -16,6 +16,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useSocket from "../../shared/hooks/useSocket";
 import { FormHelperText } from "@mui/material";
+import { useParams } from "react-router-dom";
 
 // here we go
 // nate's chat will be shown on the left side, towards the bottom
@@ -28,7 +29,7 @@ import { FormHelperText } from "@mui/material";
 // your cards face up with the draw and stay buttons, then check up to 3 boxes to select cards to draw/replace.
 // most of the card functionality will come from seth
 
-//further breakdown:
+// further breakdown:
 // display game code-displayed on the game page, but also need to pass this into the useSocket hook
 // show host's name - now shows in the top left
 // card functionality? i believe seth will be taking care of most of this
@@ -45,8 +46,13 @@ function GamePage() {
   const { deck, cardsDealt, players, isActive, isTurn, createDeck } =
     useContext(GameContext);
   const gameCode = window.location.href.slice(-6);
-  // the following needs to get route parameter
-  const socketGameCode = useSocket(window.location.href.slice(-6));
+  // the following needs to get route parameter, then pass that to useSocket hook
+  // const socketGameCode = useSocket(window.location.href.slice(-6));
+
+  // const socketGameCode = useSocket(":gameCode");
+
+  const { id } = useParams();
+  const socket = useSocket(id);
 
   return (
     <>
@@ -73,7 +79,6 @@ function GamePage() {
           <FormHelperText>&#8593; Host Only &#8593;</FormHelperText>
         </Box>
         <Grid height="20px"></Grid>
-
         <Grid container direction="row" spacing={2}>
           <Grid>Chat goes here-lower left</Grid>
           <Grid>Main Cards Element</Grid>
