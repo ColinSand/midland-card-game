@@ -15,7 +15,6 @@ const socketConf = (io) => {
       });
     });
     socket.on("disconnect", ({ user }) => {
-      socket.close(gameRoom);
       io.in(gameRoom).emit("chat", {
         msg: `${user} has left the game`,
         color: randColor,

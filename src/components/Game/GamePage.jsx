@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { GameContext } from "../../shared/context/GameContext";
+import Chat from "./components/Chat/Chat";
 
 function GamePage() {
   const {
@@ -31,6 +32,7 @@ function GamePage() {
           }}
         ></button>
       </div>
+      <Chat />
     </>
   );
 }

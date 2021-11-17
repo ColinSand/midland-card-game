@@ -1,0 +1,27 @@
+.message-location {
+  display: flex;
+  flex-flow: column;
+  margin-top: 20%;
+  margin-right: 80%;
+  border: 1px solid black;
+}
+
+.input-bar {
+  height: 20px;
+  width: 97%;
+}
+
+.send-btn {
+  height: 30px;
+  width: 100%;
+}
+
+.chat-header {
+  background-color: #1f2f53;
+  font-weight: 600;
+  font-size: 150%;
+  color: white;
+  margin-bottom: 40%;
+  height: 30px;
+  text-align: center;
+}
