@@ -47,6 +47,7 @@ function GamePage() {
   const { deck, cardsDealt, players, isActive, isTurn, createDeck } =
     useContext(GameContext);
   const gameCode = window.location.href.slice(-6);
+  // the following needs to get route parameter
   const socketGameCode = useSocket(window.location.href.slice(-6));
 
   return (
