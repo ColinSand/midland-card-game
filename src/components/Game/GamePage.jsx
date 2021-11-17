@@ -34,6 +34,11 @@ import { useParams } from "react-router-dom";
 // then, on turn let them select up to 3 of the 5 cards in their hand to exchange for the top card (draw function)
 
 // for the players and cards map through the users, and generate players (pass in draw cards, player(mapped through players array) player index)
+// Seth is looking for the "player" and playerIdx props to be passed in to his playercomponent.
+// need to pull drawCards from the useSocket hook?
+// ultimately i need to get Seth drawCards, player, playerIdx.
+// use object deconstruction with the useSocket hook
+
 // for Chat- I will need message, sendChat, as props,  maybe something else, probably not
 
 const theme = createTheme();
