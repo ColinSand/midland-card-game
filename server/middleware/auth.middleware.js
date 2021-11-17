@@ -10,7 +10,6 @@ async function auth(req, res, next) {
         error: "Something went wrong. Please try again, middleware",
       });
     }
-    console.log(err);
     if (!user) {
       return res.status(401).send({
         success: false,

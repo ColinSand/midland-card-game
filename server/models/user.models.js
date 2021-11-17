@@ -30,7 +30,6 @@ async function signup(res, username, password) {
       data: "Sign up successful!",
     });
   } catch (e) {
-    console.log(e);
     res.send({
       success: false,
       data: null,

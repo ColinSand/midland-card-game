@@ -99,7 +99,6 @@ export default function LoginPage() {
                   setError(true);
                   return;
                 }
-                console.log({ username, password });
                 apiCall("/api/users/login", { username, password });
               }}
             >

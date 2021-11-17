@@ -121,7 +121,6 @@ export function GameProvider(props) {
           (player) => username !== player.username
         );
         setPlayers(newPlayersArray);
-        console.log(newPlayersArray);
       }
     },
     [isTurn]

@@ -27,14 +27,8 @@ export default function SignUpPage() {
   const [verifyAge, setVerifyAge] = useState(false);
   const { json, error: resError, apiCall } = useAxios("post");
 
-  useEffect(() => {
-    console.log(json);
-  }, [json]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log(data);
   };
 
   return (
@@ -139,7 +133,6 @@ export default function SignUpPage() {
                   return;
                 }
 
-                console.log({ username, password });
                 apiCall("/api/users/signup", { username, password });
               }}
             >
