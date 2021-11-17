@@ -20,7 +20,7 @@ import { Button } from "@mui/material";
 function Player({ drawCards, player, playerIdx }) {
   const { user } = useContext(UserContext);
   const { isTurn, gameActive } = useContext(GameContext);
-  const [keepCards, setKeepCards] = useState([]);
+  const [keepCards, setKeepCards] = useState([...player.hand]);
 
   return (
     <>
@@ -42,12 +42,13 @@ function Player({ drawCards, player, playerIdx }) {
                   <input
                     type="checkbox"
                     id="card"
-                    checked={keepCards.includes(card)}
+                    checked={!keepCards.includes(card)}
+                    disabled={keepCards.length === 2}
                     onChange={(e) => {
                       if (e.target.checked) {
-                        setKeepCards((curr) => [...curr, card]);
-                      } else {
                         setKeepCards((curr) => curr.filter((v) => v !== card));
+                      } else {
+                        setKeepCards((curr) => [...curr, card]);
                       }
                     }}
                   />
@@ -56,7 +57,7 @@ function Player({ drawCards, player, playerIdx }) {
             ))}
             {isTurn === playerIdx && (
               <>
-                <div>Select cards to keep then click "DRAW" or "STAY"</div>
+                <div>Select cards to discard then click "DRAW" or "STAY"</div>
                 <Button
                   onClick={() => {
                     drawCards([...keepCards]);
