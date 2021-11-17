@@ -32,8 +32,6 @@ export default function LoginPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log(data);
   };
 
   return (
@@ -101,7 +99,6 @@ export default function LoginPage() {
                   setError(true);
                   return;
                 }
-                console.log({ username, password });
                 apiCall("/api/users/login", { username, password });
               }}
             >

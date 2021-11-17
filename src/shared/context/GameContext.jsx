@@ -47,10 +47,10 @@ export function GameProvider(props) {
   ];
 
   function createDeck() {
-    let newDeck = new Array();
+    let newDeck = [];
     for (let i = 0; i < cardSuits.length; i++) {
       for (let x = 0; x < cardValues.length; x++) {
-        let card = { Value: cardValues[x], Suit: cardSuits[i] };
+        let card = { value: cardValues[x], suit: cardSuits[i] };
         newDeck.push(card);
       }
     }
@@ -66,10 +66,9 @@ export function GameProvider(props) {
         deck[location1] = deck[location2];
         deck[location2] = tmp;
       }
-      console.log(deck);
       startGameDeal(deck);
     },
-    [deck]
+    [deck, startGameDeal]
   );
 
   const startGameDeal = useCallback(
@@ -83,7 +82,7 @@ export function GameProvider(props) {
       }
       return { players: newPlayers, deck: newDeck, isTurn: 0 };
     },
-    [players, deck]
+    [players]
   );
 
   const draw = useCallback(
@@ -106,24 +105,26 @@ export function GameProvider(props) {
       }
       return { players: newPlayers, deck: newDeck, isTurn: newIsTurn };
     },
-    [players, deck]
+    [players, deck, isTurn]
   );
 
   //Whose turn is it???/ if it is player's turn, pass play to next player in players array???
   //How to move on to next player???
-  const leaveGame = useCallback((username) => {
-    let i = players.findIndex(username);
+  const leaveGame = useCallback(
+    (username) => {
+      let i = players.findIndex(username);
 
-    if (i <= isTurn) {
-      setIsTurn((curr) => curr - 1);
-    } else {
-      const newPlayersArray = players.filter(
-        (player) => username !== player.username
-      );
-      setPlayers(newPlayersArray);
-      console.log(newPlayersArray);
-    }
-  }, []);
+      if (i <= isTurn) {
+        setIsTurn((curr) => curr - 1);
+      } else {
+        const newPlayersArray = players.filter(
+          (player) => username !== player.username
+        );
+        setPlayers(newPlayersArray);
+      }
+    },
+    [isTurn]
+  );
 
   return (
     <GameContext.Provider
