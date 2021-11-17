@@ -18,26 +18,23 @@ import useSocket from "../../shared/hooks/useSocket";
 import { FormHelperText } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-// here we go
-// nate's chat will be shown on the left side, towards the bottom
-
-// need to show the game number, hosted by ${host} with a deal/start button that only the host can see.
-
-// top right will have the name of the player who's turn it currently is
-
 // the center of this page should have all of the usernames with their cards (face down)
 // your cards face up with the draw and stay buttons, then check up to 3 boxes to select cards to draw/replace.
 // most of the card functionality will come from seth
 
 // further breakdown:
-// display game code-displayed on the game page, but also need to pass this into the useSocket hook
+// display game code-displayed on the game page, but also need to pass this into the useSocket hook (not sure if done properly)
 // show host's name - now shows in the top left
 // card functionality? i believe seth will be taking care of most of this
 // choose which cards to discard on your turn?
 // set up a spot for chat to be implemented
 // set up spot for cards and players (middle of page)
-// show whos turn it currently is
-// need to map through the players array that is given by Seth
+// show whos turn it currently is (top right of page)
+// need to map through the players array that is given by Seth, should show the cards only for that player
+// then, on turn let them select up to 3 of the 5 cards in their hand to exchange for the top card (draw function)
+
+// for the players and cards map through the users, and generate players (pass in draw cards, player(mapped through players array) player index)
+// for Chat- I will need message, sendChat, as props,  maybe something else, probably not
 
 const theme = createTheme();
 
@@ -55,36 +52,44 @@ function GamePage() {
   const socket = useSocket(id);
 
   return (
-    <>
+    <Box sx={{ display: "flex" }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box>
-          Join code for this game:
-          {gameCode}
-        </Box>
-        <Box>
-          <div>Hosted By:{isHost}</div>
-        </Box>
-        <Box sx={{ maxWidth: 200 }}>
-          <Button
-            sx={{ width: 150, height: 40 }}
-            disabled={!isHost}
-            variant="contained"
-            onClick={() => {
-              createDeck();
-            }}
-          >
-            Start Game
-          </Button>
-          <FormHelperText>&#8593; Host Only &#8593;</FormHelperText>
+        <Box container sx={{ flexDirection: "column", alignItems: "start" }}>
+          <Box item>
+            Join code for this game:
+            {gameCode}
+          </Box>
+          <Box item>
+            <div>Hosted By:{isHost}</div>
+          </Box>
+          make the start game function only visible for the host, and show a
+          little bit
+          <Box item sx={{ maxWidth: 200 }}>
+            <Button
+              sx={{ width: 150, height: 40 }}
+              disabled={!isHost}
+              variant="contained"
+              onClick={() => {
+                createDeck();
+              }}
+            >
+              Start Game
+            </Button>
+            <FormHelperText>&#8593; Host Only &#8593;</FormHelperText>
+          </Box>
+          <Box> </Box>
         </Box>
         <Grid height="20px"></Grid>
-        <Grid container direction="row" spacing={2}>
-          <Grid>Chat goes here-lower left</Grid>
+        <Container
+          sx={{ flexDirection: "column", alignItems: "center" }}
+          container
+          spacing={2}
+        >
           <Grid>Main Cards Element</Grid>
-        </Grid>
+        </Container>
       </ThemeProvider>
-    </>
+    </Box>
   );
 }
 
