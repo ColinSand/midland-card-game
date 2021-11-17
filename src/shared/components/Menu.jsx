@@ -4,8 +4,6 @@ import { UserContext } from "../context/UserContext";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 
-import Button from "@mui/material/Button";
-
 import "./Menu.css";
 
 export default function Menu() {
@@ -37,10 +35,6 @@ export default function Menu() {
                   <NavLink to="/home" className="link">
                     Home
                   </NavLink>
-                  <NavLink to="/Game" className="link">
-                    Game
-                  </NavLink>
-
                   <button onClick={clearState} className="logout">
                     Logout
                   </button>

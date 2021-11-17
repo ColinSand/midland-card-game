@@ -22,7 +22,7 @@ export default function HomePage() {
   const [gameId, setGameId] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { hosting, isHost, setIsHost } = useContext(UserContext);
+  const { setIsHost } = useContext(UserContext);
 
   const generateGameId = () => {
     return Math.random().toString(36).substr(2, 6);
@@ -30,7 +30,6 @@ export default function HomePage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
   };
 
   const joinGame = () => {
@@ -96,10 +95,7 @@ export default function HomePage() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  onClick={() => {
-                    joinGame();
-                    console.log(gameId);
-                  }}
+                  onClick={joinGame}
                 >
                   Join Table
                 </Button>
@@ -146,8 +142,8 @@ export default function HomePage() {
                   sx={{ mt: 3, maxWidth: "194px" }}
                   onClick={(e) => {
                     const newGameId = generateGameId();
+                    setIsHost(true);
                     navigate(`/game/${newGameId}`);
-                    hosting();
                   }}
                 >
                   Create Table

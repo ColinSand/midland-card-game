@@ -4,12 +4,12 @@ export const UserContext = React.createContext(null);
 
 export function UserProvider(props) {
   const [user, setUser] = useState({ username: "test" });
-  const { json, error, apiCall } = useAxios("get");
+  const { json, apiCall } = useAxios("get");
   const [isHost, setIsHost] = useState(null);
 
   useEffect(() => {
     apiCall("/api/users/verify");
-  }, []);
+  }, [apiCall]);
 
   useEffect(() => {
     if (json && json.success) {
@@ -19,11 +19,7 @@ export function UserProvider(props) {
 
   const clearState = useCallback(() => {
     apiCall("/api/users/logout");
-  }, []);
-
-  const hosting = useCallback(() => {
-    setIsHost(true);
-  }, []);
+  }, [apiCall]);
 
   return (
     <UserContext.Provider
@@ -31,7 +27,6 @@ export function UserProvider(props) {
         user,
         setUser,
         clearState,
-        hosting,
         isHost,
         setIsHost,
       }}

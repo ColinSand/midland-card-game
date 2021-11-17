@@ -133,7 +133,7 @@ export default function SignUpPage() {
                   username.length < 4 ||
                   password.length < 8 ||
                   password !== verifyPassword ||
-                  verifyAge == false
+                  !verifyAge
                 ) {
                   setError(true);
                   return;
