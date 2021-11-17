@@ -16,40 +16,32 @@ import { UserContext } from "../../shared/context/UserContext";
 // most of the card functionality will come from seth
 
 //further breakdown:
-// display game code-done (pass this into the useSocket hook)
-// show host's name
-// card functionality?
+// display game code-displayed on the game page, but also need to pass this into the useSocket hook
+// show host's name - now shows in the top left
+// card functionality? i believe seth will be taking care of most of this
 // choose which cards to discard on your turn?
 // set up a spot for chat to be implemented
+// set up spot for cards and players (middle of page)
 // show whos turn it currently is
-//
+// need to map through the players array that is given by Seth
 
 function GamePage() {
-  const { isHost } = useContext(UserContext);
-
-  const {
-    deck,
-    cardsDealt,
-    players,
-    isActive,
-    isTurn,
-    createDeck,
-    shuffleDeck,
-    dealCards,
-  } = useContext(GameContext);
-  console.log(window.location.href);
-
+  const { isHost, user } = useContext(UserContext);
+  const { deck, cardsDealt, players, isActive, isTurn, createDeck } =
+    useContext(GameContext);
   const gameCode = window.location.href.slice(-6);
   return (
     <>
       <div>
-        <br></br>
+        <br />
         <div>
           Join code for this game:
           {gameCode}
         </div>
+        <br />
         {/* the following line is having issues with the isHost, that may not be done correctly in the userContext */}
-        {/* <div>Hosted By:{isHost}</div> */}
+        <div>Hosted By:{isHost}</div>
+        <br />
         <Button
           variant="contained"
           onClick={() => {

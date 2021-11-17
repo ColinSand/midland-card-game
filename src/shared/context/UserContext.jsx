@@ -21,17 +21,12 @@ export function UserProvider(props) {
     apiCall("/api/users/logout");
   }, []);
 
-  const hosting = useCallback(() => {
-    setIsHost(true);
-  }, []);
-
   return (
     <UserContext.Provider
       value={{
         user,
         setUser,
         clearState,
-        hosting,
         isHost,
         setIsHost,
       }}
