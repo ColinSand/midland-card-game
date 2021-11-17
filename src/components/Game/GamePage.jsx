@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { GameContext } from "../../shared/context/GameContext";
 import { UserContext } from "../../shared/context/UserContext";
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -16,7 +15,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useSocket from "../../shared/hooks/useSocket";
-
 import { FormHelperText } from "@mui/material";
 
 // here we go
@@ -61,16 +59,25 @@ function GamePage() {
         <Box>
           <div>Hosted By:{isHost}</div>
         </Box>
-        <Button
-          disabled={!isHost}
-          variant="contained"
-          onClick={() => {
-            createDeck();
-          }}
-        >
-          Shuffle Deck, Start Game
-        </Button>
-        <Container>Players and their cards will be shown here</Container>
+        <Box sx={{ maxWidth: 200 }}>
+          <Button
+            sx={{ width: 150, height: 40 }}
+            disabled={!isHost}
+            variant="contained"
+            onClick={() => {
+              createDeck();
+            }}
+          >
+            Start Game
+          </Button>
+          <FormHelperText>&#8593; Host Only &#8593;</FormHelperText>
+        </Box>
+        <Grid height="20px"></Grid>
+
+        <Grid container direction="row" spacing={2}>
+          <Grid>Chat goes here-lower left</Grid>
+          <Grid>Main Cards Element</Grid>
+        </Grid>
       </ThemeProvider>
     </>
   );
