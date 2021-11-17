@@ -15,6 +15,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import useSocket from "../../shared/hooks/useSocket";
 
 import { FormHelperText } from "@mui/material";
 
@@ -39,8 +40,6 @@ import { FormHelperText } from "@mui/material";
 // show whos turn it currently is
 // need to map through the players array that is given by Seth
 
-// const socketGameCode = useSocket(window.location.href.slice(-6));
-
 const theme = createTheme();
 
 function GamePage() {
@@ -48,6 +47,8 @@ function GamePage() {
   const { deck, cardsDealt, players, isActive, isTurn, createDeck } =
     useContext(GameContext);
   const gameCode = window.location.href.slice(-6);
+  const socketGameCode = useSocket(window.location.href.slice(-6));
+
   return (
     <>
       <ThemeProvider theme={theme}>

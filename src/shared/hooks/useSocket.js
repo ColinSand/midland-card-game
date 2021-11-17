@@ -1,4 +1,4 @@
-import { useCallback, useContext, useRef, useState } from "react";
+import { useCallback, useContext, useRef, useState, useEffect } from "react";
 import socketIoClient from "socket.io-client";
 import { UserContext } from "../context/UserContext";
 import { GameContext } from "../context/GameContext";
@@ -8,8 +8,15 @@ const useSocket = (room) => {
   const [message, setMessage] = useState("");
 
   const { user, isHost } = useContext(UserContext);
-  const { leaveGame, setDeck, draw, createDeck, setIsTurn, setPlayers } =
-    useContext(GameContext);
+  const {
+    leaveGame,
+    setDeck,
+    draw,
+    createDeck,
+    setIsTurn,
+    setPlayers,
+    players,
+  } = useContext(GameContext);
 
   const socketRef = useRef();
 
