@@ -30,7 +30,6 @@ export default function HomePage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
   };
 
   const joinGame = () => {
@@ -96,10 +95,7 @@ export default function HomePage() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  onClick={() => {
-                    joinGame();
-                    console.log(gameId);
-                  }}
+                  onClick={joinGame}
                 >
                   Join Table
                 </Button>

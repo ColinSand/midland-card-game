@@ -9,7 +9,7 @@ export function UserProvider(props) {
 
   useEffect(() => {
     apiCall("/api/users/verify");
-  }, []);
+  }, [apiCall]);
 
   useEffect(() => {
     if (json && json.success) {
@@ -19,7 +19,7 @@ export function UserProvider(props) {
 
   const clearState = useCallback(() => {
     apiCall("/api/users/logout");
-  }, []);
+  }, [apiCall]);
 
   return (
     <UserContext.Provider
