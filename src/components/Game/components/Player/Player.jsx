@@ -43,7 +43,9 @@ function Player({ drawCards, player, playerIdx }) {
                     type="checkbox"
                     id="card"
                     checked={!keepCards.includes(card)}
-                    disabled={keepCards.length === 2}
+                    disabled={
+                      keepCards.includes(card) && keepCards.length === 2
+                    }
                     onChange={(e) => {
                       if (e.target.checked) {
                         setKeepCards((curr) => curr.filter((v) => v !== card));
@@ -57,22 +59,13 @@ function Player({ drawCards, player, playerIdx }) {
             ))}
             {isTurn === playerIdx && (
               <>
-                <div>Select cards to discard then click "DRAW" or "STAY"</div>
+                <div>Select cards to discard</div>
                 <Button
                   onClick={() => {
                     drawCards([...keepCards]);
-                    setKeepCards([]);
                   }}
                 >
-                  Draw
-                </Button>
-                <Button
-                  onClick={() => {
-                    drawCards([...player.hand]);
-                    setKeepCards([]);
-                  }}
-                >
-                  Stay
+                  {keepCards.length === 5 ? "Stay" : "Draw"}
                 </Button>
               </>
             )}
