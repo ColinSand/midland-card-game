@@ -50,7 +50,7 @@ export function GameProvider(props) {
     let newDeck = new Array();
     for (let i = 0; i < cardSuits.length; i++) {
       for (let x = 0; x < cardValues.length; x++) {
-        let card = { Value: cardValues[x], Suit: cardSuits[i] };
+        let card = { value: cardValues[x], suit: cardSuits[i] };
         newDeck.push(card);
       }
     }

@@ -5,11 +5,10 @@
 //Display card face or back dependent upon user
 //Display card selector boxes and draw/stay buttons dependent upon isTurn
 
-//Checked boxes need to update state "discard" (add to array) and deselecting needs to 
+//Checked boxes need to update state "discard" (add to array) and deselecting needs to
 //remove from "discard" array.
 
 //Need to prevent adding more than 3 cards to "discard" array/selecting more that 3 cards
-
 
 import React, { useContext, useState } from "react";
 import Card from "../Card/Card";
@@ -18,43 +17,62 @@ import { GameContext } from "../../../../shared/context/GameContext";
 import "./Player.css";
 import { Button } from "@mui/material";
 
-
-
 function Player({ drawCards, player, playerIdx }) {
-  const { username } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { isTurn, gameActive } = useContext(GameContext);
-  const [ keepCards, setKeepCards ] = useState([]);
-
-//   const submitCards = () => {
-//       let newDiscardArray = [...toDiscard]
-//     }
-
-
+  const [keepCards, setKeepCards] = useState([]);
 
   return (
     <>
-      <div classname="player-container">
+      <div className="player-container">
         <>
-          <div>{username}</div>
+          <div>{user.username}</div>
           <div className="card-container">
             {player.hand.map((card, idx) => (
               <>
                 <label for="card">
                   <Card
                     key={idx}
-                    cardValues={card.cardValues}
-                    cardSuits={card.cardSuits}
-                    showCard={player.username === username || !gameActive}
+                    face={card.value}
+                    suit={card.suit}
+                    showCard={player.username === user.username || !gameActive}
                   />
                 </label>
-                {isTurn && <input type="checkbox" id="card" checked={} onChange= />}
+                {isTurn === playerIdx && (
+                  <input
+                    type="checkbox"
+                    id="card"
+                    checked={keepCards.includes(card)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setKeepCards((curr) => [...curr, card]);
+                      } else {
+                        setKeepCards((curr) => curr.filter((v) => v !== card));
+                      }
+                    }}
+                  />
+                )}
               </>
             ))}
-            {isTurn && (
+            {isTurn === playerIdx && (
               <>
-                <div>Select cards to exchange then click "DRAW" or "STAY"</div>
-                <Button>Draw</Button>
-                <Button>Stay</Button>
+                <div>Select cards to keep then click "DRAW" or "STAY"</div>
+                <Button
+                  onClick={() => {
+                    drawCards([...keepCards]);
+                    setKeepCards([]);
+                  }}
+                >
+                  Draw
+                </Button>
+                <Button
+                  onClick={() => {
+                    drawCards([...player.hand]);
+                    setKeepCards([]);
+                  }}
+                >
+                  Stay
+                </Button>
               </>
             )}
           </div>
