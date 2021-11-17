@@ -50,7 +50,6 @@ function GamePage() {
   const gameCode = window.location.href.slice(-6);
   return (
     <>
-      {" "}
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Box>
@@ -58,7 +57,6 @@ function GamePage() {
           {gameCode}
         </Box>
         <Box>
-          {/* the following line is having issues with the isHost, that may not be done correctly in the userContext */}
           <div>Hosted By:{isHost}</div>
         </Box>
         <Button
