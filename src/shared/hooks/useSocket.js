@@ -5,7 +5,7 @@ import { GameContext } from "../context/GameContext";
 
 const useSocket = (room) => {
   const [color, setColor] = useState(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
 
   const { user, isHost } = useContext(UserContext);
   const {

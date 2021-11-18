@@ -45,6 +45,7 @@ import Chat from "./components/Chat/Chat";
 
 const theme = createTheme();
 
+
 function GamePage() {
   const { isHost, user } = useContext(UserContext);
   const { players, isTurn, gameActive } = useContext(GameContext);
@@ -106,6 +107,7 @@ function GamePage() {
         />
       ))}
     </Box>
+
   );
 }
 
