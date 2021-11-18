@@ -22,7 +22,7 @@ export default function HomePage() {
   const [gameId, setGameId] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { setIsHost } = useContext(UserContext);
+  const { hosting, isHost, setIsHost, user } = useContext(UserContext);
 
   const generateGameId = () => {
     return Math.random().toString(36).substr(2, 6);
@@ -142,8 +142,8 @@ export default function HomePage() {
                   sx={{ mt: 3, maxWidth: "194px" }}
                   onClick={(e) => {
                     const newGameId = generateGameId();
-                    setIsHost(true);
                     navigate(`/game/${newGameId}`);
+                    setIsHost(user.username);
                   }}
                 >
                   Create Table

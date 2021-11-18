@@ -46,16 +46,19 @@ export function GameProvider(props) {
     "A",
   ];
 
-  function createDeck() {
-    let newDeck = [];
-    for (let i = 0; i < cardSuits.length; i++) {
-      for (let x = 0; x < cardValues.length; x++) {
-        let card = { value: cardValues[x], suit: cardSuits[i] };
-        newDeck.push(card);
+  const startGameDeal = useCallback(
+    (deck) => {
+      let newPlayers = [...players];
+      let newDeck = [...deck];
+      for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < players.length; j++) {
+          newPlayers[i].deck = [...newPlayers[i].deck, newDeck.shift()];
+        }
       }
-    }
-    shuffleDeck(newDeck);
-  }
+      return { players: newPlayers, deck: newDeck, isTurn: 0 };
+    },
+    [players]
+  );
 
   const shuffleDeck = useCallback(
     (deck) => {
@@ -71,19 +74,16 @@ export function GameProvider(props) {
     [deck, startGameDeal]
   );
 
-  const startGameDeal = useCallback(
-    (deck) => {
-      let newPlayers = [...players];
-      let newDeck = [...deck];
-      for (let i = 0; i < 5; i++) {
-        for (let j = 0; j < players.length; j++) {
-          newPlayers[i].deck = [...newPlayers[i].deck, newDeck.shift()];
-        }
+  function createDeck() {
+    let newDeck = [];
+    for (let i = 0; i < cardSuits.length; i++) {
+      for (let x = 0; x < cardValues.length; x++) {
+        let card = { value: cardValues[x], suit: cardSuits[i] };
+        newDeck.push(card);
       }
-      return { players: newPlayers, deck: newDeck, isTurn: 0 };
-    },
-    [players]
-  );
+    }
+    shuffleDeck(newDeck);
+  }
 
   const draw = useCallback(
     (playerIdx, keptCards) => {
