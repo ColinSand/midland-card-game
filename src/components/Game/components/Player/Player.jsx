@@ -16,6 +16,7 @@ import { UserContext } from "../../../../shared/context/UserContext";
 import { GameContext } from "../../../../shared/context/GameContext";
 import "./Player.css";
 import { Button } from "@mui/material";
+import { textAlign } from "@mui/system";
 
 function Player({ drawCards, player, playerIdx }) {
   const { user } = useContext(UserContext);
@@ -28,7 +29,7 @@ function Player({ drawCards, player, playerIdx }) {
     <>
       <div className="player-container">
         <>
-          <div>{player.username}</div>
+          <div className="username">{player.username}</div>
           <div className="card-container">
             {player.deck.map((card, idx) => (
               <div
@@ -53,10 +54,18 @@ function Player({ drawCards, player, playerIdx }) {
                 />
               </div>
             ))}
+            {/* {isTurn === playerIdx && player.username === user.username && (
+              
+            )} */}
+          </div>
+          <div className="emptyDiv">
             {isTurn === playerIdx && player.username === user.username && (
               <>
-                <div>Select cards to discard</div>
+                <div className="conditional">
+                  &#8593; Select up to 3 cards to discard &#8593;
+                </div>
                 <Button
+                  className="conditional"
                   onClick={() => {
                     drawCards(playerIdx, [...keepCards]);
                   }}
