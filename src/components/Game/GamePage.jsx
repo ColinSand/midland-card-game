@@ -88,11 +88,11 @@ function GamePage() {
             </Box>
           )}
           {!isHost && <Box>The game will start when the host begins</Box>}
-          <Box>
+          {/* <Box>
             {message.map((val, idx) => (
-              <Chat message={val.message} key={idx} />
+              <Chat message={val.message} key={idx} sendChat={sendChat} />
             ))}
-          </Box>
+          </Box> */}
         </Box>
         <Grid height="20px"></Grid>
         <Container
@@ -100,7 +100,7 @@ function GamePage() {
           container
           spacing={2}
         >
-          <Grid>Main Cards Element</Grid>
+          <Grid>Main Card Element</Grid>
         </Container>
       </ThemeProvider>
       {players.map((val, idx) => (
