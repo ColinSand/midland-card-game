@@ -29,7 +29,7 @@ function Player({ drawCards, player, playerIdx }) {
     <>
       <div className="player-container">
         <>
-          <div>{player.username}</div>
+          <div className="username">{player.username}</div>
           <div className="card-container">
             {player.deck.map((card, idx) => (
               <div
@@ -58,9 +58,18 @@ function Player({ drawCards, player, playerIdx }) {
                 />
               </div>
             ))}
+            {/* {isTurn === playerIdx && player.username === user.username && (
+              
+            )} */}
+          </div>
+          <div className="emptyDiv">
             {isTurn === playerIdx && player.username === user.username && (
               <>
+                <div className="conditional">
+                  &#8593; Select up to 3 cards to discard &#8593;
+                </div>
                 <Button
+                  className="conditional"
                   onClick={() => {
                     drawCards(playerIdx, [...keepCards]);
                   }}
@@ -70,11 +79,6 @@ function Player({ drawCards, player, playerIdx }) {
               </>
             )}
           </div>
-          {isTurn === playerIdx && player.username === user.username && (
-            <div className="center">
-              &#8593; Select cards to discard &#8593;
-            </div>
-          )}
 
           {/* What to do with this button??? Needs to trigger draw function in socket */}
           {/* <Button onClick={()=> setKeepCards(keepCards), draw()}></Button> */}

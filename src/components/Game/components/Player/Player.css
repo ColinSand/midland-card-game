@@ -19,3 +19,18 @@
 .center {
   text-align: center;
 }
+
+.username {
+  font-size: 30px;
+  text-align: center;
+}
+
+.conditional {
+  display: inline;
+  align-content: center;
+}
+
+.emptyDiv {
+  min-height: 24px;
+  text-align: center;
+}
