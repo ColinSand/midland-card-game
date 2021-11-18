@@ -2,7 +2,7 @@ const COLORS = require("../colors");
 
 const socketConf = (io) => {
   io.on("connection", (socket) => {
-    const { gameRoom, user } = socket.handshake.query;
+    const { gameRoom, user, isHost } = socket.handshake.query;
 
     const randColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     socket.emit("color", { color: randColor });
@@ -21,13 +21,18 @@ const socketConf = (io) => {
     socket.on("update players", ({ host, players }) => {
       io.to(gameRoom).emit("update players", { players, host });
     });
+
     socket.on("disconnect", () => {
       io.to(gameRoom).emit("chat", {
         user: "DEALER",
         body: `${user} has left the game`,
         color: "red",
       });
-      io.to(gameRoom).emit("leave game", { user });
+      if (isHost) {
+        io.to(gameRoom).emit("close room");
+      } else {
+        io.to(gameRoom).emit("leave game", { user });
+      }
     });
     socket.on("update deck", ({ deck, players, isTurn }) => {
       io.to(gameRoom).emit("update deck", { deck, players, isTurn });

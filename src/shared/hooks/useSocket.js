@@ -2,12 +2,13 @@ import { useCallback, useContext, useRef, useState, useEffect } from "react";
 import socketIoClient from "socket.io-client";
 import { UserContext } from "../context/UserContext";
 import { GameContext } from "../context/GameContext";
-
+import { useNavigate } from "react-router-dom";
 const useSocket = (room) => {
   const [color, setColor] = useState(null);
   const [message, setMessage] = useState([]);
 
   const { user, isHost } = useContext(UserContext);
+  const navigate = useNavigate();
   const {
     leaveGame,
     setDeck,
@@ -24,7 +25,7 @@ const useSocket = (room) => {
 
   useEffect(() => {
     socketRef.current = socketIoClient("http://localhost:8080", {
-      query: { user: user.username, gameRoom: room },
+      query: { user: user.username, gameRoom: room, isHost },
     });
     socketRef.current.on("color", ({ color }) => {
       setColor(color);
@@ -45,14 +46,11 @@ const useSocket = (room) => {
       }
     });
     socketRef.current.on("update players", ({ players, host }) => {
-      if (!isHost) {
-        setPlayers(players);
-        setHost(host);
-      }
+      setPlayers(players);
+      setHost(host);
     });
 
     socketRef.current.on("player leave", ({ players, isTurn }) => {
-      console.log(players, isTurn);
       setPlayers(players);
       setIsTurn(isTurn);
     });
@@ -82,6 +80,10 @@ const useSocket = (room) => {
       setDeck(deck);
       setPlayers(players);
       setIsTurn(isTurn);
+    });
+
+    socketRef.current.on("close room", () => {
+      navigate("/home");
     });
 
     return () => socketRef.current.disconnect();
