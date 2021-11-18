@@ -7,18 +7,19 @@ const socketConf = (io) => {
     const randColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     socket.emit("color", { color: randColor });
     socket.join(gameRoom);
-    socket.on("connect", () => {
-      io.to(gameRoom).emit("join game", { user });
-      io.to(gameRoom).emit("chat", {
-        msg: `${user} has joined the game`,
-        color: randColor,
-      });
+    io.to(gameRoom).emit("join game", { user });
+    io.to(gameRoom).emit("chat", {
+      user: "DEALER",
+      body: `${user} has joined the game`,
+      color: "black",
     });
-    socket.on("disconnect", ({ user }) => {
+
+    socket.on("disconnect", () => {
       io.to(gameRoom).emit("chat", {
         msg: `${user} has left the game`,
         color: randColor,
       });
+      io.to(gameRoom).emit("leave game", { user });
     });
     socket.on("update deck", ({ deck, players, isTurn }) => {
       io.to(gameRoom).emit("update deck", { deck, players, isTurn });

@@ -30,7 +30,7 @@ const useSocket = (room) => {
     socketRef.current.on("chat", (msg) => {
       setMessage((curr) => [...curr, msg]);
     });
-    socketRef.current.on("join room", ({ user }) => {
+    socketRef.current.on("join game", ({ user }) => {
       let newPlayersArray = [...players, { username: user, deck: [] }];
       setPlayers(newPlayersArray);
     });
@@ -46,14 +46,12 @@ const useSocket = (room) => {
 
   const startGame = useCallback(() => {
     let updatedDeck = createDeck();
-    console.log(updatedDeck);
     socketRef.current.emit("update deck", updatedDeck);
   }, [createDeck]);
 
   const drawCards = useCallback(
     (playerIdx, keptCards) => {
       let updatedDeck = draw(playerIdx, keptCards);
-      console.log(updatedDeck);
       socketRef.current.emit("update deck", updatedDeck);
     },
     [draw]

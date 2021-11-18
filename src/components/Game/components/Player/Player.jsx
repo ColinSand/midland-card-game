@@ -28,7 +28,7 @@ function Player({ drawCards, player, playerIdx }) {
     <>
       <div className="player-container">
         <>
-          <div>{user.username}</div>
+          <div>{player.username}</div>
           <div className="card-container">
             {player.deck.map((card, idx) => (
               <div
@@ -57,7 +57,7 @@ function Player({ drawCards, player, playerIdx }) {
                 />
               </div>
             ))}
-            {isTurn === playerIdx && (
+            {isTurn === playerIdx && player.username === user.username && (
               <>
                 <div>Select cards to discard</div>
                 <Button

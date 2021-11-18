@@ -69,7 +69,6 @@ export function GameProvider(props) {
         deck[location1] = deck[location2];
         deck[location2] = tmp;
       }
-      console.log(deck);
       return startGameDeal(deck);
     },
     [startGameDeal]
@@ -113,7 +112,7 @@ export function GameProvider(props) {
   //How to move on to next player???
   const leaveGame = useCallback(
     (username) => {
-      let i = players.findIndex(username);
+      let i = players.findIndex((user) => user.username === username);
 
       if (i <= isTurn) {
         setIsTurn((curr) => curr - 1);
