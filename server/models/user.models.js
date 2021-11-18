@@ -46,7 +46,7 @@ async function login(res, username, password) {
     if (!user) {
       return res.send({
         success: false,
-        error: "Wrong Username",
+        error: "Incorrect username or password",
         data: null,
       });
     }
@@ -55,7 +55,7 @@ async function login(res, username, password) {
       return res.send({
         success: false,
         data: null,
-        error: "Wrong Password",
+        error: "Incorrect username or password",
       });
     }
     const payload = { uuid: user.uuid };

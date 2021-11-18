@@ -1,9 +1,9 @@
 import * as React from "react";
+import { NavLink } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -14,6 +14,8 @@ import { useState } from "react";
 import useAxios from "../../shared/hooks/useAxios";
 import { useEffect, useContext } from "react";
 import { UserContext } from "../../shared/context/UserContext";
+import { Alert } from "@mui/material";
+import "./LoginPage.css";
 
 const theme = createTheme();
 
@@ -46,7 +48,7 @@ export default function LoginPage() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "#1f2f53" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -61,7 +63,7 @@ export default function LoginPage() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  // error={error && (username.length < 4 || username.length > 20)}
+                  sx={{ mb: "3px" }}
                   required
                   fullWidth
                   id="username"
@@ -70,14 +72,20 @@ export default function LoginPage() {
                   autoComplete="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  // helperText="Username must be between 4 and 20 characters in length"
                 />
+                <div className="error-container">
+                  {error && username.length < 4 && (
+                    <Alert severity="error">
+                      Username must be at least 4 characters
+                    </Alert>
+                  )}
+                </div>
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  sx={{ mb: "3px" }}
                   required
                   fullWidth
-                  // error={error && (password.length < 8 || password.length > 20)}
                   name="password"
                   label="Password"
                   type="password"
@@ -85,15 +93,22 @@ export default function LoginPage() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  // helperText="Password must be between 8 and 20 characters"
                 />
+                <div className="error-container">
+                  {error && password.length < 8 && (
+                    <Alert severity="error">
+                      Password must be at least 8 characters
+                    </Alert>
+                  )}
+                  {resError && <Alert severity="error">{resError}</Alert>}
+                </div>
               </Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: "15px", mb: 2, bgcolor: "#1f2f53" }}
               onClick={() => {
                 if (username.length < 4 || password.length < 8) {
                   setError(true);
@@ -106,12 +121,15 @@ export default function LoginPage() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <NavLink
+                  to="/signup"
+                  variant="body2"
+                  style={{ color: "#1f2f53" }}
+                >
                   Don't have an account? Sign up by clicking here!
-                </Link>
+                </NavLink>
               </Grid>
             </Grid>
-            <div>{resError}</div>
           </Box>
         </Box>
       </Container>
