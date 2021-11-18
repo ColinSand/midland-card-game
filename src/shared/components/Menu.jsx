@@ -16,9 +16,6 @@ export default function Menu() {
           <Toolbar variant="regular">
             <header className="menuHeader">
               Migos 5 Card Draw
-              <NavLink to="/about" className="link">
-                About
-              </NavLink>
               {!user.username && (
                 <>
                   <NavLink to="/login" className="link">
@@ -40,6 +37,9 @@ export default function Menu() {
                   </button>
                 </>
               )}
+              <NavLink to="/about" className="link">
+                About
+              </NavLink>
             </header>
           </Toolbar>
         </AppBar>

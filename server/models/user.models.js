@@ -11,7 +11,7 @@ async function signup(res, username, password) {
     if (user) {
       return res.send({
         success: false,
-        error: "Username Already Taken, Please Try Another",
+        error: "Username already taken. Please try again.",
         data: null,
       });
     }
@@ -27,13 +27,13 @@ async function signup(res, username, password) {
     return res.send({
       success: true,
       error: null,
-      data: "Sign up successful!",
+      data: "Sign up successful! Login to play!",
     });
   } catch (e) {
     res.send({
       success: false,
       data: null,
-      error: "Something went wrong, please try again later! Signup model",
+      error: "Something went wrong, please try again later!",
     });
   }
 }
@@ -46,7 +46,7 @@ async function login(res, username, password) {
     if (!user) {
       return res.send({
         success: false,
-        error: "Wrong Username",
+        error: "Incorrect Username or Password",
         data: null,
       });
     }
@@ -55,7 +55,7 @@ async function login(res, username, password) {
       return res.send({
         success: false,
         data: null,
-        error: "Wrong Password",
+        error: "Incorrect Username or Password",
       });
     }
     const payload = { uuid: user.uuid };
@@ -70,7 +70,7 @@ async function login(res, username, password) {
   } catch (e) {
     return res.status(500).send({
       success: false,
-      error: "Something went wrong, please try again later!, model",
+      error: "Something went wrong. Please try again later!",
       data: null,
     });
   }
