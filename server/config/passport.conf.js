@@ -25,16 +25,12 @@ passport.use(
       const [user] = await query("SELECT * FROM users WHERE users.uuid = ?", [
         payload.uuid,
       ]);
-      console.log("line 28", user);
 
       if (!user) {
-        console.log("line 31", user);
         return done(null, false, "Invalid Credentials");
       }
-      console.log("line 34", user);
       return done(null, user);
     } catch (e) {
-      console.log(e);
       return done(true, false, "Something went wrong");
     }
   })

@@ -14,13 +14,18 @@ const socketConf = (io) => {
       color: "black",
     });
 
+    socket.on("player leave", ({ players, isTurn }) => {
+      io.to(gameRoom).emit("player leave", { players, isTurn });
+    });
+
     socket.on("update players", ({ host, players }) => {
       io.to(gameRoom).emit("update players", { players, host });
     });
     socket.on("disconnect", () => {
       io.to(gameRoom).emit("chat", {
-        msg: `${user} has left the game`,
-        color: randColor,
+        user: "DEALER",
+        body: `${user} has left the game`,
+        color: "red",
       });
       io.to(gameRoom).emit("leave game", { user });
     });

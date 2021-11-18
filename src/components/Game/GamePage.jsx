@@ -3,12 +3,12 @@ import { GameContext } from "../../shared/context/GameContext";
 import { UserContext } from "../../shared/context/UserContext";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
+
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useSocket from "../../shared/hooks/useSocket";
-import { FormHelperText, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Player from "./components/Player/Player";
 import Chat from "./components/Chat/Chat";
