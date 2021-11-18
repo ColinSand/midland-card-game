@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import { GameContext } from "../../shared/context/GameContext";
 import { UserContext } from "../../shared/context/UserContext";
 import Button from "@mui/material/Button";
@@ -8,10 +8,11 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useSocket from "../../shared/hooks/useSocket";
-import { FormHelperText } from "@mui/material";
+import { FormHelperText, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Player from "./components/Player/Player";
 import Chat from "./components/Chat/Chat";
+import "./GamePage.css";
 
 // the center of this page should have all of the usernames with their cards (face down)
 // your cards face up with the draw and stay buttons, then check up to 3 boxes to select cards to draw/replace.
@@ -47,53 +48,76 @@ function GamePage() {
   const { message, sendChat, drawCards, startGame } = useSocket(id);
 
   return (
-    <Box sx={{ display: "flex" }}>
+    // Main container box
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: "100%",
+        marginTop: "10px",
+      }}
+    >
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box sx={{ flexDirection: "column", alignItems: "start" }}>
-          <Box item>
-            Join code for this game:
-            {id}
-            Hosted By: {host}
+        {/* LEFT BOX */}
+        <Box className="chat-info flex">
+          <Box item className="game-info">
+            <Typography variant="h6">
+              Game Code:
+              {id}
+            </Typography>
+            <Typography variant="h6">Host: {host}</Typography>
           </Box>
           {/* <Box item>
             <div>Hosted By:{isHost}</div>
           </Box> */}
-
-          {isHost && !gameActive && (
-            <Box item sx={{ maxWidth: 200 }}>
-              <Button
-                sx={{ width: 150, height: 40 }}
-                hidden={!isHost}
-                // disabled={!isHost}
-                variant="contained"
-                onClick={() => {
-                  startGame();
-                }}
-              >
-                Start Game
-              </Button>
-              <FormHelperText>&#8593; Host Only &#8593;</FormHelperText>
-            </Box>
-          )}
-          {!isHost && !gameActive && (
-            <Box>The game will start when the host begins</Box>
-          )}
-          <Box>
+          <Box className="chat flex column" sx={{ flexBasis: "100%" }}>
             <Chat message={message} sendChat={sendChat} />
           </Box>
         </Box>
-        <Grid height="20px"></Grid>
-        <Container
-          sx={{ flexDirection: "column", alignItems: "center" }}
-          spacing={2}
-        >
-          <Grid>Main Card Element</Grid>
-        </Container>
+        <Box className="player-info flex">
+          <Typography
+            className="heading text-center"
+            sx={{ maxHeight: "100px" }}
+            variant="h5"
+          >
+            Players
+          </Typography>
+
+          {isHost && !gameActive && (
+            <Box item sx={{ flexBasis: "100%", textAlign: "center" }}>
+              <Button
+                sx={{ width: 150, height: 40 }}
+                hidden={!isHost}
+                variant="contained"
+                onClick={startGame}
+              >
+                Start Game
+              </Button>
+            </Box>
+          )}
+          {!isHost && !gameActive && (
+            <Typography
+              variant="h6"
+              sx={{ flexBasis: "100%" }}
+              className="text-center"
+            >
+              The game will start when the host begins
+            </Typography>
+          )}
+          <Box className="players column">
+            {players.map((val, idx) => (
+              <Player
+                player={val}
+                playerIdx={idx}
+                key={idx}
+                drawCards={drawCards}
+              />
+            ))}
+          </Box>
+        </Box>
       </ThemeProvider>
-      {players.map((val, idx) => (
-        <Player player={val} playerIdx={idx} key={idx} drawCards={drawCards} />
-      ))}
     </Box>
   );
 }

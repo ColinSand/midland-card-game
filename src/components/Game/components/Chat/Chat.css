@@ -1,19 +1,26 @@
 .message-location {
   display: flex;
+  flex-basis: 100%;
   flex-flow: column;
-  margin-top: 20%;
-  margin-right: 80%;
+  margin: 5px;
   border: 1px solid black;
 }
 
 .input-bar {
-  height: 20px;
-  width: 97%;
+  flex-basis: 20px;
+  width: 90%;
+  margin: 5px;
+}
+
+.submit {
+  text-align: center;
+  margin-bottom: 5px;
 }
 
 .send-btn {
-  height: 30px;
-  width: 100%;
+  margin: 5px;
+  flex-basis: 30px;
+  width: 90%;
 }
 
 .chat-header {
@@ -21,7 +28,17 @@
   font-weight: 600;
   font-size: 150%;
   color: white;
-  margin-bottom: 40%;
-  height: 30px;
+  margin-bottom: 5px;
+  height: 35px;
   text-align: center;
+}
+
+.message {
+  margin-left: 2px;
+  font-size: 14px;
+}
+.message-display {
+  flex-grow: 1;
+  max-height: calc(100vh - 350px);
+  overflow-y: scroll;
 }

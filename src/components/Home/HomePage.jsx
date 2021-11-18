@@ -24,7 +24,7 @@ export default function HomePage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { setIsHost, user } = useContext(UserContext);
-  const { setHost, setPlayers } = useContext(GameContext);
+  const { setHost, setPlayers, setIsTurn } = useContext(GameContext);
 
   const generateGameId = () => {
     return Math.random().toString(36).substr(2, 6);
@@ -42,7 +42,11 @@ export default function HomePage() {
     }
   };
 
-  useEffect(() => setPlayers([]), []);
+  useEffect(() => {
+    setIsHost(false);
+    setPlayers([]);
+    setIsTurn(null);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

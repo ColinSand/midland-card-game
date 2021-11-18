@@ -10,17 +10,17 @@ function Chat({ message, sendChat }) {
   const [body, setBody] = useState("");
 
   return (
-    <div>
+    <div className="message-location">
+      <header className="chat-header">Chat</header>
       <div className="message-display">
         {message &&
           message.map((m, idx) => (
-            <div key={idx}>
+            <div className="message" key={idx}>
               <span style={{ color: m.color }}>{m.user} </span> - {m.body}
             </div>
           ))}
       </div>
-      <div className="message-location">
-        <header className="chat-header">Chat</header>
+      <div className="submit">
         <input
           className="input-bar"
           id="chat"
