@@ -33,11 +33,6 @@ function Player({ drawCards, player, playerIdx }) {
             {player.deck.map((card, idx) => (
               <div
                 key={idx}
-                style={{
-                  border: `1px solid ${
-                    !keepCards.includes(card) ? "red" : "green"
-                  }`,
-                }}
                 onClick={() => {
                   const kept = keepCards.includes(card);
                   if (isTurn !== playerIdx || (kept && keepCards.length < 3))
@@ -51,6 +46,7 @@ function Player({ drawCards, player, playerIdx }) {
               >
                 <Card
                   key={idx}
+                  toKeep={keepCards.includes(card)}
                   face={card.value}
                   suit={card.suit}
                   showCard={player.username === user.username || !gameActive}

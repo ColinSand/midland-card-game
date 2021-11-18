@@ -11,23 +11,26 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background-color: white;
   position: relative;
+  cursor: pointer;
 }
 
 .top-left {
   position: absolute;
-  top: 0px;
+  top: 5px;
+  left: 5px;
 }
 
 .bottom-right {
   text-align: right;
   position: absolute;
-  bottom: 0px;
+  bottom: 5px;
   right: 5px;
 }
 
 .card-value {
   font-size: 30px;
   text-align: center;
+  line-height: 88px;
 }
 
 .card-back {
@@ -35,4 +38,18 @@
   height: 100%;
   width: 100%;
   background-color: #1f2f53;
+}
+
+.card-keep {
+  top: 0px;
+}
+
+.card-discard {
+  background-color: orange;
+  top: -10px;
+}
+
+.suit {
+  display: block;
+  width: 15px;
 }
