@@ -16,9 +16,17 @@ const Card = ({ face, suit, showCard, toKeep }) => {
     <>
       {showCard && (
         <div className={`card-surround card-${toKeep ? "keep" : "discard"}`}>
-          <img className="suit top-left" src={suitIcons[suit]} />
+          <img
+            className="suit top-left"
+            src={suitIcons[suit]}
+            alt="card suit top"
+          />
           <div className="card-value">{face}</div>
-          <img className="suit bottom-right" src={suitIcons[suit]} />
+          <img
+            className="suit bottom-right"
+            src={suitIcons[suit]}
+            alt="card suit bottom"
+          />
         </div>
       )}
       {!showCard && (
