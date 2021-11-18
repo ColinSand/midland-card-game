@@ -1,10 +1,21 @@
 .player-container {
   display: flex;
   flex-direction: column;
+  flex-basis: 40%;
 }
 
 .card-container {
   display: flex;
   flex-direction: row;
   flex-basis: calc(20% - 5px);
+  justify-content: center;
+  border: 0px;
+}
+/* .button-box{
+  flex
+
+} */
+
+.center {
+  text-align: center;
 }
