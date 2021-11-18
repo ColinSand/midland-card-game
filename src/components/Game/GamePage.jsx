@@ -68,12 +68,13 @@ function GamePage() {
           <Box item>
             <div>Hosted By:{isHost}</div>
           </Box>
-          make the start game function only visible for the host, and show a
-          little bit
+          {/* make the start game function only visible for the host, and show a
+          message for everone else */}
           <Box item sx={{ maxWidth: 200 }}>
             <Button
               sx={{ width: 150, height: 40 }}
-              disabled={!isHost}
+              hidden={!isHost}
+              // disabled={!isHost}
               variant="contained"
               onClick={() => {
                 createDeck();
