@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { UserContext } from "../../../../shared/context/UserContext";
@@ -8,6 +8,16 @@ import "./Chat.css";
 function Chat({ message, sendChat }) {
   const { user } = useContext(UserContext);
   const [body, setBody] = useState("");
+
+  const messageEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [message]);
 
   return (
     <div className="message-location">
@@ -19,7 +29,9 @@ function Chat({ message, sendChat }) {
               <span style={{ color: m.color }}>{m.user} </span> - {m.body}
             </div>
           ))}
+        <div ref={messageEndRef} />
       </div>
+
       <div className="submit">
         <input
           className="input-bar"
