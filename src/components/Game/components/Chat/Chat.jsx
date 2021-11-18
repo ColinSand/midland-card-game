@@ -31,7 +31,6 @@ function Chat({ message, sendChat }) {
           ))}
         <div ref={messageEndRef} />
       </div>
-
       <div className="submit">
         <input
           className="input-bar"
