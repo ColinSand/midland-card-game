@@ -18,19 +18,24 @@ const jwtOptions = {
 passport.use(
   "jwt",
   new Strategy(jwtOptions, async function (payload, done) {
-    if (!payload || payload.uuid) {
+    if (!payload || !payload.uuid) {
       return done(null, false, "Invalid credentials");
     }
     try {
       const [user] = await query("SELECT * FROM users WHERE users.uuid = ?", [
         payload.uuid,
       ]);
+      console.log("line 28", user);
+
       if (!user) {
+        console.log("line 31", user);
         return done(null, false, "Invalid Credentials");
       }
+      console.log("line 34", user);
       return done(null, user);
     } catch (e) {
-      return done(true, false, "Something went wrong, passport");
+      console.log(e);
+      return done(true, false, "Something went wrong");
     }
   })
 );
