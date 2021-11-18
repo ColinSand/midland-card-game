@@ -1,19 +1,19 @@
 import * as React from "react";
+import { NavLink } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
-import { FormHelperText } from "@mui/material";
+import { Alert, FormHelperText } from "@mui/material";
 import useAxios from "../../shared/hooks/useAxios";
 
 const theme = createTheme();
@@ -42,8 +42,8 @@ export default function SignUpPage() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
+          <Avatar sx={{ m: 1, bgcolor: "#1f2f53" }}>
+            <PersonAddOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
@@ -114,13 +114,19 @@ export default function SignUpPage() {
                 <FormHelperText error={error}>
                   This box must be checked
                 </FormHelperText>
+                <div className="error-container">
+                  {resError && <Alert severity="error">{resError}</Alert>}
+                  {json && json.data && (
+                    <Alert severity="success">{json.data}</Alert>
+                  )}
+                </div>
               </Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: "10px", mb: 2, bgcolor: "#1f2f53" }}
               onClick={() => {
                 if (
                   username.length < 4 ||
@@ -139,13 +145,15 @@ export default function SignUpPage() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
+                <NavLink
+                  to="/login"
+                  variant="body2"
+                  style={{ color: "#1f2f53" }}
+                >
                   Already have an account? Sign in
-                </Link>
+                </NavLink>
               </Grid>
             </Grid>
-            <div>{resError}</div>
-            <div> {json && json.data}</div>
           </Box>
         </Box>
       </Container>
