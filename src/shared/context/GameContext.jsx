@@ -29,22 +29,6 @@ export function GameProvider(props) {
   // and a 'hand'(consisting of an array of 5 cards defined upon 'startGameDeal' function and updated
   // when they trigger 'draw' function)
 
-  let cardSuits = ["d", "s", "h", "c"];
-  let cardValues = [
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "J",
-    "Q",
-    "K",
-    "A",
-  ];
 
   const startGameDeal = useCallback(
     (deck) => {
@@ -75,6 +59,22 @@ export function GameProvider(props) {
   );
 
   const createDeck = useCallback(() => {
+    let cardSuits = ["d", "s", "h", "c"];
+    let cardValues = [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "J",
+      "Q",
+      "K",
+      "A",
+    ];
     let newDeck = [];
     for (let i = 0; i < cardSuits.length; i++) {
       for (let x = 0; x < cardValues.length; x++) {
@@ -116,12 +116,11 @@ export function GameProvider(props) {
 
       if (i <= isTurn) {
         setIsTurn((curr) => curr - 1);
-      } else {
-        const newPlayersArray = players.filter(
-          (player) => username !== player.username
-        );
-        setPlayers(newPlayersArray);
       }
+      const newPlayersArray = players.filter(
+        (player) => username !== player.username
+      );
+      setPlayers(newPlayersArray);
     },
     [isTurn, players]
   );

@@ -46,7 +46,7 @@ export default function HomePage() {
     setIsHost(false);
     setPlayers([]);
     setIsTurn(null);
-  }, []);
+  }, [setIsHost, setPlayers, setIsTurn]);
 
   return (
     <ThemeProvider theme={theme}>

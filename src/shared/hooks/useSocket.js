@@ -2,12 +2,13 @@ import { useCallback, useContext, useRef, useState, useEffect } from "react";
 import socketIoClient from "socket.io-client";
 import { UserContext } from "../context/UserContext";
 import { GameContext } from "../context/GameContext";
-
+import { useNavigate } from "react-router-dom";
 const useSocket = (room) => {
   const [color, setColor] = useState(null);
   const [message, setMessage] = useState([]);
 
   const { user, isHost } = useContext(UserContext);
+  const navigate = useNavigate();
   const {
     leaveGame,
     setDeck,
@@ -15,7 +16,7 @@ const useSocket = (room) => {
     createDeck,
     setIsTurn,
     setPlayers,
-    players,
+    isTurn,
     host,
     setHost,
   } = useContext(GameContext);
@@ -23,9 +24,8 @@ const useSocket = (room) => {
   const socketRef = useRef();
 
   useEffect(() => {
-    let currPlayers = [...players];
     socketRef.current = socketIoClient("http://localhost:8080", {
-      query: { user: user.username, gameRoom: room },
+      query: { user: user.username, gameRoom: room, isHost },
     });
     socketRef.current.on("color", ({ color }) => {
       setColor(color);
@@ -35,11 +35,13 @@ const useSocket = (room) => {
     });
     socketRef.current.on("join game", ({ user }) => {
       if (isHost) {
-        let newPlayersArray = [...currPlayers, { username: user, deck: [] }];
-        currPlayers = [...newPlayersArray];
-        socketRef.current.emit("update players", {
-          players: newPlayersArray,
-          host,
+        setPlayers((curr) => {
+          let newPlayers = [...curr, { username: user, deck: [] }];
+          socketRef.current.emit("update players", {
+            players: newPlayers,
+            host,
+          });
+          return newPlayers;
         });
       }
     });
@@ -47,7 +49,31 @@ const useSocket = (room) => {
       setPlayers(players);
       setHost(host);
     });
+
+    socketRef.current.on("player leave", ({ players, isTurn }) => {
+      setPlayers(players);
+      setIsTurn(isTurn);
+    });
+
     socketRef.current.on("leave game", ({ user }) => {
+      if (isHost) {
+        setPlayers((curr) => {
+          let i = curr.findIndex((u) => u.username === user);
+          let newIsTurn = isTurn;
+          if (i <= isTurn && isTurn !== null) {
+            newIsTurn--;
+            setIsTurn(newIsTurn);
+          }
+          const newPlayersArray = curr.filter(
+            (player) => user !== player.username
+          );
+          socketRef.current.emit("player leave", {
+            players: newPlayersArray,
+            isTurn: newIsTurn,
+          });
+          return newPlayersArray;
+        });
+      }
       leaveGame(user);
     });
     socketRef.current.on("update deck", ({ deck, players, isTurn }) => {
@@ -55,6 +81,12 @@ const useSocket = (room) => {
       setPlayers(players);
       setIsTurn(isTurn);
     });
+
+    socketRef.current.on("close room", () => {
+      navigate("/home");
+    });
+
+    return () => socketRef.current.disconnect();
   }, []);
 
   const startGame = useCallback(() => {
