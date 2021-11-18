@@ -17,6 +17,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useSocket from "../../shared/hooks/useSocket";
 import { FormHelperText } from "@mui/material";
 import { useParams } from "react-router-dom";
+import Player from "./components/Player/Player";
+import Chat from "./components/Chat/Chat";
 
 // the center of this page should have all of the usernames with their cards (face down)
 // your cards face up with the draw and stay buttons, then check up to 3 boxes to select cards to draw/replace.
@@ -53,7 +55,7 @@ function GamePage() {
   // const socketGameCode = useSocket(":gameCode");
 
   const { id } = useParams();
-  const socket = useSocket(id);
+  const { socket } = useSocket(id);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -86,7 +88,11 @@ function GamePage() {
             </Box>
           )}
           {!isHost && <Box>The game will start when the host begins</Box>}
-          <Box> </Box>
+          <Box>
+            {message.map((val, idx) => (
+              <Chat message={val.message} key={idx} />
+            ))}
+          </Box>
         </Box>
         <Grid height="20px"></Grid>
         <Container
@@ -97,6 +103,9 @@ function GamePage() {
           <Grid>Main Cards Element</Grid>
         </Container>
       </ThemeProvider>
+      {players.map((val, idx) => (
+        <Player player={val.player} playerIdx={val.playerIdx} key={idx} />
+      ))}
     </Box>
   );
 }
