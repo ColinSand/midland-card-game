@@ -47,15 +47,12 @@ const theme = createTheme();
 
 function GamePage() {
   const { isHost, user } = useContext(UserContext);
-  const { deck, cardsDealt, players, isActive, isTurn, createDeck } =
-    useContext(GameContext);
+  const { players, isTurn, gameActive } = useContext(GameContext);
   const gameCode = window.location.href.slice(-6);
-  // the following needs to get route parameter, then pass that to useSocket hook
-  // const socketGameCode = useSocket(window.location.href.slice(-6));
-  // const socketGameCode = useSocket(":gameCode");
 
+  // the following needs to get route parameter, then pass that to useSocket hook
   const { id } = useParams();
-  const { socket } = useSocket(id);
+  const { message, sendChat, drawCards, startGame } = useSocket(id);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -66,12 +63,11 @@ function GamePage() {
             Join code for this game:
             {gameCode}
           </Box>
-          <Box item>
+          {/* <Box item>
             <div>Hosted By:{isHost}</div>
-          </Box>
-          {/* make the start game function only visible for the host, and show a
-          message for everone else */}
-          {isHost && (
+          </Box> */}
+
+          {isHost && !gameActive && (
             <Box item sx={{ maxWidth: 200 }}>
               <Button
                 sx={{ width: 150, height: 40 }}
@@ -79,7 +75,7 @@ function GamePage() {
                 // disabled={!isHost}
                 variant="contained"
                 onClick={() => {
-                  createDeck();
+                  startGame();
                 }}
               >
                 Start Game
@@ -87,12 +83,10 @@ function GamePage() {
               <FormHelperText>&#8593; Host Only &#8593;</FormHelperText>
             </Box>
           )}
-          {!isHost && <Box>The game will start when the host begins</Box>}
-          {/* <Box>
-            {message.map((val, idx) => (
-              <Chat message={val.message} key={idx} sendChat={sendChat} />
-            ))}
-          </Box> */}
+          {!isHost && !gameActive && (
+            <Box>The game will start when the host begins</Box>
+          )}
+          <Box>{<Chat message={message} key={idx} sendChat={sendChat} />}</Box>
         </Box>
         <Grid height="20px"></Grid>
         <Container
@@ -104,7 +98,12 @@ function GamePage() {
         </Container>
       </ThemeProvider>
       {players.map((val, idx) => (
-        <Player player={val.player} playerIdx={val.playerIdx} key={idx} />
+        <Player
+          player={val.player}
+          playerIdx={val.playerIdx}
+          key={idx}
+          drawCards={drawCards}
+        />
       ))}
     </Box>
   );
