@@ -7,7 +7,7 @@ const useSocket = (room) => {
   const [color, setColor] = useState(null);
   const [message, setMessage] = useState([]);
 
-  const { user, isHost } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const {
     leaveGame,
     setDeck,
@@ -47,12 +47,15 @@ const useSocket = (room) => {
   const startGame = useCallback(() => {
     let updatedDeck = createDeck();
     socketRef.current.emit("update deck", updatedDeck);
-  });
+  }, [createDeck]);
 
-  const drawCards = useCallback((playerIdx, keptCards) => {
-    let updatedDeck = draw(playerIdx, keptCards);
-    socketRef.current.emit("update deck", updatedDeck);
-  });
+  const drawCards = useCallback(
+    (playerIdx, keptCards) => {
+      let updatedDeck = draw(playerIdx, keptCards);
+      socketRef.current.emit("update deck", updatedDeck);
+    },
+    [draw]
+  );
 
   const sendChat = useCallback(
     (body, user) => {

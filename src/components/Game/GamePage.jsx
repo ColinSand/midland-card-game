@@ -4,14 +4,8 @@ import { UserContext } from "../../shared/context/UserContext";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useSocket from "../../shared/hooks/useSocket";
@@ -45,11 +39,9 @@ import Chat from "./components/Chat/Chat";
 
 const theme = createTheme();
 
-
 function GamePage() {
-  const { isHost, user } = useContext(UserContext);
-  const { players, isTurn, gameActive } = useContext(GameContext);
-  const gameCode = window.location.href.slice(-6);
+  const { isHost } = useContext(UserContext);
+  const { players, gameActive } = useContext(GameContext);
 
   // the following needs to get route parameter, then pass that to useSocket hook
   const { id } = useParams();
@@ -62,7 +54,7 @@ function GamePage() {
         <Box container sx={{ flexDirection: "column", alignItems: "start" }}>
           <Box item>
             Join code for this game:
-            {gameCode}
+            {id}
           </Box>
           {/* <Box item>
             <div>Hosted By:{isHost}</div>
@@ -87,7 +79,9 @@ function GamePage() {
           {!isHost && !gameActive && (
             <Box>The game will start when the host begins</Box>
           )}
-          <Box>{<Chat message={message} key={idx} sendChat={sendChat} />}</Box>
+          <Box>
+            <Chat message={message} sendChat={sendChat} />
+          </Box>
         </Box>
         <Grid height="20px"></Grid>
         <Container
@@ -107,7 +101,6 @@ function GamePage() {
         />
       ))}
     </Box>
-
   );
 }
 

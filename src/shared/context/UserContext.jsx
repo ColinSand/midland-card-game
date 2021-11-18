@@ -4,7 +4,7 @@ export const UserContext = React.createContext(null);
 
 export function UserProvider(props) {
   const [user, setUser] = useState({});
-  const { json, error, apiCall } = useAxios("get");
+  const { json, apiCall } = useAxios("get");
   const [isHost, setIsHost] = useState(null);
 
   useEffect(() => {

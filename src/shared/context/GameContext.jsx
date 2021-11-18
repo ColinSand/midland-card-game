@@ -71,7 +71,7 @@ export function GameProvider(props) {
       }
       startGameDeal(deck);
     },
-    [deck, startGameDeal]
+    [startGameDeal]
   );
 
   function createDeck() {
@@ -123,7 +123,7 @@ export function GameProvider(props) {
         setPlayers(newPlayersArray);
       }
     },
-    [isTurn]
+    [isTurn, players]
   );
 
   return (

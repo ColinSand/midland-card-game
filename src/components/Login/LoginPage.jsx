@@ -28,7 +28,7 @@ export default function LoginPage() {
     if (json && json.success) {
       setUser(json.data);
     }
-  }, [json]);
+  }, [json, setUser]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

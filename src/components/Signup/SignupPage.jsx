@@ -15,7 +15,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { FormHelperText } from "@mui/material";
 import useAxios from "../../shared/hooks/useAxios";
-import { useEffect } from "react";
 
 const theme = createTheme();
 
