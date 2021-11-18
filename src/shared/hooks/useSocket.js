@@ -7,7 +7,7 @@ const useSocket = (room) => {
   const [color, setColor] = useState(null);
   const [message, setMessage] = useState([]);
 
-  const { user } = useContext(UserContext);
+  const { user, isHost } = useContext(UserContext);
   const {
     leaveGame,
     setDeck,
@@ -16,11 +16,14 @@ const useSocket = (room) => {
     setIsTurn,
     setPlayers,
     players,
+    host,
+    setHost,
   } = useContext(GameContext);
 
   const socketRef = useRef();
 
   useEffect(() => {
+    let currPlayers = [...players];
     socketRef.current = socketIoClient("http://localhost:8080", {
       query: { user: user.username, gameRoom: room },
     });
@@ -31,8 +34,18 @@ const useSocket = (room) => {
       setMessage((curr) => [...curr, msg]);
     });
     socketRef.current.on("join game", ({ user }) => {
-      let newPlayersArray = [...players, { username: user, deck: [] }];
-      setPlayers(newPlayersArray);
+      if (isHost) {
+        let newPlayersArray = [...currPlayers, { username: user, deck: [] }];
+        currPlayers = [...newPlayersArray];
+        socketRef.current.emit("update players", {
+          players: newPlayersArray,
+          host,
+        });
+      }
+    });
+    socketRef.current.on("update players", ({ players, host }) => {
+      setPlayers(players);
+      setHost(host);
     });
     socketRef.current.on("leave game", ({ user }) => {
       leaveGame(user);

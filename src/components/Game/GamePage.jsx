@@ -1,7 +1,6 @@
-import { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { GameContext } from "../../shared/context/GameContext";
 import { UserContext } from "../../shared/context/UserContext";
-import * as React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
@@ -41,7 +40,7 @@ const theme = createTheme();
 
 function GamePage() {
   const { isHost } = useContext(UserContext);
-  const { players, gameActive } = useContext(GameContext);
+  const { players, gameActive, host } = useContext(GameContext);
 
   // the following needs to get route parameter, then pass that to useSocket hook
   const { id } = useParams();
@@ -55,6 +54,7 @@ function GamePage() {
           <Box item>
             Join code for this game:
             {id}
+            Hosted By: {host}
           </Box>
           {/* <Box item>
             <div>Hosted By:{isHost}</div>

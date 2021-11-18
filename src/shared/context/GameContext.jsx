@@ -24,7 +24,7 @@ export function GameProvider(props) {
   const [players, setPlayers] = useState([]);
   const [isTurn, setIsTurn] = useState(null);
   const gameActive = useMemo(() => isTurn !== null, [isTurn]);
-
+  const [host, setHost] = useState("");
   // "player" is an object consisting of two keys-- 'username'(provided when they join a room)
   // and a 'hand'(consisting of an array of 5 cards defined upon 'startGameDeal' function and updated
   // when they trigger 'draw' function)
@@ -83,7 +83,7 @@ export function GameProvider(props) {
       }
     }
     return shuffleDeck(newDeck);
-  });
+  }, [shuffleDeck]);
 
   const draw = useCallback(
     (playerIdx, keptCards) => {
@@ -141,6 +141,8 @@ export function GameProvider(props) {
         startGameDeal,
         draw,
         leaveGame,
+        host,
+        setHost,
       }}
     >
       {props.children}

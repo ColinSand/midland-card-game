@@ -14,6 +14,9 @@ const socketConf = (io) => {
       color: "black",
     });
 
+    socket.on("update players", ({ host, players }) => {
+      io.to(gameRoom).emit("update players", { players, host });
+    });
     socket.on("disconnect", () => {
       io.to(gameRoom).emit("chat", {
         msg: `${user} has left the game`,
