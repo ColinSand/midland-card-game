@@ -64,6 +64,7 @@ export default function LoginPage() {
               <Grid item xs={12}>
                 <TextField
                   sx={{ mb: "3px" }}
+                  error={error && (username.length < 4 || username.length > 20)}
                   required
                   fullWidth
                   id="username"
@@ -72,18 +73,13 @@ export default function LoginPage() {
                   autoComplete="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  helperText="Username must be between 4 and 20 characters in length"
                 />
-                <div className="error-container">
-                  {error && username.length < 4 && (
-                    <Alert severity="error">
-                      Username must be at least 4 characters
-                    </Alert>
-                  )}
-                </div>
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   sx={{ mb: "3px" }}
+                  error={error && (password.length < 8 || password.length > 20)}
                   required
                   fullWidth
                   name="password"
@@ -93,13 +89,9 @@ export default function LoginPage() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  helperText="Password must be between 8 and 20 characters"
                 />
                 <div className="error-container">
-                  {error && password.length < 8 && (
-                    <Alert severity="error">
-                      Password must be at least 8 characters
-                    </Alert>
-                  )}
                   {resError && <Alert severity="error">{resError}</Alert>}
                 </div>
               </Grid>
