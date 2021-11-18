@@ -22,7 +22,7 @@ const useSocket = (room) => {
 
   useEffect(() => {
     socketRef.current = socketIoClient("http://localhost:8080", {
-      query: { user, gameRoom: room },
+      query: { user: user.username, gameRoom: room },
     });
     socketRef.current.on("color", ({ color }) => {
       setColor(color);
@@ -31,7 +31,7 @@ const useSocket = (room) => {
       setMessage((curr) => [...curr, msg]);
     });
     socketRef.current.on("join room", ({ user }) => {
-      let newPlayersArray = [...players, user];
+      let newPlayersArray = [...players, { username: user, deck: [] }];
       setPlayers(newPlayersArray);
     });
     socketRef.current.on("leave game", ({ user }) => {
@@ -46,12 +46,14 @@ const useSocket = (room) => {
 
   const startGame = useCallback(() => {
     let updatedDeck = createDeck();
+    console.log(updatedDeck);
     socketRef.current.emit("update deck", updatedDeck);
   }, [createDeck]);
 
   const drawCards = useCallback(
     (playerIdx, keptCards) => {
       let updatedDeck = draw(playerIdx, keptCards);
+      console.log(updatedDeck);
       socketRef.current.emit("update deck", updatedDeck);
     },
     [draw]

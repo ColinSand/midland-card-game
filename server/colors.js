@@ -14,3 +14,5 @@ const COLORS = [
   "Silver",
   "SkyBlue",
 ];
+
+module.exports = COLORS;

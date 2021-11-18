@@ -51,7 +51,7 @@ function GamePage() {
     <Box sx={{ display: "flex" }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box container sx={{ flexDirection: "column", alignItems: "start" }}>
+        <Box sx={{ flexDirection: "column", alignItems: "start" }}>
           <Box item>
             Join code for this game:
             {id}
@@ -86,19 +86,13 @@ function GamePage() {
         <Grid height="20px"></Grid>
         <Container
           sx={{ flexDirection: "column", alignItems: "center" }}
-          container
           spacing={2}
         >
           <Grid>Main Card Element</Grid>
         </Container>
       </ThemeProvider>
       {players.map((val, idx) => (
-        <Player
-          player={val.player}
-          playerIdx={val.playerIdx}
-          key={idx}
-          drawCards={drawCards}
-        />
+        <Player player={val} playerIdx={idx} key={idx} drawCards={drawCards} />
       ))}
     </Box>
   );

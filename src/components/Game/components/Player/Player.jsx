@@ -1,7 +1,7 @@
 //Need to render logic for keeping cards on turn//
 //Need to be able to keep 2-5 cards based on player selection and trigger draw function from socket
 //Need to pull in Card from card component
-//Map through player.hand and render cards
+//Map through player.deck and render cards
 //Display card face or back dependent upon user
 //Display card selector boxes and draw/stay buttons dependent upon isTurn
 
@@ -10,7 +10,7 @@
 
 //Need to prevent adding more than 3 cards to "discard" array/selecting more that 3 cards
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "../Card/Card";
 import { UserContext } from "../../../../shared/context/UserContext";
 import { GameContext } from "../../../../shared/context/GameContext";
@@ -20,15 +20,17 @@ import { Button } from "@mui/material";
 function Player({ drawCards, player, playerIdx }) {
   const { user } = useContext(UserContext);
   const { isTurn, gameActive } = useContext(GameContext);
-  const [keepCards, setKeepCards] = useState([...player.hand]);
-
+  const [keepCards, setKeepCards] = useState([...player.deck]);
+  useEffect(() => {
+    setKeepCards([...player.deck]);
+  }, [player]);
   return (
     <>
       <div className="player-container">
         <>
           <div>{user.username}</div>
           <div className="card-container">
-            {player.hand.map((card, idx) => (
+            {player.deck.map((card, idx) => (
               <div
                 key={idx}
                 style={{

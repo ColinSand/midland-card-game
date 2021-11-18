@@ -48,11 +48,11 @@ export function GameProvider(props) {
 
   const startGameDeal = useCallback(
     (deck) => {
-      let newPlayers = [...players];
+      let newPlayers = players.map((v) => ({ ...v, deck: [] }));
       let newDeck = [...deck];
       for (let i = 0; i < 5; i++) {
         for (let j = 0; j < players.length; j++) {
-          newPlayers[i].deck = [...newPlayers[i].deck, newDeck.shift()];
+          newPlayers[j].deck = [...newPlayers[j].deck, newDeck.shift()];
         }
       }
       return { players: newPlayers, deck: newDeck, isTurn: 0 };
@@ -69,12 +69,13 @@ export function GameProvider(props) {
         deck[location1] = deck[location2];
         deck[location2] = tmp;
       }
-      startGameDeal(deck);
+      console.log(deck);
+      return startGameDeal(deck);
     },
     [startGameDeal]
   );
 
-  function createDeck() {
+  const createDeck = useCallback(() => {
     let newDeck = [];
     for (let i = 0; i < cardSuits.length; i++) {
       for (let x = 0; x < cardValues.length; x++) {
@@ -82,15 +83,15 @@ export function GameProvider(props) {
         newDeck.push(card);
       }
     }
-    shuffleDeck(newDeck);
-  }
+    return shuffleDeck(newDeck);
+  });
 
   const draw = useCallback(
     (playerIdx, keptCards) => {
       let newPlayers = [...players];
       let newDeck = [...deck];
       let newIsTurn = isTurn;
-      newPlayers[playerIdx].deck = [keptCards];
+      newPlayers[playerIdx].deck = [...keptCards];
       while (newPlayers[playerIdx].deck.length < 5) {
         newPlayers[playerIdx].deck = [
           ...newPlayers[playerIdx].deck,
@@ -132,7 +133,9 @@ export function GameProvider(props) {
         deck,
         players,
         gameActive,
+        setPlayers,
         isTurn,
+        setIsTurn,
         setDeck,
         createDeck,
         shuffleDeck,

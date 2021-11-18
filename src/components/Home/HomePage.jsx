@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { UserContext } from "../../shared/context/UserContext";
+import { GameContext } from "../../shared/context/GameContext";
 import { GroupAddOutlined, GroupsOutlined } from "@mui/icons-material";
 
 const theme = createTheme();
@@ -23,6 +24,7 @@ export default function HomePage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { setIsHost, user } = useContext(UserContext);
+  const { setPlayers } = useContext(GameContext);
 
   const generateGameId = () => {
     return Math.random().toString(36).substr(2, 6);
@@ -36,6 +38,7 @@ export default function HomePage() {
     if (gameId.length !== 6) {
       setError(true);
     } else {
+      setPlayers([]);
       navigate(`/game/${gameId}`);
     }
   };
@@ -142,8 +145,9 @@ export default function HomePage() {
                   sx={{ mt: 3, maxWidth: "194px" }}
                   onClick={(e) => {
                     const newGameId = generateGameId();
-                    navigate(`/game/${newGameId}`);
+                    setPlayers([{ username: user.username, deck: [] }]);
                     setIsHost(user.username);
+                    navigate(`/game/${newGameId}`);
                   }}
                 >
                   Create Table

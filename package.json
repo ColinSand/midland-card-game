@@ -33,7 +33,7 @@
   "scripts": {
     "start": "node server",
     "front": "react-scripts start",
-    "back": "nodemon server",
+    "back": "nodemon --ignore ./src server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -15,7 +15,7 @@ function Chat({ message, sendChat }) {
         {message &&
           message.map((m, idx) => (
             <div key={idx}>
-              <span style={{ color: m.color }}>{m.username} </span> - {m.body}
+              <span style={{ color: m.color }}>{m.user} </span> - {m.body}
             </div>
           ))}
       </div>
