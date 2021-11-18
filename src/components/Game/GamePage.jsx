@@ -50,7 +50,6 @@ function GamePage() {
   const gameCode = window.location.href.slice(-6);
   // the following needs to get route parameter, then pass that to useSocket hook
   // const socketGameCode = useSocket(window.location.href.slice(-6));
-
   // const socketGameCode = useSocket(":gameCode");
 
   const { id } = useParams();
@@ -70,20 +69,23 @@ function GamePage() {
           </Box>
           {/* make the start game function only visible for the host, and show a
           message for everone else */}
-          <Box item sx={{ maxWidth: 200 }}>
-            <Button
-              sx={{ width: 150, height: 40 }}
-              hidden={!isHost}
-              // disabled={!isHost}
-              variant="contained"
-              onClick={() => {
-                createDeck();
-              }}
-            >
-              Start Game
-            </Button>
-            <FormHelperText>&#8593; Host Only &#8593;</FormHelperText>
-          </Box>
+          {isHost && (
+            <Box item sx={{ maxWidth: 200 }}>
+              <Button
+                sx={{ width: 150, height: 40 }}
+                hidden={!isHost}
+                // disabled={!isHost}
+                variant="contained"
+                onClick={() => {
+                  createDeck();
+                }}
+              >
+                Start Game
+              </Button>
+              <FormHelperText>&#8593; Host Only &#8593;</FormHelperText>
+            </Box>
+          )}
+          {!isHost && <Box>The game will start when the host begins</Box>}
           <Box> </Box>
         </Box>
         <Grid height="20px"></Grid>
