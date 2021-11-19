@@ -15,7 +15,6 @@ import useAxios from "../../shared/hooks/useAxios";
 import { useEffect, useContext } from "react";
 import { UserContext } from "../../shared/context/UserContext";
 import { Alert } from "@mui/material";
-import "./LoginPage.css";
 
 const theme = createTheme();
 

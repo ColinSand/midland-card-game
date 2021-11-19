@@ -6,6 +6,7 @@ export function UserProvider(props) {
   const [user, setUser] = useState({});
   const { json, apiCall } = useAxios("get");
   const [isHost, setIsHost] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     apiCall("/api/users/verify");
@@ -15,6 +16,7 @@ export function UserProvider(props) {
     if (json && json.success) {
       setUser(json.data);
     }
+    setLoading(false);
   }, [json]);
 
   const clearState = useCallback(() => {
@@ -29,6 +31,7 @@ export function UserProvider(props) {
         clearState,
         isHost,
         setIsHost,
+        loading,
       }}
     >
       {props.children}
