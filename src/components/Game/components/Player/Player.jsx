@@ -16,7 +16,6 @@ import { UserContext } from "../../../../shared/context/UserContext";
 import { GameContext } from "../../../../shared/context/GameContext";
 import "./Player.css";
 import { Button } from "@mui/material";
-import { textAlign } from "@mui/system";
 
 function Player({ drawCards, player, playerIdx }) {
   const { user } = useContext(UserContext);
