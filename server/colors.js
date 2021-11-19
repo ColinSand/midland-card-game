@@ -1,18 +1,20 @@
 const COLORS = [
-  "Gold",
+  "IndianRed",
   "Red",
-  "Yellow",
+  "Crimson",
   "Orange",
   "HotPink",
+  "SteelBlue",
   "Green",
-  "LightBlue",
+  "Fuchsia",
   "Brown",
   "SaddleBrown",
   "Salmon",
   "SeaGreen",
-  "SeaShell",
-  "Silver",
-  "SkyBlue",
+  "MidnightBlue",
+  "Olive",
+  "GoldenRod",
+  "Indigo",
 ];
 
 module.exports = COLORS;
