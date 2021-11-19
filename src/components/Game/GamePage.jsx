@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { GameContext } from "../../shared/context/GameContext";
 import { UserContext } from "../../shared/context/UserContext";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-
 import Box from "@mui/material/Box";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useSocket from "../../shared/hooks/useSocket";
 import { Typography } from "@mui/material";
@@ -18,10 +16,11 @@ const theme = createTheme();
 
 function GamePage() {
   const { isHost } = useContext(UserContext);
-  const { players, gameActive, host } = useContext(GameContext);
+  const { players, gameActive, host, deck } = useContext(GameContext);
   const { id } = useParams();
   const { message, sendChat, drawCards, startGame } = useSocket(id);
   const navigate = useNavigate();
+
   return (
     // Main container box
     <Box
@@ -53,9 +52,7 @@ function GamePage() {
               </Button>
             )}
           </Box>
-          {/* <Box item>
-            <div>Hosted By:{isHost}</div>
-          </Box> */}
+
           <Box className="chat flex column" sx={{ flexBasis: "100%" }}>
             <Chat message={message} sendChat={sendChat} />
           </Box>
@@ -86,7 +83,10 @@ function GamePage() {
               sx={{ flexBasis: "100%" }}
               className="text-center"
             >
-              The game will start when the host begins
+              {deck.length === 0 && (
+                <div>The game will start when the host begins</div>
+              )}
+              {deck.length > 0 && <div>Game Over</div>}
             </Typography>
           )}
           <Box className="players column">
