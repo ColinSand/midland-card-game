@@ -22,6 +22,7 @@ export default function Menu() {
                   Login
                 </NavLink>
 
+
                 <NavLink to="/signup" className="link">
                   Signup
                 </NavLink>
