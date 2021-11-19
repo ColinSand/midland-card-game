@@ -72,7 +72,7 @@ export default function HomePage() {
                 alignItems: "center",
               }}
             >
-              <Avatar sx={{ m: 1, color: "black", bgcolor: "#88CC00" }}>
+              <Avatar sx={{ m: 1, bgcolor: "#1f2f53" }}>
                 <GroupsOutlined />
               </Avatar>
               <Typography component="h1" variant="h5">
@@ -105,10 +105,9 @@ export default function HomePage() {
                   sx={{
                     mt: 3,
                     mb: 2,
-                    color: "black",
-                    bgcolor: "#88CC00",
+                    bgcolor: "#1f2f53",
                     "&:hover": {
-                      background: "#ADFF0A",
+                      background: "#1f2f53ab",
                     },
                   }}
                   onClick={joinGame}
@@ -160,7 +159,7 @@ export default function HomePage() {
                     maxWidth: "194px",
                     bgcolor: "#1f2f53",
                     "&:hover": {
-                      background: "#536899",
+                      background: "#1f2f53ab",
                     },
                   }}
                   onClick={(e) => {

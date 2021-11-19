@@ -42,7 +42,7 @@ export default function SignUpPage() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "#717C27" }}>
+          <Avatar sx={{ m: 1, bgcolor: "#1f2f53" }}>
             <PersonAddOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -129,11 +129,9 @@ export default function SignUpPage() {
               sx={{
                 mt: "10px",
                 mb: 2,
-                fontWeight: "600",
-                // bgcolor: "#1f2f53",
-                bgcolor: "#717C27",
+                bgcolor: "#1f2f53",
                 "&:hover": {
-                  background: "#A9BA3B",
+                  background: "#1f2f53ab",
                 },
               }}
               onClick={() => {
@@ -157,7 +155,7 @@ export default function SignUpPage() {
                 <NavLink
                   to="/login"
                   variant="body2"
-                  style={{ color: "#1f2f53" }}
+                  style={{ color: "#1f2f53", paddingBottom: "70px" }}
                 >
                   Already have an account? Sign in
                 </NavLink>

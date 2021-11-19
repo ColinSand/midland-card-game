@@ -66,6 +66,14 @@ function Player({ drawCards, player, playerIdx }) {
                 </div>
                 <Button
                   className="conditional"
+                  sx={{
+                    marginLeft: "15px",
+                    color: "white",
+                    bgcolor: "#1f2f53",
+                    "&:hover": {
+                      background: "#1f2f53ab",
+                    },
+                  }}
                   onClick={() => {
                     drawCards(playerIdx, [...keepCards]);
                   }}

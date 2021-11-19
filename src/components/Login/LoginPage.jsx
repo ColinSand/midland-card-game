@@ -103,10 +103,9 @@ export default function LoginPage() {
               sx={{
                 mt: "15px",
                 mb: 2,
-                // fontWeight: "600",
                 bgcolor: "#1f2f53",
                 "&:hover": {
-                  background: "#536899",
+                  background: "#1f2f53ab",
                 },
               }}
               onClick={() => {

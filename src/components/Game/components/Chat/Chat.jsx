@@ -47,12 +47,12 @@ function Chat({ message, sendChat }) {
         />
         <Button
           className="send-btn"
-          // sx={{
-          //   bgcolor: "#1f2f53",
-          //   "&:hover": {
-          //     background: "#536899",
-          //   },
-          // }}
+          sx={{
+            bgcolor: "#1f2f53",
+            "&:hover": {
+              background: "#1f2f53ab",
+            },
+          }}
           variant="contained"
           endIcon={<SendIcon />}
           onClick={() => {

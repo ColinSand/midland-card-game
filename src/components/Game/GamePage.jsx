@@ -63,19 +63,19 @@ function GamePage() {
         {/* LEFT BOX */}
         <Box className="chat-info flex">
           <Box item className="game-info">
-            <Typography variant="h6">Table Number: {id}</Typography>
+            <Typography variant="h6">Table Code: {id}</Typography>
             <Typography variant="h6">Host: {host}</Typography>
             {isHost && (
               <Button
+                variant="contained"
                 sx={{
                   width: 150,
                   height: 20,
-                  // bgcolor: "#1f2f53",
-                  // "&:hover": {
-                  //   background: "#536899",
-                  // },
+                  bgcolor: "#1f2f53",
+                  "&:hover": {
+                    background: "#1f2f53ab",
+                  },
                 }}
-                variant="contained"
                 onClick={() => navigate("/home")}
               >
                 Close Game
@@ -104,10 +104,10 @@ function GamePage() {
                 sx={{
                   width: 150,
                   height: 40,
-                  // bgcolor: "#1f2f53",
-                  // "&:hover": {
-                  //   background: "#536899",
-                  // },
+                  bgcolor: "#1f2f53",
+                  "&:hover": {
+                    background: "#1f2f53ab",
+                  },
                 }}
                 variant="contained"
                 onClick={startGame}
