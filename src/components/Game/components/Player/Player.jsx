@@ -28,7 +28,10 @@ function Player({ drawCards, player, playerIdx }) {
     <>
       <div className="player-container">
         <>
-          <div className="username">{player.username}</div>
+          <div className="username">
+            {player.username}
+            {playerIdx === isTurn && "'s turn"}
+          </div>
           <div className="card-container">
             {player.deck.map((card, idx) => (
               <div
