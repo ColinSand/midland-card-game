@@ -40,29 +40,31 @@ function Player({ drawCards, player, playerIdx }) {
             {playerIdx === isTurn && "'s turn"}
           </div>
           <div className="card-container">
-            {player.deck.map((card, idx) => (
-              <div
-                key={idx}
-                onClick={() => {
-                  const kept = keepCards.includes(card);
-                  if (isTurn !== playerIdx || (kept && keepCards.length < 3))
-                    return;
-                  if (kept) {
-                    setKeepCards((curr) => curr.filter((v) => v !== card));
-                  } else {
-                    setKeepCards((curr) => [...curr, card]);
-                  }
-                }}
-              >
-                <Card
+            {player.deck
+              .sort((a, b) => a.points - b.points)
+              .map((card, idx) => (
+                <div
                   key={idx}
-                  toKeep={keepCards.includes(card)}
-                  face={card.value}
-                  suit={card.suit}
-                  showCard={player.username === user.username || !gameActive}
-                />
-              </div>
-            ))}
+                  onClick={() => {
+                    const kept = keepCards.includes(card);
+                    if (isTurn !== playerIdx || (kept && keepCards.length < 3))
+                      return;
+                    if (kept) {
+                      setKeepCards((curr) => curr.filter((v) => v !== card));
+                    } else {
+                      setKeepCards((curr) => [...curr, card]);
+                    }
+                  }}
+                >
+                  <Card
+                    key={idx}
+                    toKeep={keepCards.includes(card)}
+                    face={card.value}
+                    suit={card.suit}
+                    showCard={player.username === user.username || !gameActive}
+                  />
+                </div>
+              ))}
           </div>
           <div className="emptyDiv">
             {isTurn === playerIdx && player.username === user.username && (

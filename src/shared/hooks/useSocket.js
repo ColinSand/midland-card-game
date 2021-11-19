@@ -25,7 +25,8 @@ const useSocket = (room) => {
 
   useEffect(() => {
     socketRef.current = socketIoClient(
-      "https://midland-card-game.herokuapp.com",
+      // "https://midland-card-game.herokuapp.com",
+      "http://localhost:8080",
       {
         query: { user: user.username, gameRoom: room, isHost },
       }

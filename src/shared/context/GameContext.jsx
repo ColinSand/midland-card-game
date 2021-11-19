@@ -29,7 +29,6 @@ export function GameProvider(props) {
   // and a 'hand'(consisting of an array of 5 cards defined upon 'startGameDeal' function and updated
   // when they trigger 'draw' function)
 
-
   const startGameDeal = useCallback(
     (deck) => {
       let newPlayers = players.map((v) => ({ ...v, deck: [] }));
@@ -60,25 +59,29 @@ export function GameProvider(props) {
 
   const createDeck = useCallback(() => {
     let cardSuits = ["d", "s", "h", "c"];
-    let cardValues = [
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "J",
-      "Q",
-      "K",
-      "A",
+    let cardFaces = [
+      { value: "2", points: 2 },
+      { value: "3", points: 3 },
+      { value: "4", points: 4 },
+      { value: "5", points: 5 },
+      { value: "6", points: 6 },
+      { value: "7", points: 7 },
+      { value: "8", points: 8 },
+      { value: "9", points: 9 },
+      { value: "10", points: 10 },
+      { value: "J", points: 11 },
+      { value: "Q", points: 12 },
+      { value: "K", points: 13 },
+      { value: "A", points: 14 },
     ];
     let newDeck = [];
     for (let i = 0; i < cardSuits.length; i++) {
-      for (let x = 0; x < cardValues.length; x++) {
-        let card = { value: cardValues[x], suit: cardSuits[i] };
+      for (let j = 0; j < cardFaces.length; j++) {
+        let card = {
+          value: cardFaces[j].value,
+          points: cardFaces[j].points,
+          suit: cardSuits[i],
+        };
         newDeck.push(card);
       }
     }
