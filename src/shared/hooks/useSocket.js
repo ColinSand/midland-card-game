@@ -62,18 +62,25 @@ const useSocket = (room) => {
       if (isHost) {
         setPlayers((curr) => {
           let i = curr.findIndex((u) => u.username === user);
-          let newIsTurn = isTurn;
-          if (i <= isTurn && isTurn !== null) {
-            newIsTurn--;
-            setIsTurn(newIsTurn);
-          }
+          let newIsTurn;
           const newPlayersArray = curr.filter(
             (player) => user !== player.username
           );
-          socketRef.current.emit("player leave", {
-            players: newPlayersArray,
-            isTurn: newIsTurn,
+          setIsTurn((currIsTurn) => {
+            newIsTurn = currIsTurn;
+            if (i <= isTurn && isTurn !== null) {
+              newIsTurn--;
+            }
+            if (newIsTurn >= newPlayersArray.length) {
+              newIsTurn = null;
+            }
+            socketRef.current.emit("player leave", {
+              players: newPlayersArray,
+              isTurn: newIsTurn,
+            });
+            return newIsTurn;
           });
+
           return newPlayersArray;
         });
       }
