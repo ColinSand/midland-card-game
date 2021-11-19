@@ -16,7 +16,6 @@ import { UserContext } from "../../../../shared/context/UserContext";
 import { GameContext } from "../../../../shared/context/GameContext";
 import "./Player.css";
 import { Button } from "@mui/material";
-import { textAlign } from "@mui/system";
 
 function Player({ drawCards, player, playerIdx }) {
   const { user } = useContext(UserContext);
@@ -54,9 +53,6 @@ function Player({ drawCards, player, playerIdx }) {
                 />
               </div>
             ))}
-            {/* {isTurn === playerIdx && player.username === user.username && (
-              
-            )} */}
           </div>
           <div className="emptyDiv">
             {isTurn === playerIdx && player.username === user.username && (
@@ -66,6 +62,14 @@ function Player({ drawCards, player, playerIdx }) {
                 </div>
                 <Button
                   className="conditional"
+                  sx={{
+                    marginLeft: "15px",
+                    color: "white",
+                    bgcolor: "#1f2f53",
+                    "&:hover": {
+                      background: "#1f2f53ab",
+                    },
+                  }}
                   onClick={() => {
                     drawCards(playerIdx, [...keepCards]);
                   }}

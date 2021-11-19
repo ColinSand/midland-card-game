@@ -46,7 +46,7 @@ export default function SignUpPage() {
             <PersonAddOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Signup
           </Typography>
           <Box
             component="form"
@@ -126,7 +126,14 @@ export default function SignUpPage() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: "10px", mb: 2, bgcolor: "#1f2f53" }}
+              sx={{
+                mt: "10px",
+                mb: 2,
+                bgcolor: "#1f2f53",
+                "&:hover": {
+                  background: "#1f2f53ab",
+                },
+              }}
               onClick={() => {
                 if (
                   username.length < 4 ||
@@ -148,7 +155,7 @@ export default function SignUpPage() {
                 <NavLink
                   to="/login"
                   variant="body2"
-                  style={{ color: "#1f2f53" }}
+                  style={{ color: "#1f2f53", paddingBottom: "70px" }}
                 >
                   Already have an account? Sign in
                 </NavLink>
