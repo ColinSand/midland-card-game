@@ -102,7 +102,14 @@ export default function HomePage() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    bgcolor: "#1f2f53",
+                    "&:hover": {
+                      background: "#1f2f53ab",
+                    },
+                  }}
                   onClick={joinGame}
                 >
                   Join Table
@@ -147,7 +154,14 @@ export default function HomePage() {
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{ mt: 3, maxWidth: "194px" }}
+                  sx={{
+                    mt: 3,
+                    maxWidth: "194px",
+                    bgcolor: "#1f2f53",
+                    "&:hover": {
+                      background: "#1f2f53ab",
+                    },
+                  }}
                   onClick={(e) => {
                     const newGameId = generateGameId();
                     setHost(user.username);
