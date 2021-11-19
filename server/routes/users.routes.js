@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 const { login, signup } = require("../models/user.models");
 const auth = require("../middleware/auth.middleware");
 
@@ -11,12 +12,15 @@ router.get("/logout", (req, res) => {
 
 // checks to see if the entered username exists.
 // will need to add auth back into the following line once we get passport configured
-router.get("/verify", auth, (req, res) => {
-  return res.send({
-    success: true,
-    data: { username: req.user.username },
-    error: null,
-  });
+router.get("/verify", (req, res) => {
+  passport.authenticate("jwt", (err, user) => {
+    const success = !err && user;
+    const data = success ? { username: user.username } : null;
+    return res.send({
+      success,
+      data,
+    });
+  })(req, res);
 });
 
 // takes username and password, then vaildates them with the function below, checks for correct length

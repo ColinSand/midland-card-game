@@ -1,5 +1,5 @@
 // const passport = require("passport");
-const passport = require("../config/passport.conf");
+const passport = require("passport");
 
 async function auth(req, res, next) {
   passport.authenticate("jwt", (err, user) => {

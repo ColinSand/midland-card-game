@@ -22,25 +22,24 @@ export default function Menu() {
                   Login
                 </NavLink>
 
-
                 <NavLink to="/signup" className="link">
                   Signup
                 </NavLink>
               </>
             )}
             {user.username && (
-              <>
-                <NavLink to="/home" className="link">
-                  Home
-                </NavLink>
-                <NavLink to="/login" onClick={clearState} className="link">
-                  Logout
-                </NavLink>
-              </>
+              <NavLink to="/home" className="link">
+                Home
+              </NavLink>
             )}
             <NavLink to="/about" className="link">
               About
             </NavLink>
+            {user.username && (
+              <NavLink to="/login" onClick={clearState} className="link logout">
+                Logout
+              </NavLink>
+            )}
           </Toolbar>
         </AppBar>
       </nav>
