@@ -1,4 +1,3 @@
-import "./App.css";
 import Menu from "./shared/components/Menu";
 import ProtectedRoutes from "./shared/components/ProtectedRoutes";
 import {

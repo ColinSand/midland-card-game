@@ -37,7 +37,7 @@ function GamePage() {
         <CssBaseline />
         {/* LEFT BOX */}
         <Box className="chat-info flex">
-          <Box item className="game-info">
+          <Box item className="game-info full-flex">
             <Typography variant="h6">
               Game Code:
               {id}
@@ -62,7 +62,7 @@ function GamePage() {
         </Box>
         <Box className="player-info flex">
           <Typography
-            className="heading text-center"
+            className="full-flex text-center"
             sx={{ maxHeight: "100px" }}
             variant="h5"
           >
@@ -89,7 +89,7 @@ function GamePage() {
               The game will start when the host begins
             </Typography>
           )}
-          <Box className="players column">
+          <Box className="full-flex column">
             {players.map((val, idx) => (
               <Player
                 player={val}
