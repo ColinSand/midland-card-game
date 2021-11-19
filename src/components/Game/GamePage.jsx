@@ -36,7 +36,6 @@ function GamePage() {
         <CssBaseline />
         {/* LEFT BOX */}
         <Box className="chat-info flex">
-
           <Box item className="game-info">
             <Typography variant="h6">Table Code: {id}</Typography>
 
@@ -96,10 +95,12 @@ function GamePage() {
               sx={{ flexBasis: "100%" }}
               className="text-center"
             >
-              {deck.length === 0 && (
+              {players[0] && players[0].deck.length === 0 && (
                 <div>The game will start when the host begins</div>
               )}
-              {deck.length > 0 && <div>Game Over</div>}
+              {players[0] && players[0].deck.length !== 0 && (
+                <div>Game Over</div>
+              )}
             </Typography>
           )}
           <Box className="full-flex column">
