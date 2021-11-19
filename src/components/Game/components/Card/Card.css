@@ -19,6 +19,7 @@
   line-height: 88px;
   z-index: 1;
   position: relative;
+  color: white;
 }
 
 .card-back {
