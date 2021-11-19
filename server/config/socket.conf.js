@@ -3,7 +3,6 @@ const COLORS = require("../colors");
 const socketConf = (io) => {
   io.on("connection", (socket) => {
     const { gameRoom, user, isHost } = socket.handshake.query;
-
     const randColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     socket.emit("color", { color: randColor });
     socket.join(gameRoom);
@@ -28,7 +27,8 @@ const socketConf = (io) => {
         body: `${user} has left the game`,
         color: "red",
       });
-      if (isHost) {
+      console.log("To here");
+      if (isHost !== "false") {
         io.to(gameRoom).emit("close room");
       } else {
         io.to(gameRoom).emit("leave game", { user });
