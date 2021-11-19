@@ -24,12 +24,9 @@ const useSocket = (room) => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = socketIoClient(
-      "https://midland-card-game.herokuapp.com",
-      {
-        query: { user: user.username, gameRoom: room, isHost },
-      }
-    );
+    socketRef.current = socketIoClient("http://localhost:8080", {
+      query: { user: user.username, gameRoom: room, isHost },
+    });
     socketRef.current.on("color", ({ color }) => {
       setColor(color);
     });

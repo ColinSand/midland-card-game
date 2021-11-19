@@ -10,7 +10,7 @@
 
 //Need to prevent adding more than 3 cards to "discard" array/selecting more that 3 cards
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import Card from "../Card/Card";
 import { UserContext } from "../../../../shared/context/UserContext";
 import { GameContext } from "../../../../shared/context/GameContext";
@@ -24,6 +24,13 @@ function Player({ drawCards, player, playerIdx }) {
   useEffect(() => {
     setKeepCards([...player.deck]);
   }, [player]);
+
+  const buttonMsg = useMemo(() => {
+    if (keepCards.length === 5) {
+      return "Stay";
+    }
+    return keepCards.length >= 2 ? "Draw" : "Deal Me In";
+  }, [keepCards]);
   return (
     <>
       <div className="player-container">
@@ -77,9 +84,7 @@ function Player({ drawCards, player, playerIdx }) {
                     drawCards(playerIdx, [...keepCards]);
                   }}
                 >
-                  {keepCards.length === 5 && "Stay"}
-                  {keepCards.length !== 5 && keepCards.length !== 0 && "Draw"}
-                  {keepCards.length === 0 && "Deal Me In"}
+                  {buttonMsg}
                 </Button>
               </>
             )}

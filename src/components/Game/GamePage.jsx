@@ -16,7 +16,7 @@ const theme = createTheme();
 
 function GamePage() {
   const { isHost } = useContext(UserContext);
-  const { players, gameActive, host, deck } = useContext(GameContext);
+  const { players, gameActive, host } = useContext(GameContext);
   const { id } = useParams();
   const { message, sendChat, drawCards, startGame } = useSocket(id);
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ function GamePage() {
           </Box>
 
           <Box className="chat flex column" sx={{ flexBasis: "100%" }}>
-            <Chat message={message} sendChat={sendChat} />
+            <Chat host={host} message={message} sendChat={sendChat} />
           </Box>
         </Box>
         <Box className="player-info flex">

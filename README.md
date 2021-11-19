@@ -20,7 +20,7 @@ Put them together and you get the needed communication between the backend, fron
 
 ## Deployed on [Heroku](https://www.heroku.com)
 
-You can link to the game here [Migos 5 Card Draw](https://www.midland-card-game.herokuapp.com)
+You can link to the game here [Migos 5 Card Draw](https://midland-card-game.herokuapp.com)
 
 ## Learn more about the developers
 
