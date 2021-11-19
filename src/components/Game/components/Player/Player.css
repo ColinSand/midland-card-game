@@ -11,10 +11,6 @@
   justify-content: center;
   border: 0px;
 }
-/* .button-box{
-  flex
-
-} */
 
 .center {
   text-align: center;
@@ -27,10 +23,9 @@
 
 .conditional {
   display: inline;
-  align-content: center;
 }
 
 .emptyDiv {
-  min-height: 24px;
+  height: 24px;
   text-align: center;
 }

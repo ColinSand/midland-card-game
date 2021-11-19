@@ -54,9 +54,6 @@ function Player({ drawCards, player, playerIdx }) {
                 />
               </div>
             ))}
-            {/* {isTurn === playerIdx && player.username === user.username && (
-              
-            )} */}
           </div>
           <div className="emptyDiv">
             {isTurn === playerIdx && player.username === user.username && (
