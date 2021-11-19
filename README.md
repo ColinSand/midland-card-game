@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Migos 5 Card Draw
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the final group project for [Midland Code Academy](https://cgps.midlandu.edu/academics/professional-studies/code-academy/) Cohort 8.
 
-## Available Scripts
+## About this Project
 
-In the project directory, you can run:
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and utilizes these packages:
 
-### `npm start`
+### `socket-io` and `socket.io-client`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+These packackages make it possible for multiple players to engage in game play and enjoy live chat functionality
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `passport`, `jsonwebtoken`, `cookie-parser`, `bcrypt` and `uuid`
 
-### `npm test`
+These work together to provide user authentication and access to game play.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `mysql`, `express` and `axios`
 
-### `npm run build`
+Put them together and you get the needed communication between the backend, frontend and the database
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deployed on [Heroku](https://www.heroku.com)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can link to the game here [Migos 5 Card Draw](https:/www.midland-card-game.herokuapp.com)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Learn more about the developers
 
-### `npm run eject`
+### Nate Kliegl
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Find Nate Kliegl on [Github](https://github.com/NateKliegl) or on [LinkedIn](https://www.linkedin.com/in/nate-kliegl-444599223/).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Colin Sand
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Find Colin Sand on [Github](https://github.com/ColinSand) or on [LinkedIn](https://www.linkedin.com/in/colinsand/).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Seth Allgire
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Find Seth Allgire on [Github](https://github.com/seth-allgire) or on [LinkedIn](https://www.linkedin.com/in/seth-allgire-2824aa223/).
