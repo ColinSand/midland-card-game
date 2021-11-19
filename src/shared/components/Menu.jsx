@@ -32,7 +32,7 @@ export default function Menu() {
                   <NavLink to="/home" className="link">
                     Home
                   </NavLink>
-                  <NavLink to="/login" onClick={clearState} className="link">
+                  <NavLink to="/login" onClick={clearState} className="logout">
                     Logout
                   </NavLink>
                 </>
