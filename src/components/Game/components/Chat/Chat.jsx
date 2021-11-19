@@ -56,6 +56,9 @@ function Chat({ message, sendChat }) {
           variant="contained"
           endIcon={<SendIcon />}
           onClick={() => {
+            if (body.length <= 0) {
+              return;
+            }
             sendChat(body, user.username);
             setBody("");
           }}
