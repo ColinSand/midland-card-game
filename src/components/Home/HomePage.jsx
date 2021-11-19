@@ -72,7 +72,7 @@ export default function HomePage() {
                 alignItems: "center",
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "#1f2f53" }}>
+              <Avatar sx={{ m: 1, color: "black", bgcolor: "#88CC00" }}>
                 <GroupsOutlined />
               </Avatar>
               <Typography component="h1" variant="h5">
@@ -102,7 +102,15 @@ export default function HomePage() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    color: "black",
+                    bgcolor: "#88CC00",
+                    "&:hover": {
+                      background: "#ADFF0A",
+                    },
+                  }}
                   onClick={joinGame}
                 >
                   Join Table
@@ -147,7 +155,14 @@ export default function HomePage() {
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{ mt: 3, maxWidth: "194px" }}
+                  sx={{
+                    mt: 3,
+                    maxWidth: "194px",
+                    bgcolor: "#1f2f53",
+                    "&:hover": {
+                      background: "#536899",
+                    },
+                  }}
                   onClick={(e) => {
                     const newGameId = generateGameId();
                     setHost(user.username);

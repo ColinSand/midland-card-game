@@ -52,7 +52,7 @@ export default function LoginPage() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log In
+            Login
           </Typography>
           <Box
             component="form"
@@ -100,7 +100,15 @@ export default function LoginPage() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: "15px", mb: 2, bgcolor: "#1f2f53" }}
+              sx={{
+                mt: "15px",
+                mb: 2,
+                // fontWeight: "600",
+                bgcolor: "#1f2f53",
+                "&:hover": {
+                  background: "#536899",
+                },
+              }}
               onClick={() => {
                 if (username.length < 4 || password.length < 8) {
                   setError(true);

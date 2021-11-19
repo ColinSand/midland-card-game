@@ -42,11 +42,11 @@ export default function SignUpPage() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "#1f2f53" }}>
+          <Avatar sx={{ m: 1, bgcolor: "#717C27" }}>
             <PersonAddOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Signup
           </Typography>
           <Box
             component="form"
@@ -126,7 +126,16 @@ export default function SignUpPage() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: "10px", mb: 2, bgcolor: "#1f2f53" }}
+              sx={{
+                mt: "10px",
+                mb: 2,
+                fontWeight: "600",
+                // bgcolor: "#1f2f53",
+                bgcolor: "#717C27",
+                "&:hover": {
+                  background: "#A9BA3B",
+                },
+              }}
               onClick={() => {
                 if (
                   username.length < 4 ||
