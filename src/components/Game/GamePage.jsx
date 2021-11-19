@@ -15,7 +15,7 @@ import Chat from "./components/Chat/Chat";
 import "./GamePage.css";
 
 const theme = createTheme();
-// comment
+
 function GamePage() {
   const { isHost } = useContext(UserContext);
   const { players, gameActive, host } = useContext(GameContext);
