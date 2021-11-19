@@ -77,7 +77,9 @@ function Player({ drawCards, player, playerIdx }) {
                     drawCards(playerIdx, [...keepCards]);
                   }}
                 >
-                  {keepCards.length === 5 ? "Stay" : "Draw"}
+                  {keepCards.length === 5 && "Stay"}
+                  {keepCards.length !== 5 && keepCards.length !== 0 && "Draw"}
+                  {keepCards.length === 0 && "Deal Me In"}
                 </Button>
               </>
             )}
