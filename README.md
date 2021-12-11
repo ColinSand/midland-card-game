@@ -1,4 +1,4 @@
-# Migos 5 Card Draw
+# 5 Card Draw
 
 This is the final group project for [Midland Code Academy](https://cgps.midlandu.edu/academics/professional-studies/code-academy/) Cohort 8.
 
